@@ -1,0 +1,81 @@
+// FILENAME: GX-PROOF-RUN-PLAN-AUTOBUILD-v1.0.json
+{
+  "id": "GX-PROOF-RUN-PLAN-AUTOBUILD-1769332879-0001",
+  "t": "PROOF_RUN_PLAN",
+  "ts_utc": "2026-01-25T09:21:19Z",
+  "ts_unix": 1769332879,
+  "vis": "PUBLIC",
+
+  "p": {
+    "scope": "GXvLIBERTY",
+    "purpose": "Authorize or deny activation of IndependentAutoBuildMode via proof-based validation only.",
+
+    "target_state_change": {
+      "component": "GXvLIBERTY/IndependentAutoBuildMode",
+      "requested_state": "ACTIVE",
+      "request_ref": "GX-AUTOBUILD-REQUEST-1769332704-0001"
+    },
+
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "preconditions": [
+      "TIME_ANCHOR valid and hash-sealed",
+      "TRANSCEIVE_RECORD_ENCAP v1.0 hash-sealed",
+      "PLUGIN_CONTRACT_ENCAP v1.0 hash-sealed",
+      "No unresolved STATE_CONFLICT frames"
+    ],
+
+    "proof_steps": [
+      {
+        "step": 1,
+        "action": "Verify integrity of all prerequisite frames",
+        "criteria": "All referenced frames pass HASH_PROOF verification"
+      },
+      {
+        "step": 2,
+        "action": "Verify guard compliance",
+        "criteria": "append_only, no_execution, no_automation, no_state_change_by_confirm all true"
+      },
+      {
+        "step": 3,
+        "action": "Simulate IndependentAutoBuildMode in dry-run",
+        "criteria": "No implicit execution, no background automation, no external IO"
+      },
+      {
+        "step": 4,
+        "action": "Evaluate side effects",
+        "criteria": "Zero state mutation outside declared scope"
+      }
+    ],
+
+    "pass_fail_rules": {
+      "PASS": "All proof_steps criteria satisfied without exception",
+      "FAIL": "Any criterion unmet, ambiguous, or non-reproducible"
+    },
+
+    "effects": {
+      "on_PASS": {
+        "emit_frame": "PROOF_RUN_RESULT",
+        "authorized_state_change": true
+      },
+      "on_FAIL": {
+        "emit_frame": "PROOF_RUN_RESULT",
+        "authorized_state_change": false
+      }
+    },
+
+    "non_effects": [
+      "No execution granted",
+      "No automation granted",
+      "No implicit activation",
+      "No mutation without subsequent STATE_CHANGE frame"
+    ],
+
+    "note": "This plan defines validation only. Even a PASS authorizes a state change but does not enact it. Activation requires an explicit STATE_CHANGE frame referencing the PASS result."
+  },
+
+  "h": "PLACEHOLDER_SHA256"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "GX-SNAPSHOT-PHASE2-INTENT-1769339000-0005",
+  "t": "DECLARATION",
+  "ts_utc": "2026-01-25T10:50:00Z",
+  "ts_unix": 1769338200,
+  "vis": "PUBLIC",
+  "p": {
+    "phase": "PHASE_2",
+    "intent": "Build Development Kernel that specializes in analysis, pre-flight validation, evolution guidance, and harmony enforcement.",
+    "autobuild_role": "ANALYZE_ONLY",
+    "no_execution": true,
+    "no_automation": true,
+    "expected_outputs": [
+      "Analysis Frames",
+      "Evolution Suggestions (non-binding)",
+      "Gap & Risk Frames",
+      "Release Readiness Reports"
+    ],
+    "note": "Phase 2 focuses on Development Kernel capabilities, not product execution."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

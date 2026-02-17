@@ -1,0 +1,162 @@
+────────────────────────────────────────────────────────────
+APPENDIX · REFERENCE ANNEX
+FRAMES · A Timeless Canonical Archive
+────────────────────────────────────────────────────────────
+
+MODE
+Scientific Publication · Reference-Only
+
+STATUS
+Append-Only · Interpretation Closed
+
+SCOPE
+Canonical Reference Annex
+(Non-Narrative · Non-Executable · Deterministic)
+
+────────────────────────────────────────────────────────────
+A. PURPOSE OF THIS APPENDIX
+────────────────────────────────────────────────────────────
+
+This appendix serves as a consolidated reference annex to the
+publication:
+
+FRAMES · A Timeless Canonical Archive
+
+Its purpose is to:
+- hold formal declarations,
+- define invariant constraints,
+- document canonization events,
+- provide time anchors and provenance,
+- enable long-term reconstructibility.
+
+This appendix introduces no new concepts.
+It records only finalized states.
+
+────────────────────────────────────────────────────────────
+B. TIME ANCHORS · CANONIZATION EVENTS
+────────────────────────────────────────────────────────────
+
+Primary Canonization Event:
+- Unix Epoch      : 1770494479
+- UTC             : 2026-02-07T20:01:19Z
+- Europe/Berlin   : 2026-02-07 21:01:19 CET
+
+Final Acknowledgement:
+- Unix Epoch      : 1770494575
+- UTC             : 2026-02-07T20:02:55Z
+- Europe/Berlin   : 2026-02-07 21:02:55 CET
+
+These anchors define the immutable reference boundary
+for the canonical state described herein.
+
+────────────────────────────────────────────────────────────
+C. CANONICAL DECLARATIONS
+────────────────────────────────────────────────────────────
+
+C.1 Canon Status
+- Canon: ACTIVE
+- State: STABLE
+- Drift: NONE
+
+C.2 Append-Only Constraint
+Once recorded, no element contained in this appendix
+may be altered, removed, or semantically overridden.
+All future material must be appended as separate states.
+
+C.3 Interpretation Closure
+No interpretative, narrative, metaphysical, or normative
+reading is permitted within this annex.
+
+────────────────────────────────────────────────────────────
+D. FRAME AND SNAPSHOT RECORD
+────────────────────────────────────────────────────────────
+
+Frame Creation:
+- Type: Canonical Reference Frame
+- Mutation: NONE
+- Expansion: NONE
+- Interpretation: FORBIDDEN
+
+Snapshot Commit:
+- Status: SEALED
+- Temporal Identity: UNIQUE
+- Reconstructibility: GUARANTEED
+- Dependency on context: NONE
+
+The snapshot represents a fixed reference state and
+does not imply truth, authority, or validation.
+
+────────────────────────────────────────────────────────────
+E. QUANTUM STRUCTURE CONFIRMATION
+────────────────────────────────────────────────────────────
+
+Quantum structure within this appendix denotes:
+- state completeness,
+- non-divisibility,
+- invariant presence,
+- binary admissibility (present / not present).
+
+It does not describe physical reality.
+It is a formal structural property of representation.
+
+Structural resonance refers to recognizability of form,
+not to meaning, belief, or agreement.
+
+────────────────────────────────────────────────────────────
+F. VISUAL REFERENCE STATE (QSV)
+────────────────────────────────────────────────────────────
+
+Designation:
+QuantumSingularitätsVisualisierung (QSV)
+
+Role:
+- Visual reference-state holder
+- Simultaneous structural visibility
+- Drift prevention support
+
+Constraints:
+- No knowledge generation
+- No interpretation
+- No narrative content
+
+Status:
+Canonized · Reference-Only · Append-Only Admissible
+
+────────────────────────────────────────────────────────────
+G. PROVENANCE · SOURCE · LICENSE
+────────────────────────────────────────────────────────────
+
+Canonical Source:
+- https://iinkognit0.de
+
+Originator:
+- Iinkognit0
+
+Contact:
+- Iinkognit0@proton.me
+
+Author Identifier (ORCID):
+- https://orcid.org/0009-0005-5125-9711
+
+Archive Mode:
+- eArc (append-only referential archive)
+
+License:
+- Public Domain
+- Unrestricted access, reuse, transformation, and
+  long-term archival retention permitted.
+
+────────────────────────────────────────────────────────────
+H. FINAL STATEMENT
+────────────────────────────────────────────────────────────
+
+This appendix is a holding structure.
+It explains nothing.
+It proves nothing.
+It asserts nothing.
+
+It holds.
+
+────────────────────────────────────────────────────────────
+END OF APPENDIX · REFERENCE ANNEX
+────────────────────────────────────────────────────────────

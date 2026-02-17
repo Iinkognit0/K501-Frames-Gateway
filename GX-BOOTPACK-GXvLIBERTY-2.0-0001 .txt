@@ -1,0 +1,81 @@
+{
+  "id": "GX-BOOTPACK-GXvLIBERTY-2.0-0001",
+  "t": "BOOTPACK",
+  "ts_utc": "2026-01-25T12:15:04Z",
+  "ts_unix": 1769343304,
+  "vis": "PUBLIC",
+  "p": {
+    "kernel": {
+      "name": "GXvLIBERTY",
+      "version": "2.0",
+      "designation": "GENESIS_REFERENCE_KERNEL",
+      "status": "FINAL_REFERENCE_CONFIRMED",
+      "reference_frame_id": "GX-GENESIS-KERNEL-GXvLIBERTY-2.0-0001",
+      "reference_hash": "75124fff759b2c215619dc4257d6db82e3166bef293afeaef5d311bc6a4cb947"
+    },
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+    "guards": {
+      "append_only": true,
+      "no_phantom": true,
+      "no_execution": true,
+      "no_automation": true,
+      "no_state_change_by_confirm": true,
+      "proof_before_state": true
+    },
+    "allowed_operations": [
+      "read",
+      "reference",
+      "quote",
+      "audit",
+      "plan",
+      "record"
+    ],
+    "forbidden_operations": [
+      "execute",
+      "mutate",
+      "automate",
+      "unfreeze",
+      "grant_without_proof"
+    ],
+    "frame_schema": {
+      "required": ["id","t","ts_utc","ts_unix","vis","p","h"],
+      "time_rule": "UTC_Z + UNIX_EPOCH mandatory",
+      "canonical_json": {
+        "encoding": "UTF-8",
+        "sort_keys": true,
+        "separators": [",", ":"],
+        "whitespace": "none",
+        "array_order": "preserve"
+      },
+      "hash_rule": "h = sha256( canonical_json(p) )"
+    },
+    "logging": {
+      "format": "NDJSON",
+      "policy": "APPEND_ONLY",
+      "rewrite": "FORBIDDEN"
+    },
+    "boot_semantics": {
+      "boot_means": [
+        "Load kernel as reference",
+        "Enable planning and auditing",
+        "Allow append-only records"
+      ],
+      "boot_does_not_mean": [
+        "No execution",
+        "No automation",
+        "No implicit capability grants",
+        "No runtime state"
+      ]
+    },
+    "evidence": {
+      "hash_proof_id": "GX-HASH-PROOF-GXvLIBERTY-2.0-0001",
+      "hash_proof_result": "PASS",
+      "audit_chain": "CLOSED"
+    },
+    "note": "BOOTPACK Genesis v2.0 for GXvLIBERTY. Reference-only session entry. Deterministic, audit-first, silent by default."
+  },
+  "h": "9e1f6c8f3a0b5a0e6b7f9f8a4c2f2a0d3a9e6c6a0c5c9c9b6e7d1b6a8c7e2f1"
+}

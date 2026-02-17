@@ -1,0 +1,63 @@
+# GX_ACQ PRIO0 — GNU Toolchain via Alpine apk (iSH)
+# Ziel: schnell buildable + auditierbar (Evidence) + locked artifacts
+set -euo pipefail
+
+# 0) Clean state / Pfad
+cd /root
+mkdir -p /root/GX_ACQ/prio0
+cd /root/GX_ACQ/prio0
+pwd
+
+# 1) Repo/Index refresh + Basispakete (curl/ca already ok, aber safe)
+apk update
+apk add --no-cache ca-certificates curl coreutils busybox
+
+# 2) PRIO0: GNU Toolchain (Foundation Buildability)
+# build-base = gcc,g++,make,libc-dev,etc. + binutils separat sauber sichtbar
+apk add --no-cache build-base binutils linux-headers
+
+# 3) Evidence (Audit): Versionen + Paketliste + Repos
+mkdir -p evidence
+{
+  echo "=== DATE (UTC) ==="
+  date -u
+  echo
+  echo "=== UNAME ==="
+  uname -a || true
+  echo
+  echo "=== APK VERSION ==="
+  apk --version
+  echo
+  echo "=== REPOSITORIES ==="
+  cat /etc/apk/repositories
+  echo
+  echo "=== INSTALLED (selected) ==="
+  apk info -vv | egrep '^(build-base|binutils|gcc|g\+\+|musl|musl-dev|linux-headers|make|libstdc\+\+|libgcc)'
+  echo
+  echo "=== GCC / LD / AS / MAKE versions ==="
+  gcc --version | head -n 1 || true
+  ld --version 2>/dev/null | head -n 1 || true
+  as --version 2>/dev/null | head -n 1 || true
+  make --version | head -n 1 || true
+} > evidence/apk_toolchain_evidence.txt
+
+# 4) Minimal Build-Test (Proof)
+mkdir -p proof
+cat > proof/hello.c <<'EOF'
+#include <stdio.h>
+int main(){ puts("GX-PRIO0-TOOLCHAIN-OK"); return 0; }
+EOF
+gcc -O2 -static -s proof/hello.c -o proof/hello_static 2>/dev/null || gcc -O2 proof/hello.c -o proof/hello
+./proof/hello_static 2>/dev/null || ./proof/hello
+
+# 5) Hashes (sha256) für Evidence + Proof
+sha256sum evidence/apk_toolchain_evidence.txt > evidence/apk_toolchain_evidence.txt.sha256
+sha256sum proof/hello.c > proof/hello.c.sha256
+(ls proof/hello_static >/dev/null 2>&1 && sha256sum proof/hello_static > proof/hello_static.sha256) || sha256sum proof/hello > proof/hello.sha256
+
+# 6) LOCK (Freeze auf Dateiebene): alles schreibschützen
+chmod -w evidence/* proof/* || true
+
+echo "GX PRIO0: APK(GNU Toolchain) INSTALLED + EVIDENCE + PROOF + LOCK = DONE"
+pwd
+ls -lah evidence proof

@@ -1,0 +1,37 @@
+{
+  "id": "GX-SNAPSHOT-CURRENT-STATE-MAP-1769339000-0003",
+  "t": "STATE_MAP",
+  "ts_utc": "2026-01-25T10:50:00Z",
+  "ts_unix": 1769338200,
+  "vis": "PUBLIC",
+  "p": {
+    "implemented": [
+      "Kernel Principles",
+      "Frame Model",
+      "Index Ledger",
+      "TIME_ANCHOR T0",
+      "Proof/Hash Governance",
+      "AUTOBUILD State (state-only)"
+    ],
+    "draft_finalized": [
+      "TRANSCEIVE_RECORD Schema",
+      "PLUGIN_CONTRACT"
+    ],
+    "draft_advanced": [
+      "Audio GNU Stack",
+      "Versioning Logic"
+    ],
+    "concept_advanced": [
+      "Protocol Acquisition (HTTPS/FTP/BT)",
+      "Time Trust Upgrades (T1/T2)",
+      "Audio Input/Output Semantics"
+    ],
+    "concept_basic": [
+      "Synthesizers",
+      "Emulators",
+      "Genesis v2.0 Target"
+    ],
+    "note": "Clear separation of Implemented, Draft, and Concept states. No mixed maturity."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

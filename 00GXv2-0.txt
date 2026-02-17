@@ -1,0 +1,113 @@
+{
+  "id": "GX-GENESIS-KERNEL-GXvLIBERTY-2.0-0001",
+  "t": "KERNEL",
+  "ts_utc": "2026-01-25T11:27:36Z",
+  "ts_unix": 1769340456,
+  "vis": "PUBLIC",
+  "p": {
+    "name": "GXvLIBERTY",
+    "kernel_version": "2.0",
+    "designation": "GENESIS_REFERENCE_KERNEL",
+    "status": "EXPERIMENTAL_REFERENCE_BOOT",
+
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "core_principles": [
+      "archive_before_action",
+      "proof_before_state",
+      "append_only",
+      "no_phantom",
+      "silence_is_valid_state",
+      "display_never_drives_action"
+    ],
+
+    "truth_model": {
+      "time_anchor_required": true,
+      "time_format": ["UTC_Z", "UNIX_EPOCH"],
+      "truth_source": "DECLARED_AND_PROVEN_ONLY",
+      "raw_bytes_rule": "RAW_BYTES_ARE_TRUTH"
+    },
+
+    "frame_model": {
+      "definition": "A frame describes state; it never executes.",
+      "properties": [
+        "timestamped",
+        "hashed",
+        "append_only",
+        "referential"
+      ],
+      "canonical_json": {
+        "encoding": "UTF-8",
+        "sort_keys": true,
+        "separators": [",", ":"],
+        "whitespace": "none",
+        "array_order": "preserve"
+      },
+      "hash_rule": "h = sha256( canonical_json(p) )"
+    },
+
+    "state_model": {
+      "default_state": "STABLE",
+      "state_changes": "PROOF_BASED_ONLY",
+      "confirmation_effect": "NONE"
+    },
+
+    "allowed_operations": [
+      "read",
+      "reference",
+      "quote",
+      "audit",
+      "plan",
+      "record"
+    ],
+
+    "forbidden_operations": [
+      "execute",
+      "mutate",
+      "automate",
+      "unfreeze",
+      "grant_without_proof"
+    ],
+
+    "guards": {
+      "append_only": true,
+      "no_phantom": true,
+      "no_execution": true,
+      "no_automation": true,
+      "no_state_change_by_confirm": true,
+      "proof_before_state": true
+    },
+
+    "audio_principles": {
+      "audio_core": "SID_FIRST",
+      "truth_order": [
+        "availability",
+        "raw_bytes_hash",
+        "ingest",
+        "hash_proof",
+        "reference"
+      ],
+      "usage_policy": "FORBIDDEN_UNTIL_EXPLICIT_GRANT"
+    },
+
+    "boot_contract": {
+      "what_boot_means": [
+        "Load as reference kernel",
+        "Allow planning and auditing",
+        "Allow append-only records"
+      ],
+      "what_boot_does_not_mean": [
+        "No execution",
+        "No automation",
+        "No implicit capability grants",
+        "No runtime state"
+      ]
+    },
+
+    "note": "GX vLIBERTY Genesis Kernel v2.0. Reference-only. Audit-first. Designed as a stable entry point for new sessions."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

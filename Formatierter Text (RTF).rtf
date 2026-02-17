@@ -1,0 +1,247 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\fnil\fcharset0 .SFUI-Semibold;\f1\fnil\fcharset0 .SFUI-Heavy;\f2\fswiss\fcharset0 Helvetica;
+\f3\fmodern\fcharset0 Courier;\f4\fmodern\fcharset0 Courier-Oblique;\f5\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;
+}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red198\green120\blue221;\red171\green178\blue191;
+\red152\green195\blue121;\red92\green99\blue112;\red209\green154\blue102;\red86\green182\blue194;\red224\green108\blue117;
+}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;\cssrgb\c77647\c47059\c86667;\cssrgb\c67059\c69804\c74902;
+\cssrgb\c59608\c76471\c47451;\cssrgb\c36078\c38824\c43922;\cssrgb\c81961\c60392\c40000;\cssrgb\c33725\c71373\c76078;\cssrgb\c87843\c42353\c45882;
+}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf2 \uc0\u55358 \u56817  
+\f1\b Empfangen. Best\'e4tigt \uc0\u9989  = FAKT.
+\f0\b0 \
+Dein Patch-Set ist 
+\f1\b GX-konform
+\f0\b0  (append-only, dedupe, no mutation) und in sich 
+\f1\b stimmig
+\f0\b0 .\
+\
+Du wolltest \'84N\'e4chster Schritt (ein Schritt)\'93 \'96 ich liefere dir 
+\f1\b beides
+\f0\b0  direkt, ohne R\'fcckfragen:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs60 \cf2 A) GET /v1/receipts/:receipt_id (read-only, keine Payload-Duplikation)
+\f0\b0\fs38 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs48 \cf2 1) Route: src/routes/receipts.js
+\f2\b0\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3\fs28 \cf3 import\cf4  express \cf3 from\cf4  \cf5 "express"\cf4 ;\
+\cf3 import\cf4  \{ db \} \cf3 from\cf4  \cf5 "../db.js"\cf4 ;\
+\
+\cf3 export\cf4  \cf3 const\cf4  receiptsRouter = express.Router();\
+\
+
+\f4\i \cf6 // GET /v1/receipts/:receipt_id
+\f3\i0 \cf4 \
+
+\f4\i \cf6 // returns receipt row + list of frame IDs linked to that receipt_id
+\f3\i0 \cf4 \
+receiptsRouter.get(\cf5 "/v1/receipts/:receipt_id"\cf4 , async (req, res) => \{\
+  \cf3 const\cf4  receipt_id = req.params.receipt_id;\
+\
+  \cf3 try\cf4  \{\
+    \cf3 const\cf4  [rows] = \cf3 await\cf4  db.execute(\
+      \cf5 `SELECT receipt_id, received_at_unix, received_at_utc, raw_path, raw_sha256,\
+              frames_received, bytes_received, client, request_id\
+       FROM ingest_receipts\
+       WHERE receipt_id = ?`\cf4 ,\
+      [receipt_id]\
+    );\
+\
+    \cf3 if\cf4  (!rows || rows.length === \cf7 0\cf4 ) \{\
+      \cf3 return\cf4  res.status(\cf7 404\cf4 ).json(\{ \cf7 ok\cf4 : \cf8 false\cf4 , \cf7 error\cf4 : \cf5 "RECEIPT_NOT_FOUND"\cf4  \});\
+    \}\
+\
+    
+\f4\i \cf6 // Only IDs (no p_json duplication)
+\f3\i0 \cf4 \
+    \cf3 const\cf4  [frows] = \cf3 await\cf4  db.execute(\
+      \cf5 `SELECT id, t, ts_unix\
+       FROM frames\
+       WHERE receipt_id = ?\
+       ORDER BY ts_unix ASC`\cf4 ,\
+      [receipt_id]\
+    );\
+\
+    \cf3 return\cf4  res.status(\cf7 200\cf4 ).json(\{\
+      \cf7 ok\cf4 : \cf8 true\cf4 ,\
+      \cf7 receipt\cf4 : rows[\cf7 0\cf4 ],\
+      \cf7 frames\cf4 : frows 
+\f4\i \cf6 // [\{id,t,ts_unix\},...]
+\f3\i0 \cf4 \
+    \});\
+  \} \cf3 catch\cf4  (e) \{\
+    \cf3 return\cf4  res.status(\cf7 500\cf4 ).json(\{ \cf7 ok\cf4 : \cf8 false\cf4 , \cf7 error\cf4 : String(e.message || e) \});\
+  \}\
+\});
+\f2\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs48 \cf2 2) App wiring: src/app.js
+\f2\b0\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3\fs28 \cf3 import\cf4  express \cf3 from\cf4  \cf5 "express"\cf4 ;\
+\cf3 import\cf4  \{ ingestRouter \} \cf3 from\cf4  \cf5 "./routes/ingest.js"\cf4 ;\
+\cf3 import\cf4  \{ receiptsRouter \} \cf3 from\cf4  \cf5 "./routes/receipts.js"\cf4 ;\
+\
+\cf3 const\cf4  app = express();\
+app.get(\cf5 "/health"\cf4 , (_, res) => res.json(\{ \cf7 ok\cf4 : \cf8 true\cf4  \}));\
+\
+app.use(ingestRouter);\
+app.use(receiptsRouter);\
+\
+\cf3 const\cf4  port = Number(process.env.PORT || \cf7 3000\cf4 );\
+app.listen(port, () => console.log(\cf5 `GXvLIBERTY Communicator listening on :\cf9 $\{port\}\cf5 `\cf4 ));
+\f2\fs24 \cf0 \
+\
+\
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs60 \cf2 B) Strict dedupe counts (exakt inserted vs duplicate, ohne Pre-SELECT)
+\f0\b0\fs38 \
+\
+Dein Kommentar im Code ist korrekt: 
+\f5 affectedRows
+\f0  ist hier nicht sauber interpretierbar.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b \cf2 Die saubere L\'f6sung
+\f0\b0 : benutze 
+\f5 INSERT IGNORE
+\f0  und z\'e4hle 
+\f5 affectedRows
+\f0  (0 oder 1) \uc0\u8594  exakt.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs48 \cf2 Patch im Insert-Statement (in src/routes/ingest.js)
+\f0\b0\fs38 \
+\
+Ersetze den Frame-Insert Block durch:
+\f2\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3\fs28 \cf3 const\cf4  [result] = \cf3 await\cf4  conn.execute(\
+  \cf5 `INSERT IGNORE INTO frames\
+   (id,t,ts_unix,ts_utc,vis,h,p_json,ingested_at_unix,receipt_id)\
+   VALUES (?,?,?,?,?,?,?,?,?)`\cf4 ,\
+  [obj.id, obj.t, obj.ts_unix, obj.ts_utc, obj.vis, obj.h, p_json, server_ts_unix, receipt_id]\
+);\
+\
+\cf3 if\cf4  (result && \cf3 typeof\cf4  result.affectedRows === \cf5 "number"\cf4  && result.affectedRows === \cf7 1\cf4 ) \{\
+  frames_inserted++;\
+\} \cf3 else\cf4  \{\
+  frames_duplicates++;\
+\}
+\f2\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs44 \cf2 Warum das GX-konform ist
+\f0\b0\fs38 \
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f1\b Keine Mutation
+\f0\b0  (kein UPDATE-Pfad)\
+	\'95	
+\f1\b Append-only DB-Ledger
+\f0\b0  (nur Inserts)\
+	\'95	Dedupe bleibt ausschlie\'dflich \'fcber 
+\f5 PRIMARY KEY (id)
+\f0 \
+	\'95	Counts sind 
+\f1\b exakt
+\f0\b0 , ohne Zusatzqueries\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs48 \cf2 Receipt-Frame Insert (auch IGNORE, dedupe-safe)
+\f2\b0\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3\fs28 \cf3 await\cf4  conn.execute(\
+  \cf5 `INSERT IGNORE INTO frames\
+   (id,t,ts_unix,ts_utc,vis,h,p_json,ingested_at_unix,receipt_id)\
+   VALUES (?,?,?,?,?,?,?,?,?)`\cf4 ,\
+  [\
+    receiptFrame.id,\
+    receiptFrame.t,\
+    receiptFrame.ts_unix,\
+    receiptFrame.ts_utc,\
+    receiptFrame.vis,\
+    receiptFrame.h,\
+    JSON.stringify(receiptFrame.p),\
+    server_ts_unix,\
+    receipt_id\
+  ]\
+);
+\f2\fs24 \cf0 \
+\
+\
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs48 \cf2 Mini-Fix (dein SQL Note)
+\f0\b0\fs38 \
+\
+Ja: 
+\f5 bytes_received
+\f0  sollte 
+\f1\b BIGINT
+\f0\b0  sein (auch bei gro\'dfen Payloads korrekt).
+\f2\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3\fs28 \cf3 ALTER TABLE\cf4  ingest_receipts MODIFY bytes_received \cf7 BIGINT\cf4  \cf3 NOT NULL\cf4 ;
+\f2\fs24 \cf0 \
+\
+\
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b\fs48 \cf2 Ergebnis nach diesen 2 Steps
+\f0\b0\fs38 \
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	\uc0\u9989  Read-only Receipt-Lookup (
+\f5 /v1/receipts/:id
+\f0 )\
+	\'95	\uc0\u9989  Exakte Dedupe-Counts (inserted/duplicate) ohne Pre-Select\
+	\'95	\uc0\u9989  Weiterhin: append-only, no mutation, proof-first\
+\
+Wenn du als n\'e4chstes \'84V2.5 steht jetzt wirklich\'93, dann ist der n\'e4chste harte Block:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\b \cf2 RAW-Storage write-once
+\f0\b0  (echtes File-Write mit Pfad-Regel + fsync/lock) \'97 aber das machen wir erst, wenn du sagst \'84Storage-Layer jetzt\'93.}

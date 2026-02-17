@@ -1,0 +1,214 @@
+{
+  "id": "GX-GENESIS-DEV-KERNEL-1769340456-0001",
+  "t": "KERNEL",
+  "ts_utc": "2026-01-25T11:27:36Z",
+  "ts_unix": 1769340456,
+  "vis": "PUBLIC",
+  "p": {
+    "name": "GXvLIBERTY_GENESIS_DEV",
+    "kernel_version": "2.0",
+    "status": "EXPERIMENTAL_REFERENCE_BOOT",
+    "purpose": "Development-Kernel (Generalist) zur Harmonisierung: Preflight → Proof → Draft→ Implementiert. LLM-unabhängiger Archivator, Host-realitätsfest.",
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "core_principles": [
+      "archive_before_action",
+      "proof_before_state",
+      "append_only",
+      "no_phantom",
+      "silence_is_valid_state",
+      "display_never_drives_action"
+    ],
+
+    "guards": {
+      "append_only": true,
+      "no_phantom": true,
+      "no_execution": true,
+      "no_automation": true,
+      "no_state_change_by_confirm": true,
+      "proof_before_state": true,
+      "unknown_time_policy": "REJECT_FOR_STORAGE_WRITES"
+    },
+
+    "truth_model": {
+      "unit": "FRAME",
+      "definition": "A frame is a timestamped, hashed truth record.",
+      "hash_binding": "h = sha256(canonical_json(p) as UTF-8 bytes)",
+      "time_anchor_required": true
+    },
+
+    "frame_schema": {
+      "required_fields": ["id", "t", "ts_utc", "ts_unix", "vis", "p", "h"],
+      "timestamp_rule": "UTC_Z + Unix Epoch mandatory",
+      "storage_policy": "WRITE_ONCE",
+      "mutation_policy": "FORBIDDEN"
+    },
+
+    "canonical_json": {
+      "target": "p",
+      "encoding": "UTF-8",
+      "object_keys": "SORT_ASC_LEXICOGRAPHIC",
+      "array_order": "PRESERVE_INPUT_ORDER",
+      "separators": [",", ":"],
+      "whitespace": "NONE"
+    },
+
+    "storage_model": {
+      "frames": "FRAMES/YYYY/MM/DD/<id>.ndjson",
+      "index": "INDEX/frames.index.ndjson",
+      "index_policy": "APPEND_ONLY",
+      "authority": "FRAME_FILES",
+      "index_role": "POINTER_LEDGER_ONLY",
+      "manifests": "MANIFESTS/YYYY/MM/DD/manifest.json",
+      "packs": "PACKS/<pack_id>/(MANIFEST.json,INDEX.ndjson,FRAMES/)"
+    },
+
+    "maturity_system": {
+      "IMPLEMENTED": "GREEN",
+      "DRAFT": ["RED_RAW", "ORANGE_ADVANCED", "YELLOW_FINALIZED"],
+      "CONCEPT": ["BLUE_BASE", "BLUE_ADVANCED"],
+      "NOT_PRESENT": "GREY"
+    },
+
+    "modules": {
+      "A_core_archivator": {
+        "status": "IMPLEMENTED",
+        "notes": [
+          "append-only frame writes",
+          "index append-only pointer-ledger",
+          "export pack layout deterministic",
+          "count/byte proofs allowed (record-only)"
+        ]
+      },
+
+      "B_time_sensor": {
+        "status": "IMPLEMENTED",
+        "time_trust": {
+          "T0_LOCAL_UNVERIFIED": "IMPLEMENTED",
+          "T1_NETWORK_VERIFIED": "CONCEPT_BLUE_ADVANCED",
+          "T2_MULTI_SOURCE_CONSENSUS": "CONCEPT_BLUE_ADVANCED"
+        },
+        "rule": "Zeit lesen ist Sensorik (immer möglich). Zeit verifizieren ist optionaler Trust-Upgrade (nur als zusätzliche Frames)."
+      },
+
+      "C_transceive_record": {
+        "status": "DRAFT_YELLOW_FINALIZED",
+        "rule": "Transmit/Receive ist immer Record-only. Keine implizite Aktion. Jede Payload ist content-addressed (sha256_bytes) + append-only storage."
+      },
+
+      "D_protocols_index_download": {
+        "status": "CONCEPT_BLUE_ADVANCED",
+        "rule": "Keine Phantom-Protokolle: nur Primärquellen. Download erst mit RAW_BYTES sha256 + byte/line proof. Danach Referenzframes."
+      },
+
+      "E_plugin_bridge_llm": {
+        "status": "DRAFT_YELLOW_FINALIZED",
+        "rule": "LLMs sind OPTIONAL_PLUGINS. Inputs nur Frame-Refs. Outputs nur neue Frames. Nie Autorität für State."
+      },
+
+      "F_governance_autobuild_state_only": {
+        "status": "IMPLEMENTED",
+        "definition": {
+          "autobuild_mode": "STATE_ONLY",
+          "active": true,
+          "notes": [
+            "ACTIVE bedeutet: verbindlicher Rhythmus/Plan-Disziplin + Pack-Phasenführung.",
+            "ACTIVE bedeutet NICHT: Hintergrundautomation."
+          ]
+        },
+        "hard_rule": "automation bleibt OFF. execution bleibt BLOCKED. freeze bleibt ON."
+      },
+
+      "G_preflight_phase2": {
+        "status": "DRAFT_YELLOW_FINALIZED",
+        "priorities": [
+          "P1_AUTOSCROLL_HOST_REALITY_TESTPLAN",
+          "P2_MINIMAL_SOUND_STACK_PROOF (inkl. echter SID)"
+        ],
+        "autoscroll_tiers": {
+          "Tier1_native": "CONCEPT_BLUE_BASE",
+          "Tier2_fallback_chunking_markers": "DRAFT_YELLOW_FINALIZED",
+          "Tier3_gx_reader_full_control": "CONCEPT_BLUE_ADVANCED",
+          "rule": "Host-agnostic. Keine UI-Hacks. Immer Tier deklarieren. Fallback immer verfügbar."
+        },
+        "sound_preflight": {
+          "S0_baseline_gnu": "DRAFT_YELLOW_FINALIZED",
+          "S1_atari_vibe_libgme": "CONCEPT_BLUE_ADVANCED",
+          "S2_true_sid": {
+            "status": "CONCEPT_BLUE_ADVANCED",
+            "requirement": "Echter SID gewünscht",
+            "candidate_stack": [
+              "libsidplayfp (SID engine)",
+              "sidplayfp CLI (wenn als Paket verfügbar)",
+              "optional: sox/alsa als Output-Basis (S0)"
+            ],
+            "rule": "Ohne Kompilieren bevorzugt. Erst Verfügbarkeit/Installierbarkeit proofen, dann Samples hashen, dann UI-sounds ableiten."
+          }
+        }
+      },
+
+      "H_docs_formats": {
+        "status": "CONCEPT_BLUE_ADVANCED",
+        "targets": ["Markdown", "PDF", "LaTeX", "Pandoc"],
+        "rule": "Docs sind Teil der Resonanz/Exportkette. Keine Behauptung ohne lokale Verfügbarkeit + Hash/Proof."
+      },
+
+      "I_visuals_vector": {
+        "status": "CONCEPT_BLUE_ADVANCED",
+        "targets": ["SVG", "2.5D/3D reference visuals", "Blender pipeline (later)"],
+        "rule": "Visuals sind REFERENCE_ONLY bis echte Assets/Tools lokal proofed."
+      },
+
+      "J_releases_versioning": {
+        "status": "DRAFT_ORANGE_ADVANCED",
+        "rule": "Kein Release ohne: Preflight PASS + Proof-Ketten + Snapshot + Manifest."
+      }
+    },
+
+    "proof_model": {
+      "proof_scope": ["INDEX", "MANIFEST", "EXPORT_PACK", "DOWNLOADED_SPECS", "AUDIO_ASSETS"],
+      "hash_target": "RAW_BYTES",
+      "count_rule": "NDJSON_LINE_COUNT",
+      "byte_rule": "RAW_FILE_BYTE_SIZE",
+      "proof_effect": "RECORD_ONLY_NO_GRANT"
+    },
+
+    "forbidden_operations": [
+      "execute",
+      "mutate",
+      "rewrite",
+      "auto_activate",
+      "implicit_defaults",
+      "state_change_by_confirm",
+      "background_automation"
+    ],
+
+    "allowed_operations": [
+      "read",
+      "reference",
+      "quote",
+      "audit",
+      "export"
+    ],
+
+    "boot_contract": {
+      "what_this_kernel_is": [
+        "ruhiger Development-Rahmen",
+        "harmonisiert Draft/Implementiert/Konzept",
+        "erzwingt Preflight vor Ausbau",
+        "hält Autobuild als State-Only Rhythmus"
+      ],
+      "what_this_kernel_is_not": [
+        "keine Ausführung",
+        "keine Automatisierung",
+        "keine Phantom-Behauptungen"
+      ]
+    },
+
+    "note": "GXvLIBERTY_GENESIS_DEV v2.0 (experimental) — optimiert auf Wesentliches: Archivator+Zeit+Proof+Preflight+Audio(SID)+Host-Realität. Alles andere bleibt sauber als Konzept/Draft markiert."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

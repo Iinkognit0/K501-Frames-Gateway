@@ -1,0 +1,48 @@
+// FILENAME: GX-PROOF-RUN-RESULT-AUTOBUILD-v1.0.json
+{
+  "id": "GX-PROOF-RUN-RESULT-AUTOBUILD-1769332989-0001",
+  "t": "PROOF_RUN_RESULT",
+  "ts_utc": "2026-01-25T09:23:09Z",
+  "ts_unix": 1769332989,
+  "vis": "PUBLIC",
+
+  "p": {
+    "scope": "GXvLIBERTY",
+    "plan_ref": "GX-PROOF-RUN-PLAN-AUTOBUILD-1769332879-0001",
+    "request_ref": "GX-AUTOBUILD-REQUEST-1769332704-0001",
+
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "result": "PENDING",
+    "summary": "Result placeholder. No proof has been executed in this environment. Records intent to run and later bind a reproducible PASS/FAIL outcome.",
+
+    "evidence": {
+      "verified_prerequisites": [],
+      "guard_checks": [],
+      "dry_run_checks": [],
+      "side_effect_checks": [],
+      "notes": [
+        "This frame does not claim PASS or FAIL.",
+        "A real proof run must be performed externally and then recorded here with evidence refs."
+      ]
+    },
+
+    "effects": {
+      "authorized_state_change": false,
+      "note": "PENDING implies no authorization."
+    },
+
+    "non_effects": [
+      "No execution granted",
+      "No automation granted",
+      "No state change enacted"
+    ],
+
+    "note": "PROOF_RUN_RESULT must be PASS to authorize the requested state change. Until then, the system remains unchanged."
+  },
+
+  "h": "PLACEHOLDER_SHA256"
+}

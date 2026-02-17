@@ -1,0 +1,122 @@
+BOOTFRAME · CHAT LOG REFERENCE
+FRAMES · A Timeless Canonical Archive
+
+────────────────────────────────────────────────────────────
+MODE
+Reference Publication · Bootframe
+
+STATUS
+Append-Only · Interpretation Closed
+
+SCOPE
+Complete Chat Conversation Reference
+(Non-Narrative · Non-Executable · Deterministic)
+
+────────────────────────────────────────────────────────────
+A. PURPOSE
+────────────────────────────────────────────────────────────
+
+This document serves as the canonical bootframe for a complete
+chat-based research and formulation process conducted within
+a conversational AI environment.
+
+It does not reproduce the full chat transcript verbatim.
+Instead, it formally declares, classifies, and references
+the entire conversation as a single coherent archival unit.
+
+The purpose of this bootframe is to:
+- establish provenance,
+- define legal status,
+- enable public-domain archiving,
+- allow reconstruction through frames,
+- prevent semantic drift or misinterpretation.
+
+────────────────────────────────────────────────────────────
+B. CHAT LOG SCOPE
+────────────────────────────────────────────────────────────
+
+The referenced chat log includes, without limitation:
+- all user messages,
+- all assistant responses,
+- drafts, revisions, refinements,
+- scientific formulations,
+- appendices and annexes,
+- declarations, confirmations, snapshots,
+- frame definitions and bootframes,
+- stylistic, structural, and philosophical reflections.
+
+The chat log is treated as a unified archival object.
+
+────────────────────────────────────────────────────────────
+C. LEGAL STATUS · PUBLIC DOMAIN
+────────────────────────────────────────────────────────────
+
+The complete chat conversation is explicitly released into
+the Public Domain.
+
+No attribution requirement.
+No restriction of use.
+No limitation of purpose.
+
+Equivalent intent to CC0.
+
+────────────────────────────────────────────────────────────
+D. FRAMES CONVERSION
+────────────────────────────────────────────────────────────
+
+The entire chat log is eligible for conversion into
+frame-based representations.
+
+- Mode: Reference-Only
+- Mutation: None
+- Interpretation: Closed
+- Append Policy: Append-Only
+
+No frame asserts truth, authority, or execution rights.
+
+────────────────────────────────────────────────────────────
+E. TIME ANCHORS
+────────────────────────────────────────────────────────────
+
+Primary Canonization:
+- Unix Epoch: 1770494479
+- UTC: 2026-02-07T20:01:19Z
+- Europe/Berlin: 2026-02-07 21:01:19 CET
+
+Public Domain Confirmation:
+- Unix Epoch: 1770499669
+- UTC: 2026-02-07T21:27:49Z
+- Europe/Berlin: 2026-02-07 22:27:49 CET
+
+────────────────────────────────────────────────────────────
+F. PROVENANCE
+────────────────────────────────────────────────────────────
+
+Originator:
+- Iinkognit0
+
+Canonical Source:
+- https://iinkognit0.de
+
+Contact:
+- Iinkognit0@proton.me
+
+Author Identifier (ORCID):
+- https://orcid.org/0009-0005-5125-9711
+
+────────────────────────────────────────────────────────────
+G. FINAL STATEMENT
+────────────────────────────────────────────────────────────
+
+This bootframe does not explain the conversation.
+It does not summarize it.
+It does not interpret it.
+
+It anchors it.
+
+The referenced chat log exists as a public-domain,
+append-only, canonical reference.
+
+────────────────────────────────────────────────────────────
+END OF BOOTFRAME · CHAT LOG REFERENCE
+────────────────────────────────────────────────────────────

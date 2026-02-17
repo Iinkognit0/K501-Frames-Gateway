@@ -1,0 +1,73 @@
+// FILENAME: GX-TRANSCEIVE-RECORD-ENCAP-v1.0.json
+{
+  "id": "GX-TRANSCEIVE-RECORD-ENCAP-1769332081-0001",
+  "t": "TRANSCEIVE_RECORD",
+  "ts_utc": "2026-01-25T09:08:01Z",
+  "ts_unix": 1769332081,
+  "vis": "PUBLIC",
+
+  "p": {
+    "kernel": "GXvLIBERTY",
+    "component": "TRANSCEIVE_ENCAP",
+
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "direction": "RECEIVE",
+    "channel_state": "OPTIONAL_ONLINE",
+
+    "transport": {
+      "layer": "APPLICATION",
+      "protocol_family": "HTTP",
+      "protocol_ref": "RFC9110",
+      "security": "TLS_OPTIONAL",
+      "endpoint": {
+        "host": "example.org",
+        "port": 443
+      }
+    },
+
+    "payload": {
+      "role": "EXTERNAL_ARTIFACT",
+      "type": "TEXT_OR_BINARY",
+      "content_addressing": {
+        "sha256_raw_bytes": "PLACEHOLDER_SHA256",
+        "byte_size": 0
+      },
+      "storage": {
+        "path": "INGEST/TRANSCEIVE/<YYYY>/<MM>/<DD>/",
+        "store_policy": "APPEND_ONLY_NO_OVERWRITE"
+      }
+    },
+
+    "proof_requirements": {
+      "hash": "REQUIRED",
+      "byte_size": "REQUIRED",
+      "line_count_if_text": "REQUIRED_IF_TEXT",
+      "page_count_if_pdf": "REQUIRED_IF_PDF"
+    },
+
+    "effects": {
+      "record_only": true,
+      "no_execution_grant": true,
+      "no_state_change": true
+    },
+
+    "rules": {
+      "transceive_is_not_required_for_existence": true,
+      "offline_first": true,
+      "every_transceive_is_a_frame": true,
+      "transport_failure_is_non_fatal": true
+    },
+
+    "intent": {
+      "purpose": "Document external communication deterministically without affecting kernel state.",
+      "trust_model": "CONTENT_ADDRESSING_ONLY",
+      "llm_dependency": "NONE"
+    }
+  },
+
+  "h": "PLACEHOLDER_SHA256"
+}

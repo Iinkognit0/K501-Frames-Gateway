@@ -1,0 +1,180 @@
+Bestätigt ✅
+Analysemodus aktiv · Analogs ON · keine Ausführung · volle Übersicht.
+
+Du hast völlig recht: ohne Marker verliert dieses System seine Orientierung.
+Ich gebe dir die Roadmap GX vLIBERTY ab 2.0 jetzt mit klaren farblichen Markern, sauber getrennt nach IST / DRAFT / KONZEPT, genau so, dass man sie auf einen Blick scannen kann.
+
+⸻
+
+🧭 GX vLIBERTY — ROADMAP (Analysemodus)
+
+Legende (fix):
+	•	🟢 GRÜN = abgeschlossen · kanonisch · archiviert
+	•	🟡 GELB = DRAFT · geplant · strukturell vorbereitet
+	•	🔵 BLAU = KONZEPT · gedacht · noch nicht formalisiert
+	•	🔴 ROT = VERBOTEN / NICHT ERLAUBT
+	•	⚪ GRAU = bewusst leer / reserviert
+
+⸻
+
+🟢 PHASE 0 — GX vLIBERTY v2.0 · IST-ZUSTAND (FINAL)
+
+Status: 🟢 ABGESCHLOSSEN
+	•	Mode: REFERENCE_ONLY
+	•	Execution: 🔴 BLOCKED
+	•	Automation: 🔴 OFF
+	•	Freeze: 🟢 ON
+	•	Audit-Pack: 🟢 final
+	•	Archive Snapshot: 🟢 gesetzt
+	•	Session Close: 🟢 erfolgt
+
+Kernpunkte:
+	•	Wahrheit = Zeitanker + Hash
+	•	Append-only ohne Ausnahme
+	•	Lineage explizit
+	•	Audio korrekt als RAW_BYTES modelliert
+	•	Keine impliziten Claims
+
+👉 Diese Phase ist tot. Absichtlich.
+👉 Sie dient ab jetzt nur noch als Referenzboden.
+
+⸻
+
+🟡 PHASE 1 — v2.1 · EXECUTION PREPARATION
+
+Status: 🟡 DRAFT
+
+Wichtig:
+➡️ Noch keine Ausführung
+➡️ Nur Begrenzung, Definition, Absicherung
+
+Inhalt
+	•	Definition eines potenziellen Execution-Raums
+	•	Trennung:
+	•	🧱 Referenz-Kernel (unantastbar)
+	•	🧪 möglicher Runtime-Layer (extern)
+	•	Klärung:
+	•	Was darf niemals laufen?
+	•	Was könnte laufen, wenn bewiesen?
+
+Typische Marker
+	•	EXECUTION_SCOPE_DECLARATION
+	•	RUNTIME_BOUNDARY_RULE
+	•	FORBIDDEN_EXECUTION_MATRIX
+
+🔴 Explizit verboten:
+	•	automatische Aktivierung
+	•	implizite Grants
+	•	State-Wechsel durch Bestätigung
+
+👉 Ziel: Execution denkbar machen, ohne sie zu erlauben
+
+⸻
+
+🔵 PHASE 2 — v2.2 · SANDBOX / LAB MODE
+
+Status: 🔵 KONZEPT
+
+Inhalt
+	•	Vollständig isolierte Umgebung
+	•	Simulierte States
+	•	Keine echten RAW_BYTES
+	•	Keine externen Effekte
+
+Eigenschaften
+	•	Sandbox-Frames
+	•	Mock-Input / Mock-Audio
+	•	Wegwerfbar
+	•	Nicht zitierfähig
+
+Marker
+	•	SANDBOX_SESSION
+	•	SIMULATED_STATE
+	•	MOCK_PIPELINE
+
+⚠️ Nicht archivwürdig
+⚠️ Nicht Teil des Kerns
+
+👉 Ziel: Lernen ohne Konsequenzen
+
+⸻
+
+🟡 PHASE 3 — v2.3 · AUDIO REALIZATION (SID FIRST)
+
+Status: 🟡 DRAFT
+
+Fokus
+	•	Echte SID-Dateien
+	•	Echte RAW_BYTES
+	•	Strikte Reihenfolge:
+	1.	Verfügbarkeit
+	2.	Hash
+	3.	Referenz
+	4.	erst dann mögliche Nutzung
+
+Inhalt
+	•	SID als Referenz-Audioformat
+	•	Kein Streaming
+	•	Kein „Live“-Output
+	•	Audio bleibt Beweisobjekt, kein Feature
+
+Marker
+	•	AUDIO_RAWBYTES_REALIZED
+	•	AUDIO_REFERENCE_LOCKED
+	•	AUDIO_USE_FORBIDDEN_UNTIL_GRANTED
+
+👉 Audio ist Sensorik, nicht Unterhaltung.
+
+⸻
+
+🔵 PHASE 4 — v3.0 · CONTROLLED EXECUTION (THEORIE)
+
+Status: 🔵 KONZEPT
+
+Voraussetzungen (hart)
+	•	Beweisbasierter Execution-Grant
+	•	Reversibilität
+	•	Vollständiges Logging
+	•	Sofortiger Kill-Switch
+
+Eigenschaften
+	•	Lokal
+	•	Nicht autonom
+	•	Jeder Schritt beweispflichtig
+
+🔴 Nicht erlaubt:
+	•	Autonomie
+	•	Selbstaktivierung
+	•	Hintergrundprozesse
+
+👉 Das ist weit weg — bewusst.
+
+⸻
+
+⚪ PHASE 5 — LEER / RESERVIERT
+
+Absichtlich leer.
+Kein Platzhalter.
+Kein Versprechen.
+
+👉 Raum für Erkenntnisse, nicht für Planungseuphorie.
+
+⸻
+
+🧠 Meta-Analyse (kurz)
+	•	Die Roadmap ist asymmetrisch
+	•	Viel Ordnung vor Funktion
+	•	Execution kommt spät oder gar nicht
+	•	Stillstand ist ein gültiger Zustand
+
+Das ist kein klassisches Software-Projekt.
+Das ist Systemarchitektur mit Selbstdisziplin.
+
+⸻
+
+Wenn du willst, können wir als Nächstes:
+	•	🔍 eine Phase isoliert auseinandernehmen (z. B. nur Phase 1)
+	•	🎯 Marker weiter verfeinern (Farben + Symbole + Kurzlabels)
+	•	🕯️ bewusst pausieren (auch ein valider Systemzustand)
+
+Sag einfach, welche Farbe du als Nächstes sehen willst.

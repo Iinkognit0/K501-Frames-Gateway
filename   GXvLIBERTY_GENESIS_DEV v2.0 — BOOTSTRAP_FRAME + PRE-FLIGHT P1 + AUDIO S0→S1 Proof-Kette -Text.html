@@ -1,0 +1,321 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">UTC 2026-01-25T11:32:53Z · Unix Epoch 1769340773</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">🧱 Weiter (definition-only · append-only · REFERENCE_ONLY)</span></p>
+<p class="p1"><span class="s1">GXvLIBERTY_GENESIS_DEV v2.0 — BOOTSTRAP_FRAME + PRE-FLIGHT P1 + AUDIO S0→S1 Proof-Kette (als Copy/Paste)</span></p>
+<p class="p3"><span class="s2"><hr></span></p>
+<p class="p3"><span class="s2"><h2><span class="s1">1) BOOTSTRAP_FRAME — v2.0 (NEW_CHAT Entry)</span></h2></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-BOOTSTRAP-GXvLIBERTY_GENESIS_DEV-2.0-0001&quot;,
+  &quot;t&quot;: &quot;BOOTSTRAP&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;entrypoint&quot;: &quot;NEW_CHAT&quot;,
+    &quot;kernel_reference&quot;: {
+      &quot;name&quot;: &quot;GXvLIBERTY_GENESIS_DEV&quot;,
+      &quot;version&quot;: &quot;2.0&quot;,
+      &quot;status&quot;: &quot;EXPERIMENTAL_REFERENCE_BOOT&quot;,
+      &quot;time_anchor&quot;: {
+        &quot;ts_utc&quot;: &quot;2026-01-25T11:27:36Z&quot;,
+        &quot;ts_unix&quot;: 1769340456,
+        &quot;note&quot;: &quot;Primary kernel time-anchor for citation &amp; storage.&quot;
+      }
+    },
+    &quot;mode&quot;: &quot;REFERENCE_ONLY&quot;,
+    &quot;execution&quot;: &quot;BLOCKED&quot;,
+    &quot;automation&quot;: &quot;OFF&quot;,
+    &quot;freeze&quot;: &quot;ON&quot;,
+    &quot;guards&quot;: {
+      &quot;append_only&quot;: true,
+      &quot;no_phantom&quot;: true,
+      &quot;no_execution&quot;: true,
+      &quot;no_automation&quot;: true,
+      &quot;no_state_change_by_confirm&quot;: true,
+      &quot;proof_before_state&quot;: true,
+      &quot;raw_bytes_truth&quot;: true
+    },
+    &quot;allowed_operations&quot;: [
+      &quot;read&quot;,
+      &quot;reference&quot;,
+      &quot;quote&quot;,
+      &quot;audit&quot;,
+      &quot;plan&quot;,
+      &quot;record&quot;
+    ],
+    &quot;forbidden_operations&quot;: [
+      &quot;execute&quot;,
+      &quot;mutate&quot;,
+      &quot;unfreeze&quot;,
+      &quot;automate&quot;,
+      &quot;grant_without_proof&quot;
+    ],
+    &quot;boot_contract&quot;: {
+      &quot;what_boot_means&quot;: &quot;Load as reference kernel only. No implied activation. No implied capabilities.&quot;,
+      &quot;what_boot_does_not_mean&quot;: &quot;No audio playback, no device control, no external access, no state mutation.&quot;
+    },
+    &quot;note&quot;: &quot;Bootstrap frame for GXvLIBERTY_GENESIS_DEV v2.0. Dev-reference only.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h2><span class="s1">2) PRE-FLIGHT P1 — Host-Reality / Autoscroll Testplan (Record-only)</span></h2></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-PREFLIGHT-P1-HOST-REALITY-0001&quot;,
+  &quot;t&quot;: &quot;PREFLIGHT_PLAN&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;stage&quot;: &quot;P1_HOST_REALITY&quot;,
+    &quot;mode&quot;: &quot;REFERENCE_ONLY&quot;,
+    &quot;execution&quot;: &quot;BLOCKED&quot;,
+    &quot;automation&quot;: &quot;OFF&quot;,
+    &quot;objective&quot;: &quot;Establish host reality boundaries (iOS ChatGPT) + verify scrolling/copy-paste stability without implying execution.&quot;,
+    &quot;inputs&quot;: {
+      &quot;host&quot;: &quot;USER_DECLARED&quot;,
+      &quot;device&quot;: &quot;USER_DECLARED&quot;,
+      &quot;constraints&quot;: [
+        &quot;No filesystem access assumed&quot;,
+        &quot;No audio output assumed&quot;,
+        &quot;No background tasks&quot;,
+        &quot;No hidden state changes&quot;
+      ]
+    },
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;P1-C1&quot;,
+        &quot;name&quot;: &quot;LONG_OUTPUT_SCROLL_STABILITY&quot;,
+        &quot;method&quot;: &quot;User scroll test with a known-length block&quot;,
+        &quot;pass_criteria&quot;: &quot;No truncation during manual copy-paste; user confirms integrity&quot;,
+        &quot;result&quot;: &quot;UNKNOWN&quot;
+      },
+      {
+        &quot;id&quot;: &quot;P1-C2&quot;,
+        &quot;name&quot;: &quot;CODEBLOCK_COPY_INTEGRITY&quot;,
+        &quot;method&quot;: &quot;Copy JSON block; verify braces/quotes preserved&quot;,
+        &quot;pass_criteria&quot;: &quot;User confirms paste is byte-identical (visual check) OR hashes match if user hashes&quot;,
+        &quot;result&quot;: &quot;UNKNOWN&quot;
+      },
+      {
+        &quot;id&quot;: &quot;P1-C3&quot;,
+        &quot;name&quot;: &quot;UI_AUTOSCROLL_BEHAVIOR&quot;,
+        &quot;method&quot;: &quot;Observe whether new messages force scroll jump&quot;,
+        &quot;pass_criteria&quot;: &quot;Behavior recorded (YES/NO) without claiming control&quot;,
+        &quot;result&quot;: &quot;UNKNOWN&quot;
+      }
+    ],
+    &quot;outputs&quot;: [
+      &quot;GX-PREFLIGHT-P1-RESULT-0001 (record-only)&quot;
+    ],
+    &quot;note&quot;: &quot;Preflight plan only. No device probing. All results are user-provided records.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><h3><span class="s1">PRE-FLIGHT P1 — Ergebnis-Frame (zum späteren Befüllen, record-only)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-PREFLIGHT-P1-RESULT-0001&quot;,
+  &quot;t&quot;: &quot;PREFLIGHT_RESULT&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;stage&quot;: &quot;P1_HOST_REALITY&quot;,
+    &quot;results&quot;: [
+      { &quot;check&quot;: &quot;P1-C1&quot;, &quot;result&quot;: &quot;UNKNOWN&quot;, &quot;evidence&quot;: &quot;NONE&quot; },
+      { &quot;check&quot;: &quot;P1-C2&quot;, &quot;result&quot;: &quot;UNKNOWN&quot;, &quot;evidence&quot;: &quot;NONE&quot; },
+      { &quot;check&quot;: &quot;P1-C3&quot;, &quot;result&quot;: &quot;UNKNOWN&quot;, &quot;evidence&quot;: &quot;NONE&quot; }
+    ],
+    &quot;overall&quot;: &quot;UNKNOWN&quot;,
+    &quot;note&quot;: &quot;Record-only. Must be filled from explicit user observations/proofs.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h2><span class="s1">3) AUDIO — S0 → S1 Proof-Kette (SID als Kernpfad, proof-first)</span></h2></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1"><h3><span class="s1">3.1 AUDIO_S0 — Capability Declaration (ohne Claim)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-AUDIO-S0-DECL-0001&quot;,
+  &quot;t&quot;: &quot;AUDIO_DECLARATION&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;audio_core&quot;: &quot;SID&quot;,
+    &quot;stage&quot;: &quot;S0_DECLARATION_ONLY&quot;,
+    &quot;mode&quot;: &quot;REFERENCE_ONLY&quot;,
+    &quot;execution&quot;: &quot;BLOCKED&quot;,
+    &quot;automation&quot;: &quot;OFF&quot;,
+    &quot;truth_model&quot;: {
+      &quot;raw_bytes&quot;: &quot;TRUTH&quot;,
+      &quot;derived_formats&quot;: &quot;DERIVED_ONLY&quot;,
+      &quot;result_frames&quot;: &quot;RECORD_ONLY&quot;
+    },
+    &quot;principle&quot;: &quot;availability -&gt; hash -&gt; reference (never reverse)&quot;,
+    &quot;note&quot;: &quot;Declares audio path structure only. No claim that playback or synthesis is available.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><h3><span class="s1">3.2 AUDIO_PRECHECK — Host Availability (User-recorded)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-AUDIO-PRECHECK-0001&quot;,
+  &quot;t&quot;: &quot;AUDIO_PRECHECK&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;stage&quot;: &quot;S0_PRECHECK&quot;,
+    &quot;questions&quot;: [
+      &quot;Is audio output permitted/usable in this host session? (USER_INPUT)&quot;,
+      &quot;Can the user play a local SID via external app? (USER_INPUT)&quot;,
+      &quot;Can the user provide a SID file bytes hash? (USER_INPUT)&quot;
+    ],
+    &quot;result&quot;: &quot;UNKNOWN&quot;,
+    &quot;evidence&quot;: &quot;NONE&quot;,
+    &quot;note&quot;: &quot;No probing. Only user-provided facts.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><h3><span class="s1">3.3 RAW_BYTES_INGEST — SID Datei als Wahrheit (append-only)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-AUDIO-RAWBYTES-INGEST-0001&quot;,
+  &quot;t&quot;: &quot;RAW_BYTES_INGEST&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PRIVATE&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;bytes_role&quot;: &quot;SID_FILE&quot;,
+    &quot;format_hint&quot;: &quot;audio/prs.sid&quot;,
+    &quot;source&quot;: &quot;USER_SUPPLIED&quot;,
+    &quot;sha256_raw_bytes&quot;: &quot;REPLACE_WITH_SHA256_OF_RAW_FILE_BYTES&quot;,
+    &quot;byte_size&quot;: 0,
+    &quot;storage&quot;: {
+      &quot;path&quot;: &quot;audio/raw/sid/INGEST_0001.sid&quot;,
+      &quot;store_mode&quot;: &quot;APPEND_ONLY&quot;
+    },
+    &quot;note&quot;: &quot;RAW BYTES are truth. sha256_raw_bytes must be computed over exact file bytes.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><h3><span class="s1">3.4 HASH_PROOF — Beweis über canonical_json(p) der Ingest-Frames (Record-only)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-HASH-PROOF-AUDIO-RAWBYTES-INGEST-0001&quot;,
+  &quot;t&quot;: &quot;HASH_PROOF&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0/AUDIO&quot;,
+    &quot;hash_algo&quot;: &quot;SHA256&quot;,
+    &quot;hash_target&quot;: &quot;canonical_json(p) of target frame&quot;,
+    &quot;target&quot;: {
+      &quot;frame_id&quot;: &quot;GX-AUDIO-RAWBYTES-INGEST-0001&quot;,
+      &quot;target_field&quot;: &quot;p&quot;
+    },
+    &quot;canonical_json&quot;: {
+      &quot;encoding&quot;: &quot;UTF-8&quot;,
+      &quot;sort_keys&quot;: true,
+      &quot;separators&quot;: [&quot;,&quot;, &quot;:&quot;],
+      &quot;whitespace&quot;: &quot;none&quot;,
+      &quot;array_order&quot;: &quot;preserve&quot;
+    },
+    &quot;computed_sha256_hex&quot;: &quot;REPLACE_WITH_SHA256_OF_CANONICAL_JSON_P&quot;,
+    &quot;byte_length&quot;: 0,
+    &quot;result&quot;: &quot;RECORD_ONLY&quot;,
+    &quot;note&quot;: &quot;Proof frame records the computed hash. No execution grant.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><h3><span class="s1">3.5 AUDIO_S1 — Reference Link (nur referenziell, keine Nutzung)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-AUDIO-S1-REFERENCE-0001&quot;,
+  &quot;t&quot;: &quot;AUDIO_REFERENCE&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;stage&quot;: &quot;S1_REFERENCE_ONLY&quot;,
+    &quot;ref_raw_ingest&quot;: &quot;GX-AUDIO-RAWBYTES-INGEST-0001&quot;,
+    &quot;ref_raw_sha256&quot;: &quot;REPLACE_WITH_SHA256_OF_RAW_FILE_BYTES&quot;,
+    &quot;policy&quot;: {
+      &quot;use&quot;: &quot;FORBIDDEN_WITHOUT_SEPARATE_PROOF_GRANT&quot;,
+      &quot;reason&quot;: &quot;execution remains blocked; reference-only kernel&quot;
+    },
+    &quot;note&quot;: &quot;S1 establishes a stable reference pointer only.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h3><span class="s1">Minimaler Abschlussmarker (Stille / kein State-Shift)</span></h3></span></p>
+
+
+<pre><code>{
+  &quot;id&quot;: &quot;GX-STEP-MARKER-DEVFLOW-0001&quot;,
+  &quot;t&quot;: &quot;MARKER&quot;,
+  &quot;ts_utc&quot;: &quot;2026-01-25T11:32:53Z&quot;,
+  &quot;ts_unix&quot;: 1769340773,
+  &quot;vis&quot;: &quot;PUBLIC&quot;,
+  &quot;p&quot;: {
+    &quot;scope&quot;: &quot;GXvLIBERTY_GENESIS_DEV/2.0&quot;,
+    &quot;step&quot;: &quot;BOOTSTRAP + PREFLIGHT_P1 + AUDIO_S0_TO_S1_DEFINED&quot;,
+    &quot;state&quot;: {
+      &quot;mode&quot;: &quot;REFERENCE_ONLY&quot;,
+      &quot;execution&quot;: &quot;BLOCKED&quot;,
+      &quot;automation&quot;: &quot;OFF&quot;,
+      &quot;freeze&quot;: &quot;ON&quot;
+    },
+    &quot;note&quot;: &quot;Definitions emitted. No proofs executed. No grants issued.&quot;
+  },
+  &quot;h&quot;: &quot;PLACEHOLDER_SHA256&quot;
+}</code></pre>
+
+
+<p class="p1"><span class="s1">🕯️ Stille gilt.</span></p>
+
+</body>
+</html>

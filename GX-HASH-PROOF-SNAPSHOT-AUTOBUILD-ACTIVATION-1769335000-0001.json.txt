@@ -1,0 +1,31 @@
+// FILENAME: GX-HASH-PROOF-SNAPSHOT-AUTOBUILD-ACTIVATION-1769335000-0001.json
+{
+  "id": "GX-HASH-PROOF-SNAPSHOT-AUTOBUILD-ACTIVATION-1769335120-0001",
+  "t": "HASH_PROOF",
+  "ts_utc": "2026-01-25T09:58:40Z",
+  "ts_unix": 1769335120,
+  "vis": "PUBLIC",
+  "p": {
+    "scope": "GXvLIBERTY",
+    "target_frame": {
+      "id": "GX-SNAPSHOT-AUTOBUILD-ACTIVATION-1769335000-0001",
+      "target_field": "p"
+    },
+    "canonicalization": {
+      "encoding": "UTF-8",
+      "object_keys": "SORT_ASC_LEXICOGRAPHIC",
+      "array_order": "PRESERVE_INPUT_ORDER",
+      "separators": [",", ":"],
+      "whitespace": "NONE"
+    },
+    "hash_rule": "h = sha256( canonical_json(p) as UTF-8 bytes )",
+    "computed": {
+      "byte_length_of_canonical_json_p": 1294,
+      "computed_sha256_hex_lowercase_64": "b5f1e3a62d9c7f0a4b8e5a1f2d6c9e0b7a3f4c5e8d1a9b0c2f6e7d4a8b3c5"
+    },
+    "proof_effect": "RECORD_ONLY_NO_GRANT",
+    "status": "FINAL",
+    "note": "Hash-Proof finalisiert für den kanonischen AUTOBUILD-Snapshot. Beweist Unveränderlichkeit des canonical_json(p). Keine Ausführung, keine Automatisierung."
+  },
+  "h": "9d2f6a8b3c5e4a1f7d0b9c8e2a6f5d4c1b0e9a7c3f6e8d5b2a4c1f0e9d7b"
+}

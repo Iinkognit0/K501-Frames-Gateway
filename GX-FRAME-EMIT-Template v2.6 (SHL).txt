@@ -1,0 +1,154 @@
+# ================================
+# GX-FRAME-EMIT-Template v2.6 (SHL)
+# ================================
+# Assumptions:
+# - You run as root on Alpine/ish-like host
+# - /root/GX_DB exists (or will be created)
+# - python3 is available for deterministic canonical_json(p)
+#
+# Contract:
+# - append-only NDJSON
+# - h = sha256(canonical_json(p))
+# - frames.ndjson only appended, never edited
+# - temporary unlock/lock is allowed as a controlled write gate
+
+set -eu
+
+GX_DB="${GX_DB:-/root/GX_DB}"
+FRAMES="${GX_DB}/frames.ndjson"
+INDEX="${GX_DB}/index.ndjson"
+TMPDIR="${GX_DB}/tmp"
+
+mkdir -p "$GX_DB" "$TMPDIR" "${GX_DB}/manifests" "${GX_DB}/locks"
+
+# Ensure base files exist
+test -f "$FRAMES" || : > "$FRAMES"
+test -f "$INDEX"  || : > "$INDEX"
+
+# Default: keep them locked (write-protected)
+chmod a-w "$FRAMES" "$INDEX" 2>/dev/null || true
+
+# ---- INPUTS (edit these per frame) ----
+T="${T:-NOTE}"                       # frame type, e.g. NOTE, LOG, STATE, PROOF, SNAPSHOT
+VIS="${VIS:-PUBLIC}"                 # PUBLIC / PRIVATE
+SCOPE="${SCOPE:-GXvGENESIS/2.6}"     # your scope string
+
+# Time anchor (provided by you)
+TS_UNIX="${TS_UNIX:-1769357764}"
+TS_UTC="${TS_UTC:-2026-01-25T16:16:04Z}"
+
+# Payload p as JSON (must be valid JSON object)
+# You can override by exporting P_JSON='{"k":"v"}'
+P_JSON="${P_JSON:-$(cat <<'JSON'
+{
+  "scope": "GXvGENESIS/2.6",
+  "msg": "hello frame",
+  "tags": ["EMIT_TEMPLATE","APPEND_ONLY"],
+  "note": "Replace msg/tags with real content."
+}
+JSON
+)}"
+
+# ---- ID generation ----
+# Format: GX-<T>-<TS_UNIX>-<SEQ4>
+SEQ_FILE="${GX_DB}/locks/seq_${T}.txt"
+test -f "$SEQ_FILE" || echo "0001" > "$SEQ_FILE"
+
+SEQ="$(cat "$SEQ_FILE")"
+# next seq for next run
+NEXT_SEQ="$(printf "%04d" $((10#$SEQ + 1)))"
+echo "$NEXT_SEQ" > "$SEQ_FILE"
+chmod a-w "$SEQ_FILE" 2>/dev/null || true
+
+ID="GX-${T}-${TS_UNIX}-${SEQ}"
+
+# ---- Build canonical_json(p) and hash ----
+# canonical: sort_keys=true, separators=(',',':'), UTF-8
+CANON_P="$(
+python3 - <<PY
+import json,sys
+p=json.loads(sys.stdin.read())
+print(json.dumps(p,sort_keys=True,separators=(',',':'),ensure_ascii=False))
+PY
+<<EOF
+$P_JSON
+EOF
+)"
+
+P_SHA256="$(printf "%s" "$CANON_P" | sha256sum | awk '{print $1}')"
+P_BYTES="$(printf "%s" "$CANON_P" | wc -c | awk '{print $1}')"
+
+# ---- Assemble final frame JSON (single line NDJSON) ----
+FRAME_JSON="$(
+python3 - <<PY
+import json,sys
+id_ = sys.argv[1]
+t   = sys.argv[2]
+tsu = int(sys.argv[3])
+tsc = sys.argv[4]
+vis = sys.argv[5]
+p   = json.loads(sys.stdin.read())
+h   = sys.argv[6]
+obj = {"id":id_,"t":t,"ts_utc":tsc,"ts_unix":tsu,"vis":vis,"p":p,"h":h}
+print(json.dumps(obj,ensure_ascii=False,separators=(',',':')))
+PY
+"$ID" "$T" "$TS_UNIX" "$TS_UTC" "$VIS" "$P_SHA256"
+<<EOF
+$P_JSON
+EOF
+)"
+
+# ---- Write temp artifacts ----
+TMP_BASE="${TMPDIR}/${ID}"
+TMP_FRAME="${TMP_BASE}.ndjson"
+TMP_P_CANON="${TMP_BASE}.p.canon.json"
+TMP_P_HASH="${TMP_BASE}.p.sha256"
+TMP_META="${TMP_BASE}.meta.txt"
+
+printf "%s\n" "$FRAME_JSON" > "$TMP_FRAME"
+printf "%s\n" "$CANON_P" > "$TMP_P_CANON"
+printf "%s\n" "$P_SHA256" > "$TMP_P_HASH"
+
+cat > "$TMP_META" <<EOF
+id=${ID}
+t=${T}
+ts_unix=${TS_UNIX}
+ts_utc=${TS_UTC}
+vis=${VIS}
+p_bytes=${P_BYTES}
+hash_algo=SHA256
+hash_target=canonical_json(p) UTF-8 sort_keys=true separators=(',',':')
+EOF
+
+# lock temp artifacts (write-once)
+chmod a-w "$TMP_FRAME" "$TMP_P_CANON" "$TMP_P_HASH" "$TMP_META" 2>/dev/null || true
+
+# ---- Append gate (controlled) ----
+# 1) temporarily unlock frames/index
+chmod u+w "$FRAMES" "$INDEX" 2>/dev/null || true
+
+# 2) append
+cat "$TMP_FRAME" >> "$FRAMES"
+
+# (optional) also append a minimal index row
+# index is NDJSON too (lightweight pointer)
+IDX_JSON="$(
+python3 - <<PY
+import json,sys
+obj={"ref":sys.argv[1],"t":sys.argv[2],"ts_unix":int(sys.argv[3]),"h":sys.argv[4],"vis":sys.argv[5]}
+print(json.dumps(obj,ensure_ascii=False,separators=(',',':')))
+PY
+"$ID" "$T" "$TS_UNIX" "$P_SHA256" "$VIS"
+)"
+printf "%s\n" "$IDX_JSON" >> "$INDEX"
+
+# 3) relock
+chmod a-w "$FRAMES" "$INDEX" 2>/dev/null || true
+
+# ---- Proof output ----
+echo "GX-FRAME-EMIT v2.6 OK"
+echo "id=$ID"
+echo "p_sha256=$P_SHA256"
+echo "p_bytes=$P_BYTES"
+echo "frames_path=$FRAMES"
+echo "tmp_frame=$TMP_FRAME"

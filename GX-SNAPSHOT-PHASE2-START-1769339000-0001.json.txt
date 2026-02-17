@@ -1,0 +1,21 @@
+{
+  "id": "GX-SNAPSHOT-PHASE2-START-1769339000-0001",
+  "t": "SNAPSHOT",
+  "ts_utc": "2026-01-25T10:50:00Z",
+  "ts_unix": 1769338200,
+  "vis": "PUBLIC",
+  "p": {
+    "scope": ["GXvLIBERTY", "GX_AUTOBUILD", "GX_DEV_KERNEL"],
+    "phase": "PHASE_2",
+    "snapshot_type": "STATE_FREEZE_REFERENCE",
+    "autobuild": "ACTIVE_STATE_ONLY",
+    "system_state": {
+      "execution": "BLOCKED",
+      "automation": "OFF",
+      "freeze": "ON",
+      "append_only": true
+    },
+    "note": "Snapshot marks the canonical end of Phase 1 and the reference start of Phase 2. No execution or automation implied."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

@@ -1,0 +1,39 @@
+// FILENAME: GX-STATE-CHANGE-AUTOBUILD-ACTIVATE-v1.0.json
+{
+  "id": "GX-STATE-CHANGE-AUTOBUILD-1769334600-0001",
+  "t": "STATE_CHANGE",
+  "ts_utc": "2026-01-25T09:50:00Z",
+  "ts_unix": 1769334600,
+  "vis": "PUBLIC",
+  "p": {
+    "scope": "GXvLIBERTY",
+    "track": "GX_AUTOBUILD_ACTIVATION",
+    "target": "GXvLIBERTY/IndependentAutoBuildMode",
+    "requested_state": "ACTIVE",
+    "prior_state": "INACTIVE",
+    "authorization": {
+      "proof_run_result_ref": "GX-PROOF-RUN-RESULT-AUTOBUILD-1769334250-0001",
+      "authorization_scope": "STATE_ONLY",
+      "authorized": true
+    },
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+    "guards": {
+      "append_only": true,
+      "no_phantom": true,
+      "no_execution": true,
+      "no_automation": true,
+      "no_state_change_by_confirm": true,
+      "proof_before_state": true
+    },
+    "effects": {
+      "state_change_effective": true,
+      "execution_granted": false,
+      "automation_granted": false
+    },
+    "note": "Explicit state change activating IndependentAutoBuildMode. Authorized by PASS proof. This frame enacts state change only; no execution, no automation, no background activity."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

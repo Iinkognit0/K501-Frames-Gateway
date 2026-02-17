@@ -1,0 +1,259 @@
+FRAMES · Scientific Summary (Closed Gates)
+A Formal, Non-Executable, Append-Only Framework for Time-Anchored State Preservation
+
+DOCUMENT ID
+FRAMES_SCI_SUMMARY_FORMAL_v1
+
+MODE
+Full Scientific Publication (Summary)
+
+STATUS
+Reference-Only · Append-Only · Interpretation Closed · Execution None
+
+CANON
+K501 · ACTIVE
+
+VERSIONING
+State-Based Reference Version (Non-Revisionary)
+
+TIME ANCHOR
+- Unix Epoch      : 1770526729
+- UTC             : 2026-02-08 04:58:49 Z
+- Europe/Amsterdam: 2026-02-08 05:58:49 CET
+
+ORIGIN / PROVENANCE
+Canonical Source: https://iinkognit0.de
+Originator      : Iinkognit0
+Contact         : iinkognit0@proton.me
+ORCID           : https://orcid.org/0009-0005-5125-9711
+
+LICENSE
+Public Domain (CC0-equivalent intent)
+No authority implied.
+
+ARCHIVE MODE
+eArc · append-only referential archive
+
+──────────────────────────────────────────────────────────────────────────────
+ABSTRACT
+──────────────────────────────────────────────────────────────────────────────
+
+FRAMES defines a non-executable, append-only canonical archive for recording
+time-anchored states with deterministic reconstructibility and explicit
+separation of presence, structure, and interpretation. The system provides a
+formal model for immutable state sequences, reference integrity (via
+cryptographic commitment), and controlled semantics (via “interpretation
+closed” constraints). This paper presents (i) the core formal objects, (ii)
+axioms and invariants, (iii) a hash-chained preservation model, (iv) canonical
+serialization requirements for reproducibility, and (v) practical usage
+patterns that remain within FRAMES’ strict category boundaries.
+
+──────────────────────────────────────────────────────────────────────────────
+1. SCOPE AND NON-GOALS
+──────────────────────────────────────────────────────────────────────────────
+
+FRAMES is not a computation model. It does not:
+(1) evaluate truth,
+(2) predict,
+(3) optimize,
+(4) recommend actions,
+(5) infer intent.
+
+Formal non-goals:
+- No execution semantics: ∀ frame f, exec(f) = ⊥ (undefined / forbidden).
+- No interpretive semantics inside the system:
+  meaning(f) is external, not a FRAMES function.
+
+The sole objective is stable referential preservation:
+- preserve state records,
+- preserve order,
+- preserve provenance commitments,
+- prevent revision and drift.
+
+──────────────────────────────────────────────────────────────────────────────
+2. FORMAL PRELIMINARIES
+──────────────────────────────────────────────────────────────────────────────
+
+Let:
+- 𝕋 be the time domain (e.g., ℤ for Unix epoch seconds).
+- 𝕌 be the set of UTC timestamps (strings with a standard format).
+- Σ be the set of finite byte strings.
+- 𝕀 be the set of frame identifiers (strings).
+- 𝓟 be the set of payload objects (structured data).
+- 𝓜 be the set of modes (e.g., REFERENCE_ONLY).
+- 𝓒 be the set of constraints (e.g., APPEND_ONLY, NO_EXECUTION,
+  NO_INTERPRETATION).
+
+A frame is a tuple:
+f = (id, ts, mode, constraints, payload, links, hash)
+
+with:
+- id ∈ 𝕀
+- ts = (t_unix, t_utc) ∈ 𝕋 × 𝕌
+- mode ∈ 𝓜
+- constraints ⊆ 𝓒
+- payload ∈ 𝓟
+- links ⊆ 𝕀
+- hash ∈ Σ
+
+A ledger (archive sequence) is an ordered list:
+S = [f₀, f₁, …, fₙ]
+
+Order is defined by append position:
+order(S) := index order.
+
+Time anchors are mandatory for auditability but do not override append order.
+
+──────────────────────────────────────────────────────────────────────────────
+3. AXIOMS (CLOSED-GATE CANON)
+──────────────────────────────────────────────────────────────────────────────
+
+Axiom A1 — Append-Only Monotonicity  
+S_{k+1} = S_k ⧺ [f_{k+1}]  
+∀ i ≤ k: S_{k+1}[i] = S_k[i]
+
+Axiom A2 — No Retrocausality  
+Frames may reference earlier frames but never alter them.
+
+Axiom A3 — Execution Forbidden  
+There exists no evaluation relation producing actions.
+
+Axiom A4 — Interpretation Closed  
+No internal truth, meaning, or authority functions exist.
+
+Axiom A5 — Time = Order Anchor  
+Every frame carries an explicit time anchor.
+
+Axiom A6 — Silence Is Valid  
+Absence of frames is not an error state.
+
+──────────────────────────────────────────────────────────────────────────────
+4. DETERMINISTIC CANONICALIZATION AND REPRODUCIBILITY
+──────────────────────────────────────────────────────────────────────────────
+
+Canonical encoding function:
+enc : Frames → Σ
+
+If f ≡ g structurally, then:
+enc(f) = enc(g)
+
+Hash determinism:
+hash(f) = H(enc_core(f))
+
+Where H is a cryptographic hash (e.g., SHA-256).
+
+──────────────────────────────────────────────────────────────────────────────
+5. HASH-CHAIN INTEGRITY
+──────────────────────────────────────────────────────────────────────────────
+
+Genesis:
+c_{-1} := 0^256
+
+Chain:
+c_i = H(c_{i-1} ∥ hash(f_i) ∥ meta_i)
+
+Any modification breaks the chain for all successors.
+
+──────────────────────────────────────────────────────────────────────────────
+6. FORMAL NOTION OF STATE
+──────────────────────────────────────────────────────────────────────────────
+
+state(f) := payload(f)
+
+No semantic interpretation is assigned internally.
+
+Quantum-Structured State:
+- complete for scope
+- non-divisible
+- invariant
+- context-independent
+
+This is a representational constraint, not a physics claim.
+
+──────────────────────────────────────────────────────────────────────────────
+7. STABILIZATION AND RE-ENTRY
+──────────────────────────────────────────────────────────────────────────────
+
+ReEntry(S, sel) appends a new frame referencing sel(S).
+
+Stabilization requires:
+- invariant core constraints
+- no revision of prior frames
+- verifiable integrity
+
+──────────────────────────────────────────────────────────────────────────────
+8. FRAME CLASSES
+──────────────────────────────────────────────────────────────────────────────
+
+Examples:
+- STATUS_MARKER
+- ERKENNTNIS (INSIGHT)
+- META
+- FREEZE
+- INDEX_SNAPSHOT
+
+Types constrain payload shape only; they confer no authority.
+
+──────────────────────────────────────────────────────────────────────────────
+9. INDEXING AND PRESENCE
+──────────────────────────────────────────────────────────────────────────────
+
+Presence Index:
+PI(S) = { id(f) | f ∈ S }
+
+present(id, S) ⇏ truth(id)
+
+FRAMES records receipts, not claims.
+
+──────────────────────────────────────────────────────────────────────────────
+10. PRACTICAL USAGE (DESCRIPTIVE)
+──────────────────────────────────────────────────────────────────────────────
+
+1. Decide to preserve a state.
+2. Record a frame with time anchor and constraints.
+3. Optionally add META, INDEX, or FREEZE frames.
+
+Avoid:
+- action coupling
+- truth assertions
+- retroactive edits
+- semantic inflation
+
+──────────────────────────────────────────────────────────────────────────────
+11. SECURITY AND INTEGRITY NOTES
+──────────────────────────────────────────────────────────────────────────────
+
+Addressed:
+- silent edits
+- reordering
+- serialization drift
+
+Not addressed:
+- truth of content
+- completeness
+- external coercion
+
+Integrity is referential, not epistemic.
+
+──────────────────────────────────────────────────────────────────────────────
+12. FORMAL SUMMARY
+──────────────────────────────────────────────────────────────────────────────
+
+Frame:
+f = (id, ts, mode, constraints, payload, links, hash)
+
+Archive:
+S = [f₀,…,fₙ]
+
+Result:
+A stable, non-executable, append-only reference system.
+
+──────────────────────────────────────────────────────────────────────────────
+CONCLUSION
+──────────────────────────────────────────────────────────────────────────────
+
+FRAMES preserves time-anchored states under strict append-only constraints with
+deterministic reproducibility. It separates archival integrity from interpretive
+authority and remains closed, stable, and reconstructible across time.
+
+END OF DOCUMENT

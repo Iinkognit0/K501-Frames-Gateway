@@ -1,0 +1,79 @@
+// FILENAME: GX-PLUGIN-CONTRACT-ENCAP-v1.0.json
+{
+  "id": "GX-PLUGIN-CONTRACT-ENCAP-1769332427-0001",
+  "t": "PLUGIN_CONTRACT",
+  "ts_utc": "2026-01-25T09:13:47Z",
+  "ts_unix": 1769332427,
+  "vis": "PUBLIC",
+
+  "p": {
+    "kernel": "GXvLIBERTY",
+    "component": "PLUGIN_CONTRACT_ENCAP",
+
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "contract": {
+      "role": "OPTIONAL_REASONING_PLUGIN",
+      "authoritative": false,
+
+      "inputs": {
+        "type": "FRAME_REFERENCES_ONLY",
+        "allowed": [
+          "frame_id",
+          "frame_hash",
+          "manifest_ref",
+          "export_pack_ref"
+        ],
+        "forbidden": [
+          "mutable_state",
+          "implicit_runtime_context",
+          "direct_storage_access"
+        ]
+      },
+
+      "outputs": {
+        "type": "NEW_FRAMES_ONLY",
+        "requirements": [
+          "model_id_declARED",
+          "prompt_reference_recorded",
+          "output_hash_recorded",
+          "content_addressed_storage"
+        ]
+      },
+
+      "restrictions": {
+        "no_state_mutation": true,
+        "no_execution_request": true,
+        "no_automation_request": true,
+        "no_privileged_access": true
+      }
+    },
+
+    "compatibility": {
+      "model_agnostic": true,
+      "provider_independent": true,
+      "supported_plugin_classes": [
+        "LLM_API",
+        "LOCAL_RULE_ENGINE",
+        "EXTERNAL_ANALYZER"
+      ]
+    },
+
+    "rules": {
+      "plugin_failure_is_non_fatal": true,
+      "plugin_output_is_advisory_only": true,
+      "kernel_survives_without_plugins": true
+    },
+
+    "intent": {
+      "purpose": "Allow optional reasoning and analysis engines without granting authority over kernel state.",
+      "security_model": "ZERO_TRUST_PLUGIN",
+      "llm_dependency": "NONE"
+    }
+  },
+
+  "h": "PLACEHOLDER_SHA256"
+}

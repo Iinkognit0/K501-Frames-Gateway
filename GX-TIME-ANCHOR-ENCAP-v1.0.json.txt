@@ -1,0 +1,63 @@
+// FILENAME: GX-TIME-ANCHOR-ENCAP-v1.0.json
+{
+  "id": "GX-TIME-ANCHOR-ENCAP-1769330954-0001",
+  "t": "TIME_ANCHOR",
+  "ts_utc": "2026-01-25T08:49:14Z",
+  "ts_unix": 1769330954,
+  "vis": "PUBLIC",
+
+  "p": {
+    "kernel": "GXvLIBERTY",
+    "component": "TIME_SENSOR_ENCAP",
+
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "ON",
+
+    "time_reading": {
+      "trust_class": "T0_LOCAL_UNVERIFIED",
+      "source": "LOCAL_OS_CLOCK",
+      "clock_type": "OS_CLOCK_OR_RTC",
+      "observed": {
+        "ts_utc": "2026-01-25T08:49:14Z",
+        "ts_unix": 1769330954
+      },
+      "notes": "Offline device time reading. Valid as local reality anchor. Not UNKNOWN."
+    },
+
+    "verification": {
+      "status": "UNVERIFIED",
+      "upgrade_policy": "UPGRADE_ONLY_VIA_NEW_FRAMES",
+      "allowed_upgrades": [
+        "T1_NETWORK_VERIFIED",
+        "T2_MULTI_SOURCE_CONSENSUS"
+      ],
+      "network_sources": [],
+      "proof_refs": []
+    },
+
+    "rules": {
+      "unknown_time_policy": "REJECT_FOR_STORAGE_WRITES",
+      "local_time_is_valid": true,
+      "no_mutation_of_existing_anchor": true,
+      "no_state_grant": true,
+      "append_only": true
+    },
+
+    "guarantees": {
+      "offline_safe": true,
+      "reboot_resilient": true,
+      "sleep_wake_tolerant": true,
+      "clock_drift_allowed_but_traceable": true
+    },
+
+    "intent": {
+      "purpose": "Provide a minimal, robust, offline-first time anchor for Genesis evolution.",
+      "scope": "All nodes (smartphone, laptop, server)",
+      "llm_dependency": "NONE"
+    }
+  },
+
+  "h": "PLACEHOLDER_SHA256"
+}

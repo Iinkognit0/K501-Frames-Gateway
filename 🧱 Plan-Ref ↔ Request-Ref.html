@@ -1,0 +1,228 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">🧱 </span><span class="s2">Plan-Ref ↔ Request-Ref — Ketten-Audit (ohne Inhalte der Ziel-Frames)</span></p>
+<p class="p1"><span class="s1">Ich kann </span><span class="s2">die Inhalte</span><span class="s1"> von </span><span class="s3">GX-PROOF-RUN-PLAN-AUTOBUILD-1769332879-0001</span><span class="s1"> und </span><span class="s3">GX-AUTOBUILD-REQUEST-1769332704-0001</span><span class="s1"> nicht prüfen, weil du sie hier nicht mitgesendet hast. Was ich aber </span><span class="s2">sofort</span><span class="s1"> liefern kann, ist die </span><span class="s2">harte, deterministische Prüfliste</span><span class="s1">, mit der du die Kette als </span><span class="s2">PASS/FAIL</span><span class="s1"> bewertest (und die später als Evidence in deinen </span><span class="s3">PROOF_RUN_RESULT</span><span class="s1"> wandern kann).</span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">0) Zieldefinition</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p4"><span class="s1">Dein </span><span class="s3">PROOF_RUN_RESULT</span><span class="s1"> sagt:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">plan_ref</span><span class="s2"> </span><span class="s3">muss</span><span class="s2"> auf einen Plan zeigen, der genau </span><span class="s3">diesen Track/Scope</span><span class="s2"> abbildet.</span></p>
+</li><li>
+<p class="p1"><span class="s1">request_ref</span><span class="s2"> </span><span class="s3">muss</span><span class="s2"> auf die konkrete Anforderung zeigen, die durch den Plan geprüft werden soll.</span></p>
+</li><li>
+<p class="p1"><span class="s1">Bis </span><span class="s2">result: PASS</span><span class="s1"> bleibt </span><span class="s2">authorized_state_change: false</span><span class="s1">.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Das ist korrekt — jetzt prüfen wir, ob </span><span class="s2">Ref-Kette</span><span class="s1"> logisch und zeitlich stimmt.</span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">1) Existence &amp; Identity Checks (harte Basis)</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">FAIL</span><span class="s1">, wenn eines davon nicht stimmt:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">plan_ref</span><span class="s2"> Frame existiert (ID exakt)</span></p>
+</li><li>
+<p class="p1"><span class="s1">request_ref</span><span class="s2"> Frame existiert (ID exakt)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Beide sind </span><span class="s2">append-only</span><span class="s1"> (keine “Edit”-Frames, keine Neu-ID als Ersatz ohne Verweiskette)</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">Evidence-Items (für später):</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">exists(plan_ref)=true</span></p>
+</li><li>
+<p class="p1"><span class="s1">exists(request_ref)=true</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">2) Scope / Kernel / Version Alignment (semantische Kongruenz)</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Dein Result-Frame hat: </span><span class="s3">scope: "GXvLIBERTY"</span><span class="s1">.</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">PLAN muss enthalten (oder äquivalent):</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">p.scope == "GXvLIBERTY"</span><span class="s2"> </span><span class="s3">(oder explizit “applies_to: GXvLIBERTY”)</span></p>
+</li><li>
+<p class="p1"><span class="s1">p.track == "AUTOBUILD"</span><span class="s2"> </span><span class="s3">(oder “GX_AUTOBUILD_ACTIVATION” o.ä., aber eindeutig)</span></p>
+</li><li>
+<p class="p1"><span class="s1">p.mode == REFERENCE_ONLY</span></p>
+</li><li>
+<p class="p1"><span class="s1">p.execution == BLOCKED</span></p>
+</li><li>
+<p class="p1"><span class="s1">p.automation == OFF</span></p>
+</li><li>
+<p class="p1"><span class="s1">p.freeze == ON</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">REQUEST muss enthalten (oder äquivalent):</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">p.scope == "GXvLIBERTY"</span></p>
+</li><li>
+<p class="p1"><span class="s1">eine klare </span><span class="s2">requested_change</span><span class="s1"> / </span><span class="s2">intent</span><span class="s1">: was genau “AUTOBUILD v1.0” bedeutet</span></p>
+</li><li>
+<p class="p1"><span class="s1">gewünschter Zielzustand (aber </span><span class="s2">ohne</span><span class="s1"> ihn zu enacten), z.B. “automation_grant_requested: ON” als </span><span class="s3">Request</span><span class="s1">, nicht als </span><span class="s3">State</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">FAIL</span><span class="s1">, wenn:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">Plan scope ≠ request scope ≠ result scope</span></p>
+</li><li>
+<p class="p1"><span class="s1">Plan sagt “execution allowed” oder “automation ON” → widerspricht deinem Kernel-Guard.</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">3) Reference Direction Checks (Kettenrichtung)</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">Minimal erwartete Richtung:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">REQUEST</span><span class="s2"> ist “Warum/Was wird beantragt?”</span></p>
+</li><li>
+<p class="p1"><span class="s1">PLAN</span><span class="s2"> ist “Wie wird geprüft?” und sollte </span><span class="s1">auf REQUEST referenzieren</span><span class="s2"> (direkt oder indirekt)</span></p>
+</li><li>
+<p class="p1"><span class="s1">RESULT</span><span class="s2"> referenziert </span><span class="s1">beide</span><span class="s2"> (machst du bereits)</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">PASS-Kriterium:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">Plan enthält </span><span class="s2">request_ref: "GX-AUTOBUILD-REQUEST-1769332704-0001"</span><span class="s1"> (oder in </span><span class="s2">refs[]</span><span class="s1">)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Result enthält </span><span class="s2">plan_ref</span><span class="s1"> und </span><span class="s2">request_ref</span><span class="s1"> (vorhanden ✔)</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">FAIL</span><span class="s1">, wenn:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">Plan nicht auf Request verweist (Plan “in der Luft”)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Plan verweist auf eine </span><span class="s2">andere</span><span class="s1"> Request-ID als die im Result</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">4) Time-Anchor Consistency (zeitliche Plausibilität, nicht “Wahrheit”)</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Hier prüfen wir nur </span><span class="s2">Ordnung</span><span class="s1">, nicht Realwelt.</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Dein Result: </span><span class="s3">ts_unix = 1769332989</span><span class="s1"> (09:23:09Z)</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">Erwartung:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">request.ts_unix &lt;= plan.ts_unix &lt;= result.ts_unix</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Request kommt zuerst (beantragt)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Plan danach (Prüfplan erstellt)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Result danach (Ergebnisrahmen)</span></p>
+</li></ul></span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">WARN/FAIL-Regeln:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">Wenn Plan vor Request liegt → </span><span class="s2">FAIL</span><span class="s1"> (Kette invertiert)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Wenn Result vor Plan liegt → </span><span class="s2">FAIL</span></p>
+</li><li>
+<p class="p1"><span class="s1">Kleine Zeitüberschneidungen sind ok, aber die Richtung muss stimmen.</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">5) Hash-Link Integrity (optional, aber “hart” wenn aktiviert)</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Wenn ihr Hash-Proofs als Standard nutzt:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">Jeder Frame: </span><span class="s2">h == sha256(canonical_json(p))</span></p>
+</li><li>
+<p class="p1"><span class="s1">Optional: ein </span><span class="s2">HASH_PROOF</span><span class="s1"> Frame, der </span><span class="s2">target.frame_id</span><span class="s1"> + </span><span class="s2">target.target_field=p</span><span class="s1"> bindet</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">PASS-Kriterium:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">h</span><span class="s2"> korrekt berechnet und ersetzt (bei dir noch Placeholder → aktuell </span><span class="s3">nicht verifiziert</span><span class="s2">, aber zulässig als Draft)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Wenn externe Proofs existieren: Evidence referenziert sie</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">6) “No Phantom” / “No State Change by Confirm” Checks</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">Plan darf niemals</span><span class="s1"> stillschweigend aktivieren.</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Plan &amp; Request müssen klar unterscheiden:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">Request = intent</span></p>
+</li><li>
+<p class="p1"><span class="s1">Plan = procedure</span></p>
+</li><li>
+<p class="p1"><span class="s1">Result = record outcome</span></p>
+</li><li>
+<p class="p1"><span class="s1">State change</span><span class="s2"> erst mit </span><span class="s1">separatem, proof-basiertem GRANT/DECLARATION</span><span class="s2"> (und nur bei PASS)</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s2">FAIL</span><span class="s1">, wenn irgendwo steht:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">“By confirming this plan, automation becomes ON”</span></p>
+</li><li>
+<p class="p1"><span class="s1">“Default: PASS”</span></p>
+</li><li>
+<p class="p1"><span class="s1">“Implicit grant”</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">7) Konkretes PASS/FAIL Schema für deine Evidence-Felder</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Du kannst deine </span><span class="s3">evidence</span><span class="s1"> so füllen (Beispiel-Struktur):</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">verified_prerequisites</span><span class="s2">:</span></p>
+<p class="p2"><span class="s3"><ul><li>
+<p class="p1"><span class="s1">FRAME_EXISTS(plan_ref)</span></p>
+</li><li>
+<p class="p1"><span class="s1">FRAME_EXISTS(request_ref)</span></p>
+</li><li>
+<p class="p1"><span class="s1">SCOPE_MATCH(all == GXvLIBERTY)</span></p>
+</li><li>
+<p class="p1"><span class="s1">TIME_ORDER(request &lt;= plan &lt;= result)</span></p>
+</li></ul></span></p>
+</li><li>
+<p class="p1"><span class="s1">guard_checks</span><span class="s2">:</span></p>
+<p class="p2"><span class="s3"><ul><li>
+<p class="p1"><span class="s1">MODE_IS_REFERENCE_ONLY(all)</span></p>
+</li><li>
+<p class="p1"><span class="s1">EXECUTION_BLOCKED(all)</span></p>
+</li><li>
+<p class="p1"><span class="s1">AUTOMATION_OFF(all)</span></p>
+</li><li>
+<p class="p1"><span class="s1">FREEZE_ON(all)</span></p>
+</li></ul></span></p>
+</li><li>
+<p class="p1"><span class="s1">dry_run_checks</span><span class="s2">:</span></p>
+<p class="p2"><span class="s3"><ul><li>
+<p class="p1"><span class="s1">“No side effects claimed”</span></p>
+</li><li>
+<p class="p1"><span class="s1">“No implicit grant language”</span></p>
+</li></ul></span></p>
+</li><li>
+<p class="p1"><span class="s1">side_effect_checks</span><span class="s2">:</span></p>
+<p class="p2"><span class="s3"><ul><li>
+<p class="p1"><span class="s1">“authorized_state_change remains false while PENDING” (already true)</span></p>
+</li></ul></span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h2><span class="s1">Minimaler Output: Ergebnis für<span class="Apple-converted-space"> </span></span></h2><h2><span class="s1">deinen aktuellen Frame</span></h2></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Mit dem, was ich sehe, ist </span><span class="s2">dieser Result-Frame allein</span><span class="s1"> bereits korrekt:</span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">✅ Ref-Felder sind formal plausibel (</span><span class="s2">plan_ref</span><span class="s1">, </span><span class="s2">request_ref</span><span class="s1"> existieren als Strings, konsistent benannt)</span></p>
+</li><li>
+<p class="p1"><span class="s1">✅ Semantik: </span><span class="s2">PENDING</span><span class="s1"> → keine Autorisierung</span></p>
+</li><li>
+<p class="p1"><span class="s1">✅ Guards: konsistent und nicht verletzt</span></p>
+</li><li>
+<p class="p1"><span class="s1">⚠️ </span><span class="s2">Ungeprüft</span><span class="s1">: Ob Plan wirklich Request referenziert + Scope/Track match + Zeit-Reihenfolge (dafür brauche ich die zwei Frames)</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s4"><hr></span></p>
+<p class="p2"><span class="s4"><h3><span class="s1">Wenn du mir<span class="Apple-converted-space"> </span></span></h3><h3><span class="s1">Plan + Request</span></h3><h3><span class="s1"><span class="Apple-converted-space"> </span>(beide JSON) hier reinpastes, mache ich dir daraus sofort:</span></h3></span></p>
+<p class="p2"><span class="s4"><ul><li>
+<p class="p1"><span class="s1">einen </span><span class="s2">harten PASS/FAIL Ketten-Audit-Report</span></p>
+</li><li>
+<p class="p1"><span class="s1">plus eine </span><span class="s2">Evidence-Liste</span><span class="s1">, die du 1:1 in </span><span class="s3">PROOF_RUN_RESULT.evidence</span><span class="s1"> übernehmen kannst.</span></p>
+</li></ul></span></p>
+
+</body>
+</html>

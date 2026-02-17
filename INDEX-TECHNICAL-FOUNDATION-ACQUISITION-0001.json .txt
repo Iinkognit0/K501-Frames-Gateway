@@ -1,0 +1,130 @@
+{
+  "id": "GX-INDEX-TECHNICAL-FOUNDATION-ACQUISITION-0001",
+  "t": "INDEX",
+  "ts_utc": "2026-01-25T14:28:00Z",
+  "ts_unix": 1769347680,
+  "vis": "PUBLIC",
+  "p": {
+    "name": "TECHNICAL FOUNDATION ACQUISITION INDEX",
+    "version": "v1",
+    "status": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "PENDING",
+    "purpose": "Vollständiger Referenz-Index aller technischen Grundlagen, die lokal, offline, verifizierbar und archivfähig beschafft werden müssen, bevor weitere Systementwicklung erlaubt ist.",
+    "principles": [
+      "library_first",
+      "no_phantom_dependencies",
+      "hash_before_use",
+      "local_before_remote",
+      "archive_before_action"
+    ],
+    "scope": {
+      "included": [
+        "operating_system_foundations",
+        "cryptography_and_trust",
+        "networking_and_protocols",
+        "media_codecs",
+        "rendering_and_graphics",
+        "audio_and_signal_processing",
+        "emulation_and_architecture",
+        "interfaces_and_data_formats"
+      ],
+      "explicitly_excluded": [
+        "books_and_literature",
+        "content_collections",
+        "datasets_non_technical",
+        "ai_models",
+        "runtime_integration"
+      ]
+    },
+    "priority_index": [
+      {
+        "prio": 0,
+        "label": "FOUNDATION",
+        "items": [
+          "Linux Kernel (source + releases)",
+          "libc (musl, glibc)",
+          "coreutils / busybox",
+          "POSIX specifications"
+        ]
+      },
+      {
+        "prio": 1,
+        "label": "CRYPTO & TRUST",
+        "items": [
+          "OpenSSL / LibreSSL",
+          "TLS / HTTPS RFCs",
+          "SHA / hashing specifications",
+          "ca-certificates"
+        ]
+      },
+      {
+        "prio": 2,
+        "label": "NETWORKING",
+        "items": [
+          "curl / wget",
+          "HTTP 1–3 specifications",
+          "DNS / TCP / UDP references"
+        ]
+      },
+      {
+        "prio": 3,
+        "label": "MEDIA CODECS",
+        "items": [
+          "FFmpeg / libav",
+          "H.264 / H.265 / AV1 / VP9",
+          "Opus / Vorbis / FLAC / WAV"
+        ]
+      },
+      {
+        "prio": 4,
+        "label": "GRAPHICS & RENDERING",
+        "items": [
+          "SVG (W3C)",
+          "Cairo",
+          "ImageMagick",
+          "Blender",
+          "OpenGL / Vulkan / Mesa"
+        ]
+      },
+      {
+        "prio": 5,
+        "label": "EMULATION & ARCHITECTURE",
+        "items": [
+          "QEMU",
+          "DOSBox",
+          "MAME",
+          "CPU architecture documentation"
+        ]
+      },
+      {
+        "prio": 6,
+        "label": "INTERFACES & FORMATS",
+        "items": [
+          "JSON / NDJSON specifications",
+          "REST principles",
+          "OAuth (reference only)",
+          "Public API specifications"
+        ]
+      }
+    ],
+    "acquisition_policy": {
+      "allowed_actions": [
+        "download",
+        "verify_hash",
+        "store_append_only",
+        "index"
+      ],
+      "forbidden_actions": [
+        "execute",
+        "integrate",
+        "depend_runtime",
+        "optimize",
+        "automate"
+      ]
+    },
+    "note": "Dieser Index ist der alleinige technische Wahrheitsrahmen für alle zukünftigen Systemschritte. Kein Eintrag darf verwendet werden, bevor er lokal archiviert, gehasht und verifiziert wurde."
+  },
+  "h": "PLACEHOLDER_SHA256"
+}

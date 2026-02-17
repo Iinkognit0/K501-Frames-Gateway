@@ -1,0 +1,116 @@
+{
+  "id": "GX-GENESIS-EXPERIMENTAL-2.6-0001",
+  "t": "KERNEL",
+  "ts_utc": "2026-01-25T16:16:04Z",
+  "ts_unix": 1769357764,
+  "vis": "PUBLIC",
+  "p": {
+    "name": "GXvGENESIS",
+    "kernel_version": "2.6",
+    "status": "EXPERIMENTAL",
+    "mode": "REFERENCE_ONLY",
+    "execution": "BLOCKED",
+    "automation": "OFF",
+    "freeze": "OFF",
+    "purpose": "Genesis Kernel v2.6 – Experimental Reference for Local Frame Generation, Evidence-Bound Knowledge, and Offline-First Intelligence Architecture (IA).",
+
+    "core_principles": [
+      "archive_before_action",
+      "proof_before_state",
+      "append_only",
+      "no_phantom",
+      "local_first",
+      "offline_survivable",
+      "silence_is_valid_state",
+      "display_never_drives_action"
+    ],
+
+    "state_model": {
+      "state_changes": "PROOF_BASED_ONLY",
+      "confirmation_effect": "NONE",
+      "default_state": "STABLE",
+      "unfreeze_scope": "EXPLICIT_ONLY"
+    },
+
+    "layers": {
+      "L0": "Kernel + musl libc + GNU Toolchain",
+      "L1": "BusyBox (static, minimal)",
+      "L2": "Crypto & Proof (GnuPG, OpenSSL)",
+      "L3": "Docs & Text (reference-only)",
+      "L4": "SVG / Vector / Media (future, isolated)",
+      "L5": "Dynamics (future, encapsulated)"
+    },
+
+    "acquisition_standard": "GX_ACQUISITION_STANDARD_v1",
+    "truth_model": "binary (0/1)",
+    "time_model": {
+      "required": true,
+      "formats": ["UTC", "UNIX_EPOCH"],
+      "rule": "no_timestamp_without_anchor"
+    },
+
+    "frame_model": {
+      "definition": "A Frame is an atomic, timestamped, hashed truth unit.",
+      "properties": [
+        "append_only",
+        "hash_bound",
+        "optionally_signed",
+        "locally_stored",
+        "later_syncable"
+      ],
+      "forbidden": [
+        "implicit_execution",
+        "silent_mutation",
+        "state_change_by_confirm"
+      ]
+    },
+
+    "epos_eternity": {
+      "name": "EPOS ETERNITY",
+      "status": "CANONICAL_REFERENCE",
+      "structure": {
+        "acts_total": 6,
+        "outputs_per_act": 5
+      },
+      "acts": {
+        "ACT_I": "Genesis & Origin (confirmed)",
+        "ACT_II": "Kernel & Frame Ontology (confirmed)",
+        "ACT_III": "Archive, Proof & Time (confirmed)",
+        "ACT_IV": "Local Intelligence & IA (planned)",
+        "ACT_V": "Synchronization & Public Mirror (planned)",
+        "ACT_VI": "Eternity, Preservation & Silence (planned)"
+      },
+      "note": "All previously written EPOS content (Act I–III partial) is preserved and must be carried forward unchanged."
+    },
+
+    "bootpack": {
+      "name": "GX-BOOTPACK",
+      "version": "2.6",
+      "includes": [
+        "GXvGENESIS 2.6",
+        "EPOS ETERNITY (Acts I–VI)",
+        "Acquisition Standard v1",
+        "Frame Model v2.6"
+      ],
+      "entrypoint": "NEW_CHAT",
+      "purpose": "Single copy-paste bootstrap for new sessions"
+    },
+
+    "allowed_operations": [
+      "read",
+      "reference",
+      "quote",
+      "frame_emit",
+      "audit"
+    ],
+
+    "forbidden_operations": [
+      "execute",
+      "mutate",
+      "auto_unfreeze",
+      "implicit_networking"
+    ],
+
+    "note": "Genesis v2.6 marks the transition from preparation to local frame generation. All frames are produced locally via SHL and stored append-only. Network interaction is optional and deferred."
+  }
+}

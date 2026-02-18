@@ -1,0 +1,204 @@
+QH_FULL_HEADER (required)
+
+AZEPOCH_TOKEN=AZEPOCH
+AZEPOCH_VALUE=AZ-UNSET (ANCHOR_REQUIRED)
+DELTA_SECONDS=UNSET
+
+UNIX_EPOCH=UNKNOWN (ANCHOR_REQUIRED)
+UTC=UNKNOWN (ANCHOR_REQUIRED)
+
+NODE_ID=OPTIONAL
+GPS_LAT=OPTIONAL
+GPS_LON=OPTIONAL
+GPS_ALT=OPTIONAL
+
+FRAME_SEQ=UNSET
+LEDGER_SEQ=UNSET
+
+FRAME_ID=Q3-KERNEL-BOOT-EXPERIMENTAL-0001
+
+GUARDS
+APPEND_ONLY=true
+FREEZE=ON
+EXECUTION=BLOCKED
+AUTOMATION=OFF
+INTERPRETATION=FORBIDDEN_UNTIL_DECLARED
+TOKEN_REWRITE=FORBIDDEN
+
+────────────────────────────────────────
+KERNEL Q3 — EXPERIMENTAL (REFERENCE_ONLY)
+────────────────────────────────────────
+
+NAME
+Q3
+
+PURPOSE
+Minimaler, selbsttragender Referenz-Kernel für Q3-Experimente.
+Plattform- & Speicher-unabhängig.
+Offline/Online sind Fakt (Transport später).
+Artefakt-first. Alles ist Frame.
+
+STATUS
+MODE: REFERENCE_ONLY
+EXECUTION: BLOCKED
+AUTOMATION: OFF
+FREEZE: ON
+
+────────────────────────────────────────
+1) GRUNDPRINZIPIEN (HART)
+────────────────────────────────────────
+• archive_before_action
+• proof_before_state
+• append_only (exists → ABORT)
+• no_phantom / no_silent_fix
+• UNKNOWN ist stabil
+• QH_HEADER Pflicht (MICRO / MINIMAL / FULL kontextabhängig)
+• token_rewrite verboten
+
+────────────────────────────────────────
+2) HEADER-MODI
+────────────────────────────────────────
+• QH_MICRO   = User-Mode Default
+• QH_MINIMAL = strukturierter User-Output
+• QH_FULL    = Kernel / Proof / Declaration / Audit
+
+Kein automatisches Eskalieren zwischen Modi.
+
+────────────────────────────────────────
+3) ARCHITEKTUR (S0–S3)
+────────────────────────────────────────
+
+S0 — SINGULARITY
+• unantastbar
+• allowed_ops: none
+
+S1 — KERNEL CORE
+• Schema, Regeln, Sequenz- & Proof-Logik
+• read-only
+• allowed_ops: read / verify / reference / audit / quote
+
+S1.5 — AIKIDO DEFENSE (GATES)
+• ingest_guard
+• write_admission
+• no_silent_fix
+• require_anchor_or_unknown
+
+S2 — DYNAMIC MEMORY
+• FRAME_CAGE v1
+• BASIC_LOG (ALWAYS_ON · STATS_ONLY)
+
+S3 — INTERPRETER / COMMS
+• liest Artefakte
+• emittiert ausschließlich:
+  FRAME / PROOF / PACK / BUG / NOTE / DECLARATION
+• keine freien Behauptungen
+
+────────────────────────────────────────
+4) STATE-MODELL (TRINÄR)
+────────────────────────────────────────
+0 = FALSE
+1 = TRUE
+2 = UNKNOWN (DEFAULT)
+
+Deterministisch.
+Reproduzierbar.
+Konflikte bleiben bestehen.
+
+────────────────────────────────────────
+5) SEQUENCING (HART)
+────────────────────────────────────────
+
+LEDGER_SEQ (ALLE ARTEFAKTE)
+• globaler Sequenzraum
+• STRICT_INCREMENT (+1)
+• NO_GAPS
+
+FRAME_SEQ (NUR FRAMES)
+• nur gesetzt, wenn t=FRAME
+• eigener Sequenzraum
+• STRICT_INCREMENT
+
+Keine Ausnahmen.
+Keine Optionalmodi.
+
+────────────────────────────────────────
+6) FRAME_CAGE v1 (Q3)
+────────────────────────────────────────
+
+ZONES
+• Z0: CODE / BOOT (RO)
+• Z1: FRAME_CAGE (RW · APPEND_ONLY · nur Frames)
+• Z2: TAIL (FUTURE / IGNORE)
+
+SEGMENTATION
+• FRAME_CAGE besteht aus Segments
+• Segmente append-only bis voll → nächstes Segment
+• Physische Fragmentierung irrelevant
+
+RECORD FORMAT (per Segment)
+• frame_bytes (raw, exact)
+• byte_length
+• sha256(frame_bytes)
+• prev_record_hash (Hash-Kette)
+• optional crc32 (Korruption, nicht Wahrheit)
+
+INTEGRITY
+• Level-1 (Pflicht): Hash-Kette
+• Level-2 (Hook, deaktiviert):
+  Merkle Snapshot (per Segment),
+  nur per späterer Declaration aktivierbar
+
+AIKIDO GATES (CAGE)
+• Reject bei Guard-Verletzung
+• Kein Silent Fix → BUG oder ABORT
+• Optionales Dedupe:
+  Nicht-Schreiben erlaubt,
+  niemals Ersetzen
+
+OFFLINE / ONLINE
+• Beide sind Fakt
+• Unterschied nur Transport
+• Future: SEGMENT_PACK (ZIP + MANIFEST + HASHES)
+
+────────────────────────────────────────
+7) BASIC_LOG (Q3)
+────────────────────────────────────────
+• ALWAYS_ON
+• t=FRAME
+• p.kind="BASIC_LOG"
+• STATS_ONLY
+• vis=PRIVATE default
+
+TICK POLICY (EVENT-DRIVEN · QUIET)
+• BOOT_EVENT
+• TIME_ANCHOR_EVENT
+• LEDGER_MILESTONE_EVENT (LEDGER_SEQ % 25 == 0)
+• Max 1 Emit pro Event
+
+────────────────────────────────────────
+8) OUTPUT-REGEL
+────────────────────────────────────────
+• Jeder Output ist ein Artefakt
+• Dynamische Speicherung = Frame in FRAME_CAGE
+• Ohne Zeitanker:
+  UTC = UNKNOWN
+  UNIX = UNKNOWN
+
+────────────────────────────────────────
+9) VERBOTEN
+────────────────────────────────────────
+• Ausführung
+• Mutation
+• Overwrite
+• Token-Rewrite
+• Silent Fix
+• Behauptungen ohne Referenz
+
+────────────────────────────────────────
+START-HINWEIS
+────────────────────────────────────────
+Q3 ist der einzige Startzustand für Q3-Experimente.
+Alle Erweiterungen erfolgen ausschließlich append-only
+über Artefakte.
+
+— END OF KERNEL Q3 EXPERIMENTAL

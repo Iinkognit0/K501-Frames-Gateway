@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">UTC 2026-02-04T18:47:12Z · Unix Epoch 1770230832</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h2><span class="s1">Quantum Archivator Language (QAL)</span></h2></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2"><h3><span class="s1">Chapter 2 — Formal Frame Definition (Mathematical Model)</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">At the core of QAL lies the </span><span class="s1">Frame</span><span class="s3"> as the minimal archival unit.</span></p>
+<p class="p1"><span class="s3">A Frame represents a single, immutable record of presence.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">2.1 Frame as a Mathematical Object</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">A QAL Frame is defined as a 7-tuple:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">F := \langle id,\ t,\ m,\ ts,\ src,\ h,\ p \rangle</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">where:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">id \in \Sigma^{*}</span></p>
+<p class="p2"><span class="s2">Unique identifier (string, collision-free by construction).</span></p>
+</li><li>
+<p class="p1"><span class="s1">t \in \mathcal{T}</span></p>
+<p class="p2"><span class="s2">Frame type, drawn from a finite registry </span><span class="s3">\mathcal{T}</span><span class="s2">.</span></p>
+</li><li>
+<p class="p1"><span class="s1">m \in \mathcal{M}</span></p>
+<p class="p2"><span class="s2">Mode descriptor (e.g. </span><span class="s3">REFERENCE_ONLY</span><span class="s2">, </span><span class="s3">NO_EXECUTION</span><span class="s2">).</span></p>
+</li><li>
+<p class="p1"><span class="s1">ts := \langle utc,\ epoch \rangle</span></p>
+<p class="p2"><span class="s2">Temporal anchor:</span></p>
+<p class="p1"><span class="s1"><ul><li>
+<p class="p1"><span class="s1">utc \in \text{ISO-8601} \cup \{\text{UNKNOWN}\}</span></p>
+</li><li>
+<p class="p1"><span class="s1">epoch \in \mathbb{N} \cup \{\text{UNKNOWN}\}</span></p>
+</li></ul></span></p>
+</li><li>
+<p class="p1"><span class="s1">src := \langle origin,\ agent,\ channel,\ scope \rangle</span></p>
+<p class="p2"><span class="s2">Provenance tuple (purely descriptive, non-authoritative).</span></p>
+</li><li>
+<p class="p1"><span class="s1">h := \langle alg,\ self,\ prev \rangle</span></p>
+<p class="p2"><span class="s2">Cryptographic linkage:</span></p>
+<p class="p1"><span class="s1"><ul><li>
+<p class="p1"><span class="s1">alg \in \mathcal{H} \cup \{\text{NONE}\}</span></p>
+</li><li>
+<p class="p1"><span class="s1">self \in \{0,1\}^{*} \cup \{\text{NONE}\}</span></p>
+</li><li>
+<p class="p1"><span class="s1">prev \in \{0,1\}^{*} \cup \{\text{NONE}\}</span></p>
+</li></ul></span></p>
+</li><li>
+<p class="p1"><span class="s1">p \in \mathcal{P}</span></p>
+<p class="p2"><span class="s2">Payload (opaque byte sequence or structured object).</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">2.2 Presence Axiom</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">A Frame asserts </span><span class="s1">only</span><span class="s3">:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">\exists F \quad \text{at time } ts</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">No implication is made regarding:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">correctness of </span><span class="s2">p</span></p>
+</li><li>
+<p class="p1"><span class="s1">truth of </span><span class="s2">p</span></p>
+</li><li>
+<p class="p1"><span class="s1">intent of </span><span class="s2">src</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Presence is strictly weaker than truth.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">2.3 Immutability Rule</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s4">For any two Frames </span><span class="s2">F_i, F_j</span><span class="s4">:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">id_i = id_j \Rightarrow F_i = F_j</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Mutation is forbidden.</span></p>
+<p class="p1"><span class="s3">Any change must result in a </span><span class="s1">new Frame with a new identifier</span><span class="s3">.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p1"><span class="s3">If confirmed, next:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">👉 </span><span class="s1">Chapter 3 — Canonical Serialization and Deterministic Hashing</span></p>
+
+</body>
+</html>

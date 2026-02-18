@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">UTC 2026-02-04T18:49:02Z · Unix Epoch 1770230942</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h2><span class="s1">Quantum Archivator Language (QAL)</span></h2></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2"><h3><span class="s1">Chapter 3 — Canonical Serialization and Deterministic Hashing</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This chapter defines how a Frame is transformed into a stable representation suitable for cryptographic verification.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">3.1 Canonical Serialization Function</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Let</span></p>
+<p class="p2"><span class="s2">\mathsf{ser}: \mathcal{F} \rightarrow \mathcal{B}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">be a total, deterministic serialization function mapping a Frame </span><span class="s4">F</span><span class="s3"> to a byte sequence.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Requirements:</span></p>
+<p class="p2"><span class="s2"><ol start="1"><li>
+<p class="p1"><span class="s1">Determinism</span></p>
+<p class="p2"><span class="s2">F_1 = F_2 \Rightarrow \mathsf{ser}(F_1) = \mathsf{ser}(F_2)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Order Preservation</span></p>
+<p class="p1"><span class="s2">All object members are serialized in a fixed, predefined order.</span></p>
+</li><li>
+<p class="p1"><span class="s1">Normalization</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">UTF-8 encoding</span></p>
+</li><li>
+<p class="p1"><span class="s1">No insignificant whitespace</span></p>
+</li><li>
+<p class="p1"><span class="s1">Explicit nulls forbidden</span></p>
+</li></ul></span></p>
+</li></ol></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">The serialization defines the </span><span class="s5">identity surface</span><span class="s3"> of a Frame.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">3.2 Self-Hash Definition</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Given a cryptographic hash function</span></p>
+<p class="p2"><span class="s2">H: \mathcal{B} \rightarrow \{0,1\}^n</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">the self-hash of a Frame is:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">h_{self} := H(\mathsf{ser}(F \setminus h))</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">where the hash field </span><span class="s4">h</span><span class="s3"> is excluded from serialization.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This prevents recursive dependency.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">3.3 Chain Linkage</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">For an ordered Frame sequence </span><span class="s4">(F_1, F_2, \dots, F_k)</span><span class="s3">:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">h_{prev}(F_i) =
+\begin{cases}
+\varnothing &amp; i = 1 \\
+h_{self}(F_{i-1}) &amp; i &gt; 1
+\end{cases}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This induces a strict append-only chain.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">3.4 Determinism Theorem</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Given:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">identical Frames,</span></p>
+</li><li>
+<p class="p1"><span class="s1">identical serialization rules,</span></p>
+</li><li>
+<p class="p1"><span class="s1">identical hash function,</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">then:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">\forall i:\ h_{self}(F_i)\ \text{is invariant across environments}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This property enables offline verification without trusted infrastructure.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p1"><span class="s3">Next, if you wish:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">👉 </span><span class="s1">Chapter 4 — Append-Only Proof Chains and Structural Order</span></p>
+
+</body>
+</html>

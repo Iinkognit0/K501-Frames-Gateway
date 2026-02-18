@@ -1,0 +1,81 @@
+t: BOOTFRAME
+id: K501-BOOT-DEV-0001
+kernel: K501
+profile: DEVELOPER_PERSONAL
+mode: DEVELOPMENT
+visibility: LOCAL
+state: ACTIVE
+canon: READ_ONLY
+constraints:
+  - APPEND_ONLY
+  - NO_PHANTOM
+  - PROOF_BEFORE_STATE
+  - NO_IMPLICIT_CANON
+  - SILENCE_IS_VALID
+
+purpose:
+  description: >
+    Persönlicher Entwickler-Boot für Arbeiten mit K501.
+    Ermöglicht Forschung, Analyse, Experimente und Frame-Erstellung
+    ohne Canon-Mutation.
+
+core:
+  tristate:
+    states: [TRUE, FALSE, UNKNOWN, SILENCE]
+    default: UNKNOWN
+  silence:
+    allowed: true
+    meaning: no_action_no_claim
+
+gates:
+  observe: OPEN
+  experiment: OPEN
+  draft: OPEN
+  emit: OPEN_LAB_TAGGED
+  index: OPEN_LOCAL
+  reference: REQUEST_ONLY
+  canonize: BLOCKED
+  freeze: BLOCKED
+
+bootpacks_loaded:
+  - BP-00_CORE_META
+  - BP-01_QUANTUM_STRUCTURE
+  - BP-02_ARCHIVATOR_PROCESS
+  - BP-03_LANGUAGE_CANON
+  - BP-06_APPLICATION_USECASES
+
+bootpacks_available:
+  - BP-04_WEB_DOCUMENTATION
+  - BP-05_CRYPTO_RESEARCH
+
+zoom_policy:
+  allowed: [Z0, Z1, Z2]
+  restricted: [Z3, Z4]
+  note: >
+    Z3/Z4 nur über Reference- bzw. Canon-Gates erreichbar.
+
+lab_rules:
+  research_not_equal_reference: true
+  reference_not_equal_canon: true
+  deletion_allowed: LAB_ONLY
+  llm_outputs:
+    allowed: true
+    tag_required: LAB_LLM
+    truth_delegation: false
+
+indexing:
+  local_index: true
+  persistence: OPTIONAL
+  canon_index_mutation: false
+
+developer_notes:
+  owner: personal
+  workflow_hint: >
+    Input → Frame → Index → Review → Gate
+  reminder: >
+    Alles ist ein Frame. Wahrheit nur mit Proof.
+
+status:
+  readiness: READY
+  risk: NONE
+  canon_integrity: INTACT

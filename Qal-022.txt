@@ -1,0 +1,158 @@
+UTC 2026-02-04T19:46:11Z · Unix Epoch 1770234371
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 22 — Mathematical Formalization of Integrity and Time Anchors
+
+This chapter formalizes the two invariants on which QAL rests: integrity and time anchoring. Both are defined without semantic assumptions and are sufficient for long-term auditability.
+
+⸻
+
+22.1 Preliminaries and Notation
+
+Let:
+	•	B \in \{0,1\}^* denote a finite byte sequence (artifact payload).
+	•	H : \{0,1\}^* \rightarrow \{0,1\}^n denote a cryptographic hash function (e.g., SHA-256).
+	•	t_u \in \mathbb{N} denote Unix Epoch time (seconds since 1970-01-01T00:00:00Z).
+	•	t_{utc} denote the corresponding UTC timestamp string.
+
+A QAL frame is a tuple:
+F := (B, h, t_u, t_{utc}, m)
+where m is metadata (non-semantic).
+
+⸻
+
+22.2 Integrity Invariant
+
+Definition (Integrity):
+h = H(B)
+
+Integrity holds iff recomputation yields the same hash:
+H(B) = h
+
+This invariant is:
+	•	deterministic,
+	•	observer-independent,
+	•	time-invariant.
+
+No additional structure is required.
+
+⸻
+
+22.3 Collision Assumption
+
+QAL assumes standard cryptographic hardness:
+
+\Pr[H(B_1)=H(B_2)\ |\ B_1 \neq B_2] \approx 0
+
+This is an assumption, not a claim of impossibility. QAL remains valid under future hash upgrades via versioned hashing.
+
+⸻
+
+22.4 Time Anchor Definition
+
+Definition (Time Anchor):
+A time anchor is a declared pair
+A := (t_u, t_{utc})
+where:
+t_{utc} = \mathrm{UTC}(t_u)
+
+The anchor asserts ordering, not causality.
+
+⸻
+
+22.5 Ordering Relation
+
+For two frames F_i, F_j:
+
+F_i \prec F_j \iff t_u(F_i) < t_u(F_j)
+
+This induces a total preorder on frames with valid anchors.
+
+Frames with identical t_u are unordered unless further indexed.
+
+⸻
+
+22.6 Anchor Validity
+
+A time anchor is valid iff:
+	1.	t_u \in \mathbb{N}
+	2.	t_{utc} is a correct representation of t_u
+
+If either condition fails:
+A := \text{UNKNOWN}
+
+UNKNOWN anchors are permitted and explicitly marked.
+
+⸻
+
+22.7 Integrity–Time Independence
+
+Integrity and time are independent:
+	•	Integrity does not require time.
+	•	Time anchoring does not validate content.
+
+Formally:
+H(B) \perp t_u
+
+This prevents temporal manipulation from affecting integrity.
+
+⸻
+
+22.8 Chain Construction (Optional)
+
+For ordered frames F_1, \dots, F_k, a chain hash may be defined:
+
+c_i := H(c_{i-1} \,\|\, h_i \,\|\, t_{u,i})
+
+with c_0 := \varnothing.
+
+Chains are optional and non-semantic.
+
+⸻
+
+22.9 Proof Boundary
+
+The pair
+(h, t_u)
+constitutes a proof boundary.
+
+Anything beyond this boundary is interpretation.
+
+⸻
+
+22.10 Long-Term Stability
+
+Because:
+	•	H is replaceable,
+	•	t_u is monotonic,
+	•	serialization is canonical,
+
+QAL remains mathematically stable under:
+	•	tool changes,
+	•	paradigm shifts,
+	•	reinterpretation.
+
+⸻
+
+22.11 Minimal Sufficiency Theorem
+
+Theorem:
+Integrity + Time Anchoring is sufficient to guarantee archival reproducibility.
+
+Proof sketch:
+Given (B, h, t_u), integrity ensures byte identity; time ensures ordering. No further axioms are required. ∎
+
+⸻
+
+22.12 Closure
+
+QAL needs no semantics to be correct.
+It needs only mathematics.
+
+⸻
+
+If you wish to proceed:
+👉 Chapter 23 — Canonical Serialization and Determinism

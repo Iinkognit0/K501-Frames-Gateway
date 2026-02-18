@@ -1,0 +1,213 @@
+UTC 2026-02-04T19:38:52Z · Unix Epoch 1770233932
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 19 — Security Considerations and Threat Model
+
+This chapter defines the security posture of QAL. It is normative with respect to what QAL defends against and what it explicitly does not.
+
+⸻
+
+19.1 Design Philosophy
+
+QAL follows a minimal trust and maximal verifiability principle.
+
+Security is achieved through:
+	•	immutability,
+	•	canonical serialization,
+	•	cryptographic hashing,
+	•	strict separation of layers.
+
+QAL does not rely on secrecy, obscurity, or runtime enforcement.
+
+⸻
+
+19.2 Threat Model Overview
+
+QAL assumes an adversary who can:
+	•	read all artifacts,
+	•	copy, reorder, truncate, or replay data,
+	•	inject malformed artifacts,
+	•	control storage or transport layers.
+
+QAL does not assume:
+	•	trusted execution environments,
+	•	trusted clocks,
+	•	trusted networks,
+	•	trusted identities.
+
+⸻
+
+19.3 Assets to Protect
+
+Asset	Protection Goal
+Frame integrity	Detect any modification
+Order integrity	Detect reordering or omission
+Provenance	Maintain verifiable lineage
+Auditability	Enable third-party verification
+
+Confidentiality is out of scope.
+
+⸻
+
+19.4 Integrity Guarantees
+
+Integrity is provided by:
+	•	cryptographic hashes over canonical byte sequences,
+	•	explicit payload length encoding,
+	•	fixed serialization order.
+
+Any single-bit modification yields a detectable hash mismatch.
+
+⸻
+
+19.5 Replay and Duplication
+
+QAL treats replay as non-malicious by default.
+
+Properties:
+	•	Replayed frames are byte-identical.
+	•	Duplication does not invalidate integrity.
+	•	Higher layers may apply deduplication policies.
+
+QAL itself neither prevents nor penalizes replay.
+
+⸻
+
+19.6 Truncation and Partial Data Attacks
+
+Truncation is detected via:
+	•	explicit payload length,
+	•	missing hash line,
+	•	hash mismatch on recomputation.
+
+Partial frames are invalid by definition.
+
+⸻
+
+19.7 Reordering Attacks
+
+QAL frames are individually valid regardless of position.
+
+Order integrity is enforced by:
+	•	higher-level blocks,
+	•	index frames,
+	•	hash-chained aggregation layers.
+
+QAL deliberately separates atomic validity from sequence validity.
+
+⸻
+
+19.8 Hash Collision Considerations
+
+QAL relies on standard cryptographic assumptions:
+	•	SHA-256 / SHA3-256 collision resistance.
+	•	Preimage resistance.
+
+If a hash function is broken:
+	•	existing artifacts remain intact as historical records,
+	•	new versions MUST migrate via versioned grammar.
+
+No silent algorithm substitution is permitted.
+
+⸻
+
+19.9 Canonicalization Attacks
+
+Canonicalization is a primary defense surface.
+
+Mitigations:
+	•	single, unambiguous grammar,
+	•	fixed field order,
+	•	fixed encodings,
+	•	explicit versioning.
+
+Any alternative rendering invalidates the artifact.
+
+⸻
+
+19.10 Injection and Grammar Abuse
+
+Malformed artifacts are rejected by:
+	•	strict grammar parsing,
+	•	bounded field sizes,
+	•	explicit type constraints.
+
+QAL parsers MUST fail closed.
+
+⸻
+
+19.11 Denial-of-Service Considerations
+
+QAL does not prevent:
+	•	large payload submission,
+	•	storage exhaustion.
+
+Mitigation is delegated to:
+	•	ingestion policies,
+	•	quota systems,
+	•	external resource management.
+
+QAL itself remains passive.
+
+⸻
+
+19.12 Side-Channel Considerations
+
+QAL provides no timing, behavioral, or execution side channels.
+
+Artifacts are static.
+Verification is deterministic.
+No conditional behavior exists.
+
+⸻
+
+19.13 Out-of-Scope Threats
+
+QAL explicitly does not address:
+	•	confidentiality,
+	•	encryption,
+	•	authentication,
+	•	authorization,
+	•	access control,
+	•	runtime isolation.
+
+These belong to surrounding systems.
+
+⸻
+
+19.14 Security Invariants
+
+The following invariants MUST always hold:
+	1.	Grammar determinism
+	2.	Canonical byte identity
+	3.	Hash verifiability
+	4.	Append-only semantics
+
+Violation of any invariant invalidates trust.
+
+⸻
+
+19.15 Security Posture Summary
+
+QAL is:
+	•	transparent,
+	•	audit-first,
+	•	tamper-evident,
+	•	execution-agnostic.
+
+It is designed for truth preservation, not control.
+
+⸻
+
+19.16 Closure
+
+QAL security derives from structure, not enforcement.
+Trust emerges from verification, not authority.
+
+⸻
+
+If you wish to continue:
+👉 Chapter 20 — Implementation Notes and Reference Architecture

@@ -1,0 +1,56 @@
+Gut. Ich formatiere das jetzt streng als Korrektur/Ergänzungseintrag für Chapter 22, ohne neue Kanonisierung, ohne Zusatzhypothesen.
+
+⸻
+
+Correction / Addendum — Chapter 22
+
+1. Type
+
+Addendum
+(clarifies and strengthens formalization without contradiction)
+
+⸻
+
+2. Content
+
+Text to be added (English, scientific style):
+
+Addendum — Formal Separation of Proof and Interpretation
+
+For any QAL frame
+F := (B, h, t_u, t_{utc}, m),
+only the triple (B, h, t_u) participates in mathematical proof.
+
+Metadata m and any derived structure are explicitly excluded from the proof domain.
+
+Formally, the proof domain is defined as:
+
+P(F) := (B, h, t_u)
+
+and the interpretation domain as:
+
+I(F) := (t_{utc}, m, \text{external context})
+
+Correctness of P(F) is decidable via recomputation and comparison alone,
+while I(F) remains non-decidable and non-binding.
+
+This separation guarantees that QAL proofs are invariant under
+changes in language, presentation, metadata schemas, or interpretative frameworks.
+
+⸻
+
+3. Scope of Effect
+
+Global
+
+Affected Sections:
+	•	Chapter 22.1 (Preliminaries and Notation)
+	•	Chapter 22.9 (Proof Boundary)
+	•	Chapter 22.11 (Minimal Sufficiency Theorem)
+
+⸻
+
+Wenn du willst, kann ich daraus im nächsten Schritt automatisch erzeugen:
+	•	ein Append-only Addendum Frame (QAL-level)
+	•	oder eine formale Errata-Seite für die Veröffentlichung
+	•	oder eine mathematische Kurzfassung (1 Seite, reviewer-tauglich)

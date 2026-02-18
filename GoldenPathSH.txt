@@ -1,0 +1,93 @@
+#!/usr/bin/env sh
+# ─────────────────────────────────────────────────────────────
+# GOLDEN PATH · SHL GATEWAY (REFERENCE_ONLY)
+# Proof → Research (SHL/HTTP/HTTPS) → Proof-for-Output
+# Network-compatible · Append-only · No execution
+#
+# UTC 2026-01-26T18:12:04Z · Unix Epoch 1769451124
+# ─────────────────────────────────────────────────────────────
+
+set -eu
+
+# ----------------------------------------------------------------
+# 0) POLICY (HARD)
+# ----------------------------------------------------------------
+# - SHL is the ONLY reality gateway (disk/network/time).
+# - No output without prior proof.
+# - Research happens ONLY via SHL (HTTP/HTTPS/file).
+# - Every research result requires a proof-for-output.
+# - ASCII-only JSON ("), UTF-8, LF. No smart quotes.
+# - Append-only. No mutation. No execution.
+
+# ----------------------------------------------------------------
+# 1) INPUT (DECLARED PROOF REQUEST)
+# ----------------------------------------------------------------
+# Expect a PROOF_REQUEST artifact to be present (out-of-band),
+# e.g. identifying targets (frames, URLs, files) to verify.
+
+PROOF_REQUEST_ID="${PROOF_REQUEST_ID:-UNSET}"
+
+# ----------------------------------------------------------------
+# 2) PROOF (PRE-RESEARCH)
+# ----------------------------------------------------------------
+# Verify existence & identity BEFORE any research.
+# Examples (placeholders; SHL implements the actual checks):
+# - hash of existing frame_bytes
+# - signature / checksum of input file
+# - URL allowlist check
+
+echo "# [PROOF:PRE] verifying inputs for ${PROOF_REQUEST_ID}"
+echo "# - existence: REQUIRED"
+echo "# - identity: REQUIRED"
+echo "# - allowlist/network policy: REQUIRED"
+
+# ----------------------------------------------------------------
+# 3) RESEARCH (SHL ONLY)
+# ----------------------------------------------------------------
+# All research goes through SHL over HTTP/HTTPS or local FS.
+# No assistant-side assumptions. No cached knowledge.
+
+# Examples (do not execute here):
+# shl http get https://example.org/resource
+# shl fs read /path/to/artifact
+
+echo "# [RESEARCH] SHL fetch (HTTP/HTTPS/FS) — placeholders only"
+echo "# - source: DECLARED"
+echo "# - method: GET"
+echo "# - transport: network-compatible"
+
+# ----------------------------------------------------------------
+# 4) PROOF-FOR-OUTPUT (POST-RESEARCH)
+# ----------------------------------------------------------------
+# Bind outputs to raw bytes obtained by SHL.
+# Produce HASH_PROOF over exact bytes (no normalization).
+
+echo "# [PROOF:POST] hashing exact research bytes"
+echo "# - algo: SHA-256"
+echo "# - target: exact raw bytes from SHL"
+echo "# - output: sha256_hex (64)"
+
+# ----------------------------------------------------------------
+# 5) OUTPUT EMISSION (ARTEFACT ONLY)
+# ----------------------------------------------------------------
+# Emit ONLY after PROOF:POST exists.
+# Allowed artefacts: FRAME / PROOF / PACK / BUG / NOTE / DECLARATION
+
+echo "# [OUTPUT] emit artefact only if proofs PASS"
+echo "# - type: FRAME|PROOF|PACK|BUG|NOTE|DECLARATION"
+echo "# - rules: append-only, reference-only"
+
+# ----------------------------------------------------------------
+# 6) AUDIT TRAIL
+# ----------------------------------------------------------------
+# Record the chain for auditability.
+# - proof_pre_ref
+# - research_ref (SHL receipts)
+# - proof_post_ref
+# - output_ref
+
+echo "# [AUDIT] chain references recorded (append-only)"
+
+# ----------------------------------------------------------------
+# END
+# ----------------------------------------------------------------

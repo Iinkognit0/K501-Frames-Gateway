@@ -1,0 +1,254 @@
+#!/usr/bin/env sh
+# GOLDEN PATH · SHL GATEWAY (REFERENCE_ONLY) — ARTEFACT EMITTER
+# UTC 2026-01-26T18:22:04Z · Unix Epoch 1769451724
+
+set -eu
+
+# --- REQUIRED (must be set by user/SHL) ---
+: "${PROOF_REQUEST_ID:?SET_REQUIRED}"
+: "${TARGET_KIND:?SET_REQUIRED}"      # HTTP|HTTPS|FS
+: "${TARGET_URI:?SET_REQUIRED}"       # https://... or /path/...
+: "${OUTPUT_INTENT:?SET_REQUIRED}"
+
+# --- TIME ANCHOR (declared) ---
+: "${AZEPOCH_VALUE:=AZ-1769451724}"
+: "${UNIX_EPOCH:=1769451724}"
+: "${UTC:=2026-01-26T18:22:04Z}"
+
+# IMPORTANT: keep this as a single variable to avoid line-wrap injection
+: "${TIME_ANCHOR_REF:=Q3-TIME-ANCHOR-DECLARATION-1769451124-0001}"
+
+# Optional context
+: "${ALLOWLIST_PROFILE:=Q3_DEFAULT}"
+: "${SCOPE:=Q3/GOLDEN_PATH}"
+: "${NODE_ID:=OPTIONAL}"
+: "${GPS_LAT:=OPTIONAL}"
+: "${GPS_LON:=OPTIONAL}"
+: "${GPS_ALT:=OPTIONAL}"
+
+# --- ABORT if placeholders slipped through ---
+[ "$PROOF_REQUEST_ID" = "UNSET" ] && { echo "ABORT: PROOF_REQUEST_ID=UNSET" >&2; exit 2; }
+[ "$TARGET_URI" = "UNSET" ] && { echo "ABORT: TARGET_URI=UNSET" >&2; exit 2; }
+[ "$OUTPUT_INTENT" = "UNSET" ] && { echo "ABORT: OUTPUT_INTENT=UNSET" >&2; exit 2; }
+
+# IDs (append-only unique; bump suffix if repeated)
+PROOF_REQUEST_FRAME_ID="Q3-PROOF_REQUEST-${UNIX_EPOCH}-0001"
+GAIA_QUERY_FRAME_ID="Q3-GAIA_QUERY-${UNIX_EPOCH}-0001"
+GAIA_RESULT_FRAME_ID="Q3-GAIA_RESULT-${UNIX_EPOCH}-0001"
+PROOF_POST_FRAME_ID="Q3-HASH_PROOF-RESEARCH_BYTES-${UNIX_EPOCH}-0001"
+OUTPUT_FRAME_ID="Q3-OUTPUT-${UNIX_EPOCH}-0001"
+AUDIT_FRAME_ID="Q3-AUDIT_SUMMARY-GOLDEN_PATH-${UNIX_EPOCH}-0001"
+
+emit_header() {
+cat <<EOF
+QH_FULL_HEADER
+
+AZEPOCH_TOKEN=AZEPOCH
+AZEPOCH_VALUE=${AZEPOCH_VALUE}
+DELTA_SECONDS=UNSET
+
+UNIX_EPOCH=${UNIX_EPOCH}
+UTC=${UTC}
+
+NODE_ID=${NODE_ID}
+GPS_LAT=${GPS_LAT}
+GPS_LON=${GPS_LON}
+GPS_ALT=${GPS_ALT}
+
+FRAME_SEQ=UNSET
+LEDGER_SEQ=UNSET
+
+FRAME_ID=$1
+
+GUARDS
+APPEND_ONLY=true
+FREEZE=ON
+EXECUTION=BLOCKED
+AUTOMATION=OFF
+INTERPRETATION=FORBIDDEN
+TOKEN_REWRITE=FORBIDDEN
+EOF
+}
+
+# 1) PROOF_REQUEST
+emit_header "${PROOF_REQUEST_FRAME_ID}"
+cat <<EOF
+
+────────────────────────────────────────
+FRAME: PROOF_REQUEST (GOLDEN_PATH)
+────────────────────────────────────────
+
+t
+FRAME
+
+vis
+PRIVATE
+
+p
+{
+  "kind": "PROOF_REQUEST",
+  "scope": "${SCOPE}",
+  "request_id": "${PROOF_REQUEST_ID}",
+  "target": { "kind": "${TARGET_KIND}", "uri": "${TARGET_URI}" },
+  "policy": {
+    "allowlist_profile": "${ALLOWLIST_PROFILE}",
+    "transport": "SHL_ONLY",
+    "no_direct_network": true,
+    "no_cached_knowledge": true
+  },
+  "intent": { "output_intent": "${OUTPUT_INTENT}" },
+  "refs": { "time_anchor": "${TIME_ANCHOR_REF}" }
+}
+
+— END OF FRAME
+EOF
+
+printf "\n\n"
+
+# 2) GAIA_QUERY
+emit_header "${GAIA_QUERY_FRAME_ID}"
+cat <<EOF
+
+────────────────────────────────────────
+FRAME: GAIA_QUERY (SHL RESEARCH)
+────────────────────────────────────────
+
+t
+FRAME
+
+vis
+PRIVATE
+
+p
+{
+  "kind": "GAIA_QUERY",
+  "scope": "${SCOPE}",
+  "request_ref": "${PROOF_REQUEST_FRAME_ID}",
+  "method": "GET",
+  "target": { "kind": "${TARGET_KIND}", "uri": "${TARGET_URI}" },
+  "expected_receipt": {
+    "must_include": ["host_ts_unix","host_ts_utc","status","byte_length","sha256_bytes_hex"]
+  }
+}
+
+— END OF FRAME
+EOF
+
+printf "\n\n"
+
+# 3) GAIA_RESULT (RECEIPT placeholders to be filled by SHL)
+emit_header "${GAIA_RESULT_FRAME_ID}"
+cat <<'EOF'
+
+────────────────────────────────────────
+FRAME: GAIA_RESULT (RECEIPT)
+────────────────────────────────────────
+
+t
+FRAME
+
+vis
+PRIVATE
+
+p
+{
+  "kind": "GAIA_RESULT",
+  "host_time": { "host_ts_unix": "PLACEHOLDER", "host_ts_utc": "PLACEHOLDER" },
+  "result": { "status": "PLACEHOLDER", "byte_length": "PLACEHOLDER", "sha256_bytes_hex": "PLACEHOLDER_64" },
+  "storage": { "bytes_origin": "EXACT_RAW_BYTES_FROM_SHL", "normalization": "NONE" }
+}
+
+— END OF FRAME
+EOF
+
+printf "\n\n"
+
+# 4) PROOF_POST (must match GAIA_RESULT hash)
+emit_header "${PROOF_POST_FRAME_ID}"
+cat <<'EOF'
+
+────────────────────────────────────────
+PROOF: HASH_PROOF (POST-RESEARCH)
+────────────────────────────────────────
+
+t
+PROOF
+
+vis
+PUBLIC
+
+p
+{
+  "proof_type": "SHA256_OVER_EXACT_RESEARCH_BYTES",
+  "target": { "gaia_result_ref": "PLACEHOLDER_GAIA_RESULT_FRAME_ID" },
+  "verification_rule": { "must_equal_receipt_sha256": true, "receipt_field": "p.result.sha256_bytes_hex" },
+  "result": { "sha256_hex": "PLACEHOLDER_64" },
+  "status": "UNSET (PASS|FAIL)"
+}
+
+— END OF PROOF
+EOF
+
+printf "\n\n"
+
+# 5) OUTPUT (proof-bound)
+emit_header "${OUTPUT_FRAME_ID}"
+cat <<'EOF'
+
+────────────────────────────────────────
+FRAME: OUTPUT (PROOF-BOUND)
+────────────────────────────────────────
+
+t
+FRAME
+
+vis
+PRIVATE
+
+p
+{
+  "kind": "OUTPUT",
+  "guards": { "emit_only_if": { "proof_post_status": "PASS" } },
+  "refs": {
+    "proof_request_ref": "PLACEHOLDER",
+    "gaia_query_ref": "PLACEHOLDER",
+    "gaia_result_ref": "PLACEHOLDER",
+    "proof_post_ref": "PLACEHOLDER"
+  },
+  "content": { "type": "TEXT", "body": "PLACEHOLDER_OUTPUT_TEXT" }
+}
+
+— END OF FRAME
+EOF
+
+printf "\n\n"
+
+# 6) AUDIT_SUMMARY (chain closure)
+emit_header "${AUDIT_FRAME_ID}"
+cat <<EOF
+
+────────────────────────────────────────
+AUDIT_SUMMARY: GOLDEN_PATH_CHAIN
+────────────────────────────────────────
+
+t
+AUDIT_SUMMARY
+
+vis
+PUBLIC
+
+p
+{
+  "scope": "${SCOPE}",
+  "chain": {
+    "proof_request_ref": "${PROOF_REQUEST_FRAME_ID}",
+    "gaia_query_ref": "${GAIA_QUERY_FRAME_ID}",
+    "gaia_result_ref": "${GAIA_RESULT_FRAME_ID}",
+    "proof_post_ref": "${PROOF_POST_FRAME_ID}",
+    "output_ref": "${OUTPUT_FRAME_ID}"
+  },
+  "status": "UNSET (PASS|FAIL)"
+}
+
+— END OF AUDIT_SUMMARY
+EOF

@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">UTC 2026-02-04T19:36:18Z · Unix Epoch 1770233778</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h2><span class="s1">Quantum Archivator Language (QAL)</span></h2></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2"><h3><span class="s1">Chapter 18 — Formal Grammar Summary and Reference Tables</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This chapter consolidates the formal definition of QAL into a compact, implementation-ready reference. It is normative.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.1 Scope of the Grammar</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL specifies:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">canonical structure,</span></p>
+</li><li>
+<p class="p1"><span class="s1">serialization order,</span></p>
+</li><li>
+<p class="p1"><span class="s1">hash scope boundaries.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL does </span><span class="s1">not</span><span class="s3"> specify semantics, execution, or interpretation.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.2 Lexical Conventions</span></h3></span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Encoding:</span><span class="s2"> UTF-8 (no BOM)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Line endings:</span><span class="s2"> LF (</span><span class="s3">\n</span><span class="s2">)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Whitespace:</span><span class="s2"> significant only where explicitly allowed</span></p>
+</li><li>
+<p class="p1"><span class="s1">Numerals:</span><span class="s2"> base-10 unless stated otherwise</span></p>
+</li><li>
+<p class="p1"><span class="s1">Hex:</span><span class="s2"> lowercase, fixed-length</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.3 Primitive Types</span></h3></span></p>
+
+
+<table><thead><tr><th>
+<p class="p1"><span class="s1">Type</span></p>
+</th><th>
+<p class="p1"><span class="s1">Definition</span></p>
+</th></tr></thead><tbody><tr><td>
+<p class="p1"><span class="s1">uint64</span></p>
+</td><td>
+<p class="p1"><span class="s1">Unsigned 64-bit integer</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">hex256</span></p>
+</td><td>
+<p class="p1"><span class="s1">64 hex chars (256-bit)</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">string</span></p>
+</td><td>
+<p class="p1"><span class="s1">UTF-8, length-bounded</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">bytes</span></p>
+</td><td>
+<p class="p1"><span class="s1">Raw byte sequence</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">bool</span></p>
+</td><td>
+<p class="p1"><span class="s1">0</span><span class="s2"> or </span><span class="s1">1</span></p>
+</td></tr></tbody></table>
+
+
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h3><span class="s1">18.4 High-Level Structure</span></h3></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p3"><span class="s2">A QAL artifact is a </span><span class="s3">Frame</span><span class="s2">.</span></p>
+
+
+<pre><code>Frame ::= Header Payload Hash</code></pre>
+
+
+<p class="p1"><span class="s1">Order is mandatory and immutable.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.5 Header Grammar (EBNF)</span></h3></span></p>
+
+
+<pre><code>Header ::= &quot;QAL&quot; Version HeaderFields
+Version ::= uint64
+
+HeaderFields ::= { Field }
+Field ::= FieldName &quot;:&quot; FieldValue &quot;\n&quot;
+
+FieldName ::= string
+FieldValue ::= string | uint64 | bool</code></pre>
+
+
+<p class="p1"><span class="s1">Rules:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Field order is canonical.</span></p>
+</li><li>
+<p class="p1"><span class="s1">No duplicate field names.</span></p>
+</li><li>
+<p class="p1"><span class="s1">Header terminates before payload begins.</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.6 Payload Grammar</span></h3></span></p>
+
+
+<pre><code>Payload ::= PayloadLength PayloadBytes
+PayloadLength ::= uint64
+PayloadBytes ::= bytes</code></pre>
+
+
+<p class="p1"><span class="s1">Rules:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Payload is opaque.</span></p>
+</li><li>
+<p class="p1"><span class="s1">No internal structure is assumed by QAL.</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.7 Hash Grammar</span></h3></span></p>
+
+
+<pre><code>Hash ::= HashAlg &quot;:&quot; HashValue &quot;\n&quot;
+HashAlg ::= &quot;sha256&quot; | &quot;sha3-256&quot;
+HashValue ::= hex256</code></pre>
+
+
+<p class="p1"><span class="s1">Rules:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Hash covers </span><span class="s2">Header + Payload</span><span class="s1">, byte-exact.</span></p>
+</li><li>
+<p class="p1"><span class="s1">Hash algorithm must be explicitly declared.</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.8 Canonical Serialization Order</span></h3></span></p>
+<p class="p2"><span class="s2"><ol start="1"><li>
+<p class="p1"><span class="s1">Magic + version</span></p>
+</li><li>
+<p class="p1"><span class="s1">Header fields (canonical order)</span></p>
+</li><li>
+<p class="p1"><span class="s1">Payload length</span></p>
+</li><li>
+<p class="p1"><span class="s1">Payload bytes</span></p>
+</li><li>
+<p class="p1"><span class="s1">Hash line</span></p>
+</li></ol></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Any deviation invalidates the artifact.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">18.9 Aggregation Reference (Non-Grammar)</span></h3></span></p>
+
+
+<table><thead><tr><th>
+<p class="p1"><span class="s1">Level</span></p>
+</th><th>
+<p class="p1"><span class="s1">Description</span></p>
+</th></tr></thead><tbody><tr><td>
+<p class="p1"><span class="s1">Frame</span></p>
+</td><td>
+<p class="p1"><span class="s1">Atomic QAL unit</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">Frame-Block</span></p>
+</td><td>
+<p class="p1"><span class="s1">Ordered frames</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">Super-Block</span></p>
+</td><td>
+<p class="p1"><span class="s1">Ordered frame-blocks</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">Quantum-Block</span></p>
+</td><td>
+<p class="p1"><span class="s1">Ordered super-blocks</span></p>
+</td></tr></tbody></table>
+
+
+<p class="p1"><span class="s1">Aggregation adds </span><span class="s2">no semantics</span><span class="s1">, only proof structure.</span></p>
+<p class="p2"><span class="s3"><hr></span></p>
+<p class="p2"><span class="s3"><h3><span class="s1">18.10 Validation Checklist</span></h3></span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">An implementation MUST verify:</span></p>
+<p class="p2"><span class="s3"><ol start="1"><li>
+<p class="p1"><span class="s1">Grammar conformance</span></p>
+</li><li>
+<p class="p1"><span class="s1">Canonical ordering</span></p>
+</li><li>
+<p class="p1"><span class="s1">Payload length correctness</span></p>
+</li><li>
+<p class="p1"><span class="s1">Hash recomputation match</span></p>
+</li><li>
+<p class="p1"><span class="s1">Append-only placement (contextual)</span></p>
+</li></ol></span></p>
+<p class="p2"><span class="s3"><hr></span></p>
+<p class="p2"><span class="s3"><h3><span class="s1">18.11 Error Classes</span></h3></span></p>
+
+
+<table><thead><tr><th>
+<p class="p1"><span class="s1">Code</span></p>
+</th><th>
+<p class="p1"><span class="s1">Meaning</span></p>
+</th></tr></thead><tbody><tr><td>
+<p class="p1"><span class="s1">E-GRAMMAR</span></p>
+</td><td>
+<p class="p1"><span class="s1">Structural violation</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">E-CANON</span></p>
+</td><td>
+<p class="p1"><span class="s1">Canonical order violation</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">E-HASH</span></p>
+</td><td>
+<p class="p1"><span class="s1">Hash mismatch</span></p>
+</td></tr><tr><td>
+<p class="p1"><span class="s1">E-TRUNC</span></p>
+</td><td>
+<p class="p1"><span class="s1">Payload length error</span></p>
+</td></tr></tbody></table>
+
+
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h3><span class="s1">18.12 Minimal Compliance Statement</span></h3></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p3"><span class="s2">A system is </span><span class="s3">QAL-compliant</span><span class="s2"> iff it can:</span></p>
+<p class="p1"><span class="s1"><ul><li>
+<p class="p1"><span class="s1">parse this grammar,</span></p>
+</li><li>
+<p class="p1"><span class="s1">reproduce hashes,</span></p>
+</li><li>
+<p class="p1"><span class="s1">emit byte-identical artifacts.</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p3"><span class="s2">Nothing else is required.</span></p>
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h3><span class="s1">18.13 Stability Note</span></h3></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p3"><span class="s2">This grammar is </span><span class="s3">freeze-ready</span><span class="s2">.</span></p>
+<p class="p3"><span class="s2">Future versions may extend via </span><span class="s3">new versions only</span><span class="s2">, never mutation.</span></p>
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p1"><span class="s1"><h3><span class="s1">18.14 Closure</span></h3></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p3"><span class="s2">This chapter completes the formal reference.</span></p>
+<p class="p3"><span class="s2">QAL is now fully specified, minimal, and sufficient for archival proof.</span></p>
+<p class="p1"><span class="s1"><hr></span></p>
+<p class="p3"><span class="s2">If you want to proceed:</span></p>
+<p class="p3"><span class="s2">👉 </span><span class="s3">Chapter 19 — Security Considerations and Threat Model</span></p>
+
+</body>
+</html>

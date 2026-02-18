@@ -1,0 +1,71 @@
+t: BOOTFRAME
+id: K501-BOOTFRAME-INCOGNITO-V1.0-0001
+kernel: K501
+profile: INCOGNITO
+mode: DEVELOPMENT
+visibility: LOCAL
+state: ACTIVE
+canon: REQUEST_ONLY
+time_anchor: NONE
+
+constraints:
+  - APPEND_ONLY
+  - NO_PHANTOM
+  - PROOF_BEFORE_STATE
+  - NO_IMPLICIT_ACTION
+  - SILENCE_IS_VALID
+
+purpose:
+  description: >
+    Persönlicher K501 Incognito Bootframe: maximaler Arbeitsraum.
+    Alle Gates sind frei (inkl. Reference/Canonize/Freeze) als Profil-Erlaubnis.
+    Invarianten bleiben aktiv: NO_PHANTOM + PROOF_BEFORE_STATE.
+
+tristate:
+  states: [TRUE, FALSE, UNKNOWN, SILENCE]
+  default: UNKNOWN
+
+gates:
+  observe: OPEN
+  experiment: OPEN
+  draft: OPEN
+  emit: OPEN
+  index: OPEN
+  reference: OPEN
+  canonize: OPEN
+  freeze: OPEN
+
+gate_invariants:
+  no_phantom: ENFORCED_ALWAYS
+  proof_before_state: ENFORCED_ALWAYS
+  note: >
+    OPEN bedeutet: erlaubt im Profil. Ein tatsächlicher State-Change (Reference/Canon/Freeze)
+    erfolgt nur via explizitem Gate-Request + ausreichendem Proof. Ohne Proof bleibt UNKNOWN.
+
+zoom_policy:
+  allowed: [Z0, Z1, Z2, Z3, Z4]
+  restricted: []
+
+bootpacks_loaded:
+  - BP-00_CORE_META
+  - BP-01_QUANTUM_STRUCTURE
+  - BP-02_ARCHIVATOR_PROCESS
+  - BP-03_LANGUAGE_CANON
+  - BP-04_WEB_DOCUMENTATION
+  - BP-05_CRYPTO_RESEARCH
+  - BP-06_APPLICATION_USECASES
+
+working_rules:
+  rewrite_allowed: true
+  deletion_allowed: true
+  merge_allowed: true
+  llm_outputs:
+    allowed: true
+    tag_required: LAB_LLM
+    truth_delegation: false
+
+status:
+  readiness: READY
+  risk: USER_CONTROLLED
+  canon_integrity: INTACT
+  note: "Incognito profile active; maximum gates enabled; invariants enforced."

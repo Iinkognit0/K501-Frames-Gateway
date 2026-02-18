@@ -1,0 +1,133 @@
+UTC 2026-02-04T19:26:18Z · Unix Epoch 1770233178
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 15 — Minimal Mathematical Core
+
+This chapter specifies the minimal mathematical foundations required for QAL.
+No additional constructs are permitted beyond what is strictly necessary for determinism, auditability, and permanence.
+
+⸻
+
+15.1 Primitive Sets
+
+Define the following primitive sets:
+	•	\mathbb{B} = \{0,1\} — binary alphabet
+	•	\mathbb{S} \subset \mathbb{B}^* — finite binary strings
+	•	\mathbb{H} \subset \mathbb{S} — fixed-length hash values
+	•	\mathbb{T} \subset \mathbb{N} — discrete time indices (optional ordering only)
+
+⸻
+
+15.2 Artifact Definition
+
+A QAL artifact A is a finite tuple:
+
+A := (C_v,\; D,\; h)
+
+where:
+	•	C_v = canonicalization version identifier,
+	•	D \in \mathbb{S} = canonical serialized data,
+	•	h \in \mathbb{H} = cryptographic hash of D.
+
+⸻
+
+15.3 Canonicalization Function
+
+For each canonicalization version C_v, define a total function:
+
+\mathrm{SER}_{C_v} : \mathcal{O} \rightarrow \mathbb{S}
+
+Properties:
+	1.	Determinism
+\mathrm{SER}_{C_v}(x) = \mathrm{SER}_{C_v}(x)
+	2.	Idempotence
+\mathrm{SER}_{C_v}(\mathrm{SER}_{C_v}(x)) = \mathrm{SER}_{C_v}(x)
+
+⸻
+
+15.4 Hash Function
+
+Let:
+
+H : \mathbb{S} \rightarrow \mathbb{H}
+
+with properties:
+	•	collision resistance,
+	•	preimage resistance,
+	•	second-preimage resistance.
+
+No semantic assumptions are made about H.
+
+⸻
+
+15.5 Proof Predicate
+
+Define the proof predicate:
+
+\mathcal{P}(A) :=
+\begin{cases}
+\text{true}, & \text{if } h = H(D) \\
+\text{false}, & \text{otherwise}
+\end{cases}
+
+An artifact is provable iff \mathcal{P}(A) = \text{true}.
+
+⸻
+
+15.6 Equivalence
+
+Two artifacts A_1, A_2 are provably equivalent iff:
+
+C_{v1} = C_{v2} \;\land\; D_1 = D_2 \;\land\; h_1 = h_2
+
+Interpretive equivalence is undefined and out of scope.
+
+⸻
+
+15.7 Ordering (Optional)
+
+If timestamps are present, define a partial order:
+
+A_i \prec A_j \iff t_i < t_j
+
+This ordering has no effect on proof validity.
+
+⸻
+
+15.8 Append-Only Constraint
+
+Let \mathcal{A}_n be a finite sequence of artifacts.
+
+Append-only condition:
+
+\mathcal{A}_{n+1} = \mathcal{A}_n \cup \{A_{n+1}\}
+
+No operation removes or mutates existing elements.
+
+⸻
+
+15.9 Minimality Theorem
+
+QAL requires only:
+	•	finite strings,
+	•	deterministic serialization,
+	•	cryptographic hashing.
+
+Any additional structure is non-essential.
+
+⸻
+
+15.10 Closure
+
+The mathematical core of QAL is complete.
+
+No recursion, probability, inference, or execution semantics are required.
+
+⸻
+
+If you want to continue:
+
+👉 Chapter 16 — Limits, Non-Goals, and Explicit Exclusions

@@ -1,11 +1,11 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2867
 \cocoatextscaling1\cocoaplatform1{\fonttbl\f0\fnil\fcharset0 .SFUI-Semibold;\f1\fnil\fcharset0 .SFUI-Regular;\f2\fswiss\fcharset0 Helvetica;
-\f3\fnil\fcharset0 .SFUI-RegularItalic;\f4\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;}
+\f3\fnil\fcharset0 .SFUI-RegularItalic;}
 {\colortbl;\red255\green255\blue255;\red17\green17\blue17;}
 {\*\expandedcolortbl;;\cssrgb\c6700\c6700\c6700;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
-\f0\b\fs34 \cf2 UTC 2026-02-04T18:33:00Z \'b7 Unix Epoch 1770229993
+\f0\b\fs34 \cf2 UTC 2026-02-04T19:41:18Z \'b7 Unix Epoch 1770234078
 \f1\b0 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
@@ -16,32 +16,15 @@
 \f1\fs34 \cf2 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
-\f0\b\fs56 \cf2 QAL \'97 Quantum Archivator Language
+\f0\b\fs44 \cf2 Quantum Archivator Language (QAL)
 \f1\b0\fs34 \
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
-\f0\b\fs44 \cf2 A Minimal, Deterministic Language for Evidence-Preserving Knowledge Archives
+\f0\b\fs40 \cf2 Chapter 20 \'97 Implementation Notes and Reference Architecture
 \f1\b0\fs34 \
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs40 \cf2 Abstract
-\f1\b0\fs34 \
-\
-QAL (Quantum Archivator Language) is a minimal, deterministic description language designed for long-term scientific archiving under conditions of uncertainty, scale, and incomplete ordering. It addresses a practical problem: how to preserve heterogeneous evidence (texts, screenshots, notes, logs, recordings) in a way that is verifiable, append-only, and interpretable decades later\'97without requiring immediate semantic normalization. QAL separates 
-\f3\i presence
-\f1\i0  from 
-\f3\i truth
-\f1\i0 , 
-\f3\i receipt
-\f1\i0  from 
-\f3\i claim
-\f1\i0 , and 
-\f3\i structure
-\f1\i0  from 
-\f3\i interpretation
-\f1\i0 . It is intended as an archival substrate for Frames Axiomatic and related scientific efforts, enabling the handover of large, partially unordered corpora to the scientific community without loss of auditability.\
+This chapter provides non-normative guidance for implementing QAL in real systems. It clarifies architectural roles, interfaces, and minimal components required for a correct, reproducible deployment.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f2\fs24 \cf0 \
@@ -51,247 +34,24 @@ QAL (Quantum Archivator Language) is a minimal, deterministic description langua
 \f1\fs34 \cf2 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
-\f0\b\fs44 \cf2 1. Problem Statement
+\f0\b\fs40 \cf2 20.1 Scope of This Chapter
 \f1\b0\fs34 \
 \
-Modern scientific work increasingly produces large volumes of heterogeneous artefacts: screenshots, notes, transcripts, code fragments, logs, and recordings. These artefacts are often temporally anchored but structurally unordered. Individual researchers are frequently unable to normalize or interpret such corpora alone. Existing formats either enforce premature semantics or lack verifiable integrity. A language is required that can 
-\f0\b store first, interpret later
-\f1\b0 , while preserving strict audit guarantees.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 2. Design Goals
-\f1\b0\fs34 \
-\
-QAL is designed around the following non-negotiable goals:\
+This chapter:\
 \pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	
-\f0\b Append-only
-\f1\b0 : no mutation, no deletion, no in-place correction.\
-	\'95	
-\f0\b Deterministic serialization
-\f1\b0 : identical input yields identical byte output.\
-	\'95	
-\f0\b Auditability
-\f1\b0 : every unit is time-anchored and hash-linked.\
-	\'95	
-\f0\b Interpretation-free core
-\f1\b0 : the language records 
-\f3\i that something exists
-\f1\i0 , not 
-\f3\i what it means
-\f1\i0 .\
-	\'95	
-\f0\b Scalability under disorder
-\f1\b0 : unordered ZIP archives and raw dumps are first-class citizens.\
-	\'95	
-\f0\b Human-recoverable
-\f1\b0 : interpretable by future humans without proprietary tooling.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 3. Core Concepts
-\f1\b0\fs34 \
-\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs40 \cf2 3.1 Frame
-\f1\b0\fs34 \
-\
-A 
-\f0\b Frame
-\f1\b0  is the atomic unit of QAL. A frame records the presence of an artefact or statement at a specific time, from a specific source, with a cryptographic fingerprint. Frames do not assert truth.\
-\
-Mandatory properties:\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	stable identifier\
-	\'95	frame type\
-	\'95	mode (REFERENCE_ONLY)\
-	\'95	time anchor (UTC + Unix Epoch or explicitly UNKNOWN)\
-	\'95	source declaration\
-	\'95	hash block (self + previous)\
-	\'95	payload (opaque JSON value)\
-\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs40 \cf2 3.2 Chain Integrity
-\f1\b0\fs34 \
-\
-Frames are linearly chained by hashes. The chain records 
-\f0\b order of recording
-\f1\b0 , not order of events. Reordering artefacts later does not break provenance.\
-\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs40 \cf2 3.3 Presence \uc0\u8800  Truth
-\f1\b0\fs34 \
-\
-QAL encodes 
-\f3\i presence
-\f1\i0 . Truth, correctness, relevance, and meaning are external to the language and may be addressed by later analytical layers.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 4. Canonical Structure (Overview)
-\f1\b0\fs34 \
-\
-A QAL corpus is a newline-delimited sequence of frames (NDJSON-style). Each frame is independently parseable and collectively verifiable.\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	One frame = one JSON object = one line\
-	\'95	No executable constructs\
-	\'95	No implicit defaults\
-	\'95	No hidden state\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 5. Time Anchoring Discipline
-\f1\b0\fs34 \
-\
-Time anchoring is central. Each frame declares:\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	
-\f4 utc
-\f1 : ISO-8601 UTC timestamp 
-\f0\b or
-\f1\b0  
-\f4 "UNKNOWN"
-\f1 \
-	\'95	
-\f4 unix
-\f1 : Unix Epoch seconds 
-\f0\b or
-\f1\b0  
-\f4 "UNKNOWN"
-\f1 \
-\
-If a real anchor is unavailable, UNKNOWN is explicit. Silent omission is forbidden. This prevents false precision and retrospective drift.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 6. Separation of Hash Domains
-\f1\b0\fs34 \
-\
-QAL distinguishes between:\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	
-\f0\b Object hash
-\f1\b0  (frame-local, integrity of content)\
-	\'95	
-\f0\b Chain hash
-\f1\b0  (ordering and continuity)\
-	\'95	
-\f0\b Pack hash
-\f1\b0  (external aggregation, e.g., ZIPs)\
-\
-This separation prevents structural coupling and allows raw uploads (e.g., 50 GB ZIPs) to be referenced without unpacking or reinterpretation.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 7. Relationship to Frames Axiomatic
-\f1\b0\fs34 \
-\
-QAL is the 
-\f0\b archivator layer
-\f1\b0  beneath Frames Axiomatic. Frames Axiomatic defines structural reasoning and axiomatics; QAL ensures that the empirical substrate on which such reasoning operates is preserved without loss or distortion. QAL does not require Frames Axiomatic, but Frames Axiomatic requires a substrate with QAL-level guarantees.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 8. Intended Use Case (Current Context)
-\f1\b0\fs34 \
-\
-QAL is explicitly suited for the handover of large, partially unordered research corpora:\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	thousands of screenshots\
-	\'95	hundreds of notes\
-	\'95	screen recordings and workflow captures\
-	\'95	historical logs with time anchors\
-\
-Such material may be uploaded as raw ZIP archives. QAL frames reference these artefacts as 
-\f3\i evidence blocks
-\f1\i0 , allowing the scientific community to perform later sorting, clustering, and interpretation without disputing provenance.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 9. Scientific Handover Principle
-\f1\b0\fs34 \
-\
-QAL formalizes a critical transition:\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b \cf2 from individual cognition to collective scientific processing
-\f1\b0 .\
-The individual archivator records faithfully; interpretation is deferred to many.\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f2\fs24 \cf0 \
-\uc0\u11835 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f1\fs34 \cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
-
-\f0\b\fs44 \cf2 10. Scope and Non-Goals
-\f1\b0\fs34 \
-\
-QAL deliberately does 
+\cf2 	\'95	does 
 \f0\b not
-\f1\b0  provide:\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	semantic validation\
-	\'95	ontologies\
-	\'95	ranking or relevance scoring\
-	\'95	automation or execution\
-	\'95	AI interpretation\
+\f1\b0  add semantics,\
+	\'95	does 
+\f0\b not
+\f1\b0  modify the grammar,\
+	\'95	does 
+\f0\b not
+\f1\b0  introduce execution logic.\
 \
-These belong to higher layers and future work.\
+It documents 
+\f3\i how QAL is typically realized
+\f1\i0  without constraining implementations.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f2\fs24 \cf0 \
@@ -301,12 +61,25 @@ These belong to higher layers and future work.\
 \f1\fs34 \cf2 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
-\f0\b\fs44 \cf2 11. Status
+\f0\b\fs40 \cf2 20.2 Minimal Reference Architecture
 \f1\b0\fs34 \
 \
-QAL is presented here as a 
-\f0\b stable scientific proposal
-\f1\b0 , suitable for immediate use as an archival substrate. Canonical freezing, versioning, and further formalization are intentionally deferred to avoid premature closure during active evidence transfer.\
+A minimal QAL system consists of four logical components:\
+\pard\tqr\tx300\tx460\li460\fi-460\sl250\slmult1\sb240\partightenfactor0
+\AppleTypeServices\AppleTypeServicesF393216 \cf2 	1.	
+\f0\b \AppleTypeServices Producer
+\f1\b0 \
+\AppleTypeServices\AppleTypeServicesF393216 	2.	
+\f0\b \AppleTypeServices Serializer
+\f1\b0 \
+\AppleTypeServices\AppleTypeServicesF393216 	3.	
+\f0\b \AppleTypeServices Verifier
+\f1\b0 \
+\AppleTypeServices\AppleTypeServicesF393216 	4.	
+\f0\b \AppleTypeServices Store
+\f1\b0 \
+\
+These components may coexist in one process or be distributed.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f2\fs24 \cf0 \
@@ -316,10 +89,21 @@ QAL is presented here as a
 \f1\fs34 \cf2 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
-\f0\b\fs44 \cf2 12. Conclusion
+\f0\b\fs40 \cf2 20.3 Producer
 \f1\b0\fs34 \
 \
-QAL enables a calm, rigorous response to information overload in a time of scientific transition. By prioritizing presence, integrity, and humility over interpretation, it allows knowledge to survive its creators\'97and invites the scientific community to continue the work without loss of reality.\
+The Producer is any system that emits content to be archived.\
+\
+Responsibilities:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	define payload bytes,\
+	\'95	declare metadata fields,\
+	\'95	choose QAL version.\
+\
+The Producer MUST NOT:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	reorder fields post-serialization,\
+	\'95	modify payload after hashing.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \f2\fs24 \cf0 \
@@ -327,15 +111,271 @@ QAL enables a calm, rigorous response to information overload in a time of scien
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
 
 \f1\fs34 \cf2 \
-If you want, next we can\'97
-\f0\b without canonizing
-\f1\b0 \'97prepare:\
-\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
-\cf2 	\'95	a 
-\f3\i minimal README for scientists
-\f1\i0  (\'93how to read a QAL dump\'94), or\
-	\'95	a 
-\f3\i handover note
-\f1\i0  explaining how to process large ZIP-based evidence sets using QAL frames.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.4 Serializer
+\f1\b0\fs34 \
 \
-No rush. Balance and continuity are preserved.}
+The Serializer is responsible for canonical encoding.\
+\
+Responsibilities:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	enforce grammar rules,\
+	\'95	emit fields in canonical order,\
+	\'95	encode lengths explicitly,\
+	\'95	compute cryptographic hash.\
+\
+The Serializer is deterministic by definition.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.5 Verifier
+\f1\b0\fs34 \
+\
+The Verifier validates received artifacts.\
+\
+Minimal verification steps:\
+\pard\tqr\tx300\tx460\li460\fi-460\sl250\slmult1\sb240\partightenfactor0
+\AppleTypeServices\AppleTypeServicesF393216 \cf2 	1.	\AppleTypeServices Parse grammar strictly.\
+\AppleTypeServices\AppleTypeServicesF393216 	2.	\AppleTypeServices Reconstruct canonical byte sequence.\
+\AppleTypeServices\AppleTypeServicesF393216 	3.	\AppleTypeServices Recompute hash.\
+\AppleTypeServices\AppleTypeServicesF393216 	4.	\AppleTypeServices Compare hash values.\
+\
+Verification yields a boolean result only.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.6 Store
+\f1\b0\fs34 \
+\
+The Store is append-only by design.\
+\
+Properties:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	no in-place mutation,\
+	\'95	no implicit deletion,\
+	\'95	addressable by content hash or index.\
+\
+Physical storage medium is irrelevant (filesystem, object store, tape).\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.7 Index and Aggregation Layers
+\f1\b0\fs34 \
+\
+Indexes are external to QAL frames.\
+\
+Common patterns:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	linear index (timestamp-ordered),\
+	\'95	hash-tree index,\
+	\'95	pack/block aggregation.\
+\
+Indexes may be rebuilt at any time from raw frames.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.8 Transport Considerations
+\f1\b0\fs34 \
+\
+QAL is transport-agnostic.\
+\
+Valid transports include:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	local filesystem,\
+	\'95	HTTP(S),\
+	\'95	email attachments,\
+	\'95	offline media.\
+\
+Transport errors do not affect frame validity.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.9 Streaming vs. Batch
+\f1\b0\fs34 \
+\
+QAL supports both:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f0\b Streaming
+\f1\b0 : frames emitted continuously.\
+	\'95	
+\f0\b Batch
+\f1\b0 : frames emitted as sets or packs.\
+\
+Both rely on identical verification logic.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.10 Error Handling
+\f1\b0\fs34 \
+\
+All errors are 
+\f3\i hard errors
+\f1\i0 .\
+\
+A QAL implementation MUST:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	reject invalid artifacts,\
+	\'95	never auto-correct,\
+	\'95	never guess intent.\
+\
+Silence is preferred over speculative recovery.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.11 Performance Characteristics
+\f1\b0\fs34 \
+\
+QAL performance is dominated by:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	hashing cost,\
+	\'95	I/O bandwidth.\
+\
+Parsing and verification are linear in artifact size.\
+\
+No hidden computational complexity exists.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.12 Version Handling
+\f1\b0\fs34 \
+\
+Multiple QAL versions may coexist.\
+\
+Rules:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	version is declared explicitly,\
+	\'95	parsers must match version exactly,\
+	\'95	migration is additive, never destructive.\
+\
+Old artifacts remain valid indefinitely.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.13 Determinism Guarantee
+\f1\b0\fs34 \
+\
+Given identical input bytes:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	serialization output is identical,\
+	\'95	hash output is identical,\
+	\'95	verification result is identical.\
+\
+This holds across platforms and time.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.14 Reference Implementation Strategy
+\f1\b0\fs34 \
+\
+Recommended approach:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	small, auditable codebase,\
+	\'95	no dependencies beyond crypto primitives,\
+	\'95	extensive test vectors.\
+\
+Correctness > convenience.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.15 Operational Posture
+\f1\b0\fs34 \
+\
+QAL systems are best operated as:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	passive recorders,\
+	\'95	non-interactive services,\
+	\'95	low-noise infrastructure.\
+\
+Operational simplicity is a security feature.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 20.16 Closure
+\f1\b0\fs34 \
+\
+QAL is intentionally boring to implement.\
+Its strength lies in predictability, not flexibility.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+If you wish to proceed:\
+\uc0\u55357 \u56393  
+\f0\b Chapter 21 \'97 Formal Semantics and Interpretive Boundaries}

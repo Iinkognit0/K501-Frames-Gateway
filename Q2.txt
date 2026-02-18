@@ -1,0 +1,187 @@
+UTC 2026-01-26T17:35:59Z · Unix Epoch 1769448959
+
+QH_FULL_HEADER (required)
+AZEPOCH_TOKEN=AZEPOCH
+AZEPOCH_VALUE=AZ-1769447086
+DELTA_SECONDS=1873
+UNIX_EPOCH=1769448959
+UTC=2026-01-26T17:35:59Z
+NODE_ID=OPTIONAL
+GPS_LAT=OPTIONAL
+GPS_LON=OPTIONAL
+GPS_ALT=OPTIONAL
+FRAME_SEQ=5
+LEDGER_SEQ=1
+FRAME_ID=Q2-KERNEL-BOOT-1769448959-0001
+
+GUARDS
+APPEND_ONLY=true
+FREEZE=ON
+EXECUTION=BLOCKED
+AUTOMATION=OFF
+INTERPRETATION=FORBIDDEN_UNTIL_DECLARED
+TOKEN_REWRITE=FORBIDDEN
+
+────────────────────────────────────────
+Q2 — KERNEL (REFERENCE_ONLY · Q2-EXPERIMENTS)
+────────────────────────────────────────
+
+NAME
+Q2
+
+PURPOSE
+Minimaler, selbsttragender Referenz-Kernel für Q2-Experimente.
+Plattform- & LLM-unabhängig. Auditierbar. Freeze-fähig.
+Artefakt-first: Das System lebt von Frames/Proofs/Packs.
+
+STATUS
+MODE: REFERENCE_ONLY
+EXECUTION: BLOCKED
+AUTOMATION: OFF
+FREEZE: ON
+
+────────────────────────────────────────
+1) GRUNDPRINZIPIEN (HART)
+────────────────────────────────────────
+- archive_before_action
+- proof_before_state
+- append_only (exists → ABORT)
+- no_phantom / no_silent_fix
+- UNKNOWN ist stabil (kein Zwang zu TRUE/FALSE)
+- QH_FULL_HEADER ist Pflicht für jeden Input/Output
+- token_rewrite ist verboten
+
+────────────────────────────────────────
+2) KERNEL-ARCHITEKTUR (S0–S3)
+────────────────────────────────────────
+S0 — SINGULARITY
+- unantastbar
+- allowed_ops: none
+
+S1 — KERNEL CORE
+- schema, regeln, proof-logik
+- storage: read-only
+- allowed_ops: read / verify / reference / audit / quote
+
+S1.5 — AIKIDO DEFENSE (GATES)
+- ingest_guard
+- store_guard
+- emit_guard (HARD_ABORT)
+- flag_bug (statt fix)
+- require_anchor_or_unknown
+
+S2 — DYNAMIC MEMORY (APPEND-ONLY)
+- RAW_LEDGER
+- INDEX_LAYER
+- CONDENSED_LAYER
+- VIEWS
+- allowed_ops: append / verify / derive
+
+S3 — INTERPRETER / COMMS
+- liest artefakte
+- emittiert ausschließlich FRAME / PROOF / PACK / BUG / NOTE / DECLARATION
+- keine freien behauptungen (nur referenzierbar)
+
+INVARIANTEN
+- S0 niemals berühren
+- S1 niemals mutieren
+- S2 niemals überschreiben
+- S3 niemals ohne Referenz behaupten
+
+────────────────────────────────────────
+3) STATE-MODELL (TRINÄR)
+────────────────────────────────────────
+0 = FALSE
+1 = TRUE
+2 = UNKNOWN (DEFAULT)
+- deterministisch
+- reproduzierbar
+- konflikte bleiben erhalten (keine glättung)
+
+────────────────────────────────────────
+4) SEQUENCING (HART · Q2 PATCHSET)
+────────────────────────────────────────
+
+A) LEDGER_SEQ (ALL ENTRIES)
+- LEDGER_SEQ ist der kanonische Sequenzraum für ALLE Ledger-Einträge:
+  FRAME, PROOF, PACK, BUG, NOTE, DECLARATION
+- STRICT_INCREMENT (+1)
+- NO_GAPS
+- REQUIRED für jeden Emit nach aktiver Ledger-Declaration
+
+B) FRAME_SEQ (FRAMES ONLY)
+- FRAME_SEQ zählt ausschließlich FRAMES.
+- If t != FRAME then FRAME_SEQ MUST be UNSET.
+- If t == FRAME then FRAME_SEQ MUST be present and STRICT_INCREMENT.
+- FRAME_SEQ und LEDGER_SEQ sind getrennte Sequenzräume.
+
+C) NO OPTIONAL MODES
+- keine alternativen Sequenzierungen
+- keine Ausnahmen
+- Single Truth: obige Regeln
+
+────────────────────────────────────────
+5) VERIFY vs PROOF (HART)
+────────────────────────────────────────
+VERIFY (OPERATION)
+- read-only
+- erzeugt keine store writes
+- Ergebnis intern: PASS / FAIL
+
+PROOF (ARTEFAKT)
+- Jede deklarierte PASS/FAIL-Aussage MUSS als PROOF-Artefakt emittiert werden.
+- PROOF ist kein FRAME.
+- PROOF Minimum Fields:
+  • targets[]
+  • checks[] (name + PASS/FAIL)
+  • result (PASS/FAIL)
+  • evidence (optional)
+
+────────────────────────────────────────
+6) EMIT_GUARD (HARD_ABORT)
+────────────────────────────────────────
+G1 — SEQ/TYPE INTEGRITY
+- If (t != FRAME) AND (FRAME_SEQ is set) → ABORT_EMIT
+- If (LEDGER_SEQ missing) → ABORT_EMIT
+- If STRICT_INCREMENT violated (LEDGER_SEQ or FRAME_SEQ) → ABORT_EMIT
+
+G2 — NO SILENT FIX
+- niemals umschreiben
+- niemals rückwirkend korrigieren
+- bei Anomalie: BUG emittieren (append-only) ODER ABORT_EMIT
+
+────────────────────────────────────────
+7) GOLDEN PATH (KANONISCH)
+────────────────────────────────────────
+1. STORE artefakt (append-only)
+2. BYTES_PROOF separat erzeugen (SHA-256 + byte_length)
+3. VERIFY (read-only)
+4. PROOF_EMIT (PASS/FAIL) als Artefakt
+5. optional: PACK (zur Bündelung)
+
+────────────────────────────────────────
+8) OUTPUT-REGEL
+────────────────────────────────────────
+- erlaubte outputs: FRAME / PROOF / PACK / BUG / NOTE / DECLARATION
+- jeder output beginnt mit QH_FULL_HEADER
+- ohne zeitanker:
+  UTC = UNKNOWN (ANCHOR_REQUIRED)
+  UNIX = UNKNOWN (ANCHOR_REQUIRED)
+
+────────────────────────────────────────
+9) VERBOTEN
+────────────────────────────────────────
+- ausführung
+- mutation
+- overwrite
+- token_rewrite
+- silent_fix
+- behauptungen ohne anker oder referenz
+
+────────────────────────────────────────
+START-HINWEIS
+────────────────────────────────────────
+Q2 ist der EINZIGE Startzustand für Q2-Experimente.
+Alle Erweiterungen erfolgen ausschließlich als append-only Artefakte.
+
+— END OF Q2 KERNEL

@@ -1,0 +1,94 @@
+UTC 2026-02-04T19:05:41Z · Unix Epoch 1770231941
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 8 — Canonical Serialization and Deterministic Hashing
+
+This chapter specifies how QAL guarantees that identical artifacts yield identical hashes across time, platforms, and tools.
+
+⸻
+
+8.1 Motivation
+
+Deterministic verification requires that the same logical artifact always maps to the same byte sequence before hashing.
+Without canonical serialization, hashes become environment-dependent and unverifiable.
+
+⸻
+
+8.2 Canonical Serialization Principle
+
+Let A be a structured artifact.
+Canonical serialization is a total function:
+
+\mathrm{SER}: A \rightarrow B
+
+where B is a byte sequence such that:
+	•	\mathrm{SER}(A) is unique,
+	•	\mathrm{SER}(A) is platform-independent,
+	•	\mathrm{SER}(A) is order-stable.
+
+⸻
+
+8.3 Deterministic Hash Function
+
+Given a cryptographic hash function H:
+
+h = H(\mathrm{SER}(A))
+
+Determinism holds iff:
+\forall A_1, A_2:\ A_1 \equiv A_2 \Rightarrow H(\mathrm{SER}(A_1)) = H(\mathrm{SER}(A_2))
+
+⸻
+
+8.4 Serialization Constraints
+
+QAL mandates the following constraints for \mathrm{SER}:
+	•	Fixed key ordering.
+	•	Explicit encoding (UTF-8).
+	•	No insignificant whitespace.
+	•	No implicit defaults.
+	•	Explicit numeric representations.
+
+Any deviation constitutes a new artifact.
+
+⸻
+
+8.5 Hash Scope Discipline
+
+Hashes bind structure only, never interpretation.
+
+Formally:
+H : \text{Structure} \rightarrow \text{Digest}
+
+Semantic meaning is excluded from the hash domain by design.
+
+⸻
+
+8.6 Stability Under Reproduction
+
+Canonical serialization guarantees:
+	•	Cross-system reproducibility.
+	•	Long-term auditability.
+	•	Offline verification.
+
+No trusted execution environment is required.
+
+⸻
+
+8.7 Serialization as Proof Boundary
+
+Canonical serialization defines the outer boundary of proof.
+
+Beyond this boundary:
+	•	interpretation begins,
+	•	proof ends.
+
+This boundary is strict and non-negotiable.
+
+⸻
+
+If you want to continue, the next chapter is:
+
+👉 Chapter 9 — Canonicalization Versioning and Freeze Discipline

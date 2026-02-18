@@ -1,0 +1,113 @@
+UTC 2026-02-04T19:12:04Z · Unix Epoch 1770232324
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 11 — Stability Under Extension (Monotonicity)
+
+This chapter formalizes the requirement that QAL systems remain stable when extended. Extensions must preserve all previously established structure, order, and verifiability.
+
+⸻
+
+11.1 Monotonic Extension Principle
+
+Let A be a complete QAL artifact and A' an extension of A.
+
+A \preceq A'
+
+denotes that A' extends A monotonically.
+
+Monotonicity requires that no existing component of A is altered or invalidated in A'.
+
+⸻
+
+11.2 Append-Only Constraint
+
+All extensions MUST be append-only.
+
+Formally, if A is represented as an ordered sequence:
+
+A = (a_1, a_2, \dots, a_n)
+
+then any extension satisfies:
+
+A' = (a_1, a_2, \dots, a_n, a_{n+1}, \dots, a_{n+m})
+
+for m \ge 1.
+
+Deletion or modification of any a_i with i \le n is forbidden.
+
+⸻
+
+11.3 Preservation of Identity
+
+For every artifact a_i \in A:
+
+\mathrm{HASH}(a_i)_{A'} = \mathrm{HASH}(a_i)_A
+
+Identity is invariant under extension.
+
+⸻
+
+11.4 Ordering Stability
+
+The relative order of existing artifacts MUST remain unchanged.
+
+If:
+
+a_i \prec a_j \quad \text{in } A
+
+then:
+
+a_i \prec a_j \quad \text{in } A'
+
+for all valid extensions.
+
+⸻
+
+11.5 Time Anchor Compatibility
+
+New artifacts MAY introduce new time anchors, but MUST NOT contradict existing ones.
+
+Let T_i and T_j be time anchors with i < j:
+
+T_i.\mathrm{epoch} \le T_j.\mathrm{epoch}
+
+Violations break monotonicity.
+
+⸻
+
+11.6 Canonical Serialization Invariance
+
+The canonical serialization of all pre-existing artifacts MUST remain byte-identical after extension.
+
+Re-serialization of historical artifacts is not permitted.
+
+⸻
+
+11.7 Proof Chain Extension
+
+Proof chains MAY be extended but never rewritten.
+
+Let H_n be the terminal hash of A.
+Then A' MUST reference H_n as its predecessor:
+
+\mathrm{prev}(A') = H_n
+
+⸻
+
+11.8 Scientific Implication
+
+Monotonicity guarantees:
+	•	historical integrity,
+	•	reproducible audits,
+	•	immunity to retroactive reinterpretation.
+
+It enables long-lived scientific archives without trust assumptions.
+
+⸻
+
+Next, if ready:
+
+👉 Chapter 12 — Canonical Serialization Selection Criteria

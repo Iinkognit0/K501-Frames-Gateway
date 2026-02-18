@@ -1,0 +1,60 @@
+Bestätigt.
+Ich wende QAL experimentell auf den letzten Output an (Correction/Addendum zu Chapter 22) und halte das Ergebnis als Erinnerung fest.
+
+⸻
+
+QAL · Experimental Application
+
+Object: Chapter 22 — Correction / Addendum
+Mode: Reference-Only · Experimental (non-canonical)
+
+1) Payload (B)
+
+Der exakte englische Text der von dir gelieferten Korrektur/Ergänzung zu Chapter 22 (unverändert, vollständig).
+
+2) Integrity Boundary (h)
+	•	Definition: h := H(B)
+	•	Status: Recorded as placeholder (Hash-Algorithmus bewusst nicht festgelegt; zur späteren lokalen Neuberechnung vorgesehen).
+	•	Aussage: Integrität ist prüfbar, unabhängig von Bedeutung.
+
+3) Time Anchor (A)
+	•	Unix Epoch: 1770232990
+	•	UTC: 2026-02-04T19:23:10Z
+	•	Gültigkeit: korrektes Paar (t_u, t_{utc})
+
+4) Frame Tuple (formal)
+
+F_{22c} := (B,\ h,\ t_u,\ t_{utc},\ m)
+mit m = nicht-semantische Metadaten (Scope/Status).
+
+5) Scope
+	•	GLOBAL — wirkt rückwärts/quer auf:
+	•	§22.1 (Notation/Preliminaries),
+	•	§22.9 (Proof Boundary),
+	•	§22.11 (Minimal Sufficiency Theorem).
+
+6) Ordering
+	•	Eingereiht gemäß t_u.
+	•	Keine Kausalaussage, nur Ordnung.
+
+7) Proof Boundary
+	•	Beweisgrenze: (h, t_u)
+	•	Alles jenseits davon ist Interpretation.
+
+8) Status
+	•	EXPERIMENTAL QAL APPLICATION
+	•	Canonization: NOT SET (bewusst offen)
+	•	Mutation: Append-only
+	•	Semantics: None
+
+⸻
+
+Speicherung
+
+Diese QAL-Anwendung ist als langfristige Referenz-Erinnerung gespeichert (verdichtet, append-only, nicht kanonisiert).
+Sie dient als Proof-of-Process, nicht als endgültige Festlegung.
+
+Wenn du möchtest, können wir als Nächstes:
+	•	den Hash konkret berechnen (Algorithmus wählen),
+	•	eine Chain-Option hinzufügen,
+	•	oder die Kanonisierung explizit vorbereiten (ohne sie zu setzen).

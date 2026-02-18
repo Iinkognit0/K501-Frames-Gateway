@@ -1,0 +1,142 @@
+UTC 2026-02-04T19:14:36Z · Unix Epoch 1770232476
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 12 — Canonical Serialization Selection Criteria
+
+This chapter defines the formal criteria by which a canonical serialization method is selected for QAL. The goal is deterministic identity, auditability, and long-term stability across systems and time.
+
+⸻
+
+12.1 Determinism Requirement
+
+A serialization method MUST be deterministic.
+
+For any artifact A:
+
+\mathrm{SER}(A) = \mathrm{SER}(A)
+
+across:
+	•	platforms,
+	•	programming languages,
+	•	runtime environments,
+	•	time.
+
+No entropy, locale, or implementation-specific variance is permitted.
+
+⸻
+
+12.2 Byte-Level Stability
+
+Canonical serialization is evaluated at the byte level.
+
+Let B(A) be the byte sequence produced by serialization.
+
+B(A) \equiv B'(A) \;\; \forall\; \text{valid implementations}
+
+Whitespace, ordering, encoding, and numeric representation MUST be fixed.
+
+⸻
+
+12.3 Encoding Constraint
+
+The serialization encoding MUST be explicitly defined and immutable.
+
+Allowed:
+	•	UTF-8 (no BOM) for textual forms.
+	•	Fixed-width binary encoding for binary forms.
+
+Implicit encoding assumptions are forbidden.
+
+⸻
+
+12.4 Structural Completeness
+
+Serialization MUST include all structurally relevant components of an artifact.
+
+Let A = (H, P) with header H and payload P:
+
+\mathrm{SER}(A) = \mathrm{SER}(H) \,\Vert\, \mathrm{SER}(P)
+
+Partial serialization invalidates identity and proofs.
+
+⸻
+
+12.5 Order Canonicalization
+
+All unordered structures MUST be canonically ordered prior to serialization.
+
+Examples:
+	•	Map keys sorted lexicographically.
+	•	Sets serialized as ordered lists.
+	•	Numeric normalization (no alternate forms).
+
+Formally, for any unordered collection U:
+
+\mathrm{canon}(U) = \mathrm{sort}(U)
+
+⸻
+
+12.6 Hash Compatibility
+
+Canonical serialization MUST be compatible with cryptographic hashing.
+
+Let H be a cryptographic hash function:
+
+\mathrm{ID}(A) = H(\mathrm{SER}(A))
+
+Any change in \mathrm{SER}(A) MUST imply a different hash.
+
+⸻
+
+12.7 Language and Tool Independence
+
+The method MUST be implementable without privileged tooling.
+
+Requirements:
+	•	No proprietary formats.
+	•	No hidden state.
+	•	No version-dependent behavior.
+
+Reference implementations MAY exist, but are not normative.
+
+⸻
+
+12.8 Longevity Criterion
+
+Serialization MUST be readable and reconstructible decades later.
+
+Disallowed:
+	•	Compression without specification.
+	•	Context-dependent schemas.
+	•	Runtime-generated structure.
+
+Preference is given to simple, fully specified grammars.
+
+⸻
+
+12.9 Scientific Neutrality
+
+Canonical serialization MUST carry no semantics beyond structure.
+
+It encodes what is, not what it means.
+
+Interpretation layers are strictly external to QAL.
+
+⸻
+
+12.10 Selection Outcome
+
+A serialization method is acceptable iff it satisfies all criteria:
+
+\text{Valid}(\mathrm{SER}) \iff \bigwedge_{i=1}^{9} C_i
+
+where C_i are the constraints defined in Sections 12.1–12.9.
+
+⸻
+
+Next, if ready:
+
+👉 Chapter 13 — Canonicalization Versioning and Freeze Discipline

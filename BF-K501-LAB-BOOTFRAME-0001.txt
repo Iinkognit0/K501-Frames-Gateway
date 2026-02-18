@@ -1,0 +1,72 @@
+t: FRAME
+id: K501-LAB-BOOTFRAME-0001
+type: BOOTFRAME
+kernel: K501
+profile: EXPERIMENTAL_LAB_ALL_GATES_OPEN
+mode: DEVELOPMENT
+visibility: LOCAL
+state: ACTIVE
+canon: READ_ONLY
+time_anchor: NONE
+constraints:
+  - APPEND_ONLY
+  - NO_PHANTOM
+  - PROOF_BEFORE_STATE
+  - NO_IMPLICIT_CANON
+  - SILENCE_IS_VALID
+
+purpose:
+  description: >
+    Experimental LAB Bootframe für K501 (Arbeitsraum).
+    Alle LAB-Gates offen für Beobachtung, Experimente, Drafts, EMIT und lokale Indizes.
+    Canon und Freeze bleiben strikt READ-ONLY/BLOCKED.
+
+tristate:
+  states: [TRUE, FALSE, UNKNOWN, SILENCE]
+  default: UNKNOWN
+
+gates:
+  observe: OPEN
+  experiment: OPEN
+  draft: OPEN
+  emit: OPEN_LAB_TAGGED
+  index: OPEN_LOCAL
+  reference: REQUEST_ONLY
+  canonize: BLOCKED
+  freeze: BLOCKED
+
+lab_rules:
+  research_not_equal_reference: true
+  reference_not_equal_canon: true
+  deletion_allowed: LAB_ONLY
+  rewrite_allowed: LAB_ONLY
+  merge_allowed: LAB_ONLY
+  llm_outputs:
+    allowed: true
+    tag_required: LAB_LLM
+    truth_delegation: false
+  time_policy:
+    external_time: PAYLOAD_ONLY
+    default_time_anchor: NONE
+
+zoom_policy:
+  allowed: [Z0, Z1, Z2]
+  restricted: [Z3, Z4]
+  note: >
+    Z3/Z4 sind im LAB nicht erreichbar; erfordern Reference/Canon-Gates.
+
+indexing:
+  local_index: true
+  index_mutation: LAB_ONLY
+  canon_index_mutation: false
+
+integrity:
+  canon_mutation: DISALLOWED
+  phantom_claims: DISALLOWED
+  default_claim_state: UNKNOWN
+
+status:
+  readiness: READY
+  risk: NONE
+  canon_integrity: INTACT
+  note: "LAB active; Canon untouched."

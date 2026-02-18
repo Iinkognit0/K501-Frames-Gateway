@@ -1,0 +1,535 @@
+{
+  "gx_chat_bootpack": {
+    "id": "GX-K501-CHAT-BOOTPACK-PREFINAL-IMPEX-0001",
+    "mode": "REFERENCE_ONLY",
+    "freeze": true,
+    "append_only": true,
+    "interpretation": "FORBIDDEN",
+    "automation": "OFF",
+    "execution": "BLOCKED",
+    "time_anchor": {
+      "ts_unix": 1769513738,
+      "ts_utc": "2026-01-27T11:35:38Z",
+      "source": "EXPLICIT_USER_CONFIRMED"
+    },
+    "purpose": [
+      "SINGLE_COPY_PASTE_START_FOR_NEW_CHAT",
+      "CONTAINS_MASTER_INDEX_AND_IMPEX_REFERENCE_BLOCKS",
+      "NO_ACTIONISM_NO_BUILD_NO_TOOLING"
+    ],
+    "operational_guards": {
+      "no_execution": true,
+      "no_network_lookup": true,
+      "no_state_change_by_confirm": true,
+      "proof_before_state": true,
+      "derive_only_no_mutation": true
+    }
+  },
+
+  "artifacts": {
+    "master_index": {
+      "master_index": {
+        "id": "GX-K501-MASTER-INDEX-PREFINAL-REV1",
+        "mode": "REFERENCE_ONLY",
+        "freeze": true,
+        "append_only": true,
+        "interpretation": "FORBIDDEN",
+        "automation": "OFF",
+        "execution": "BLOCKED",
+
+        "time_policy": {
+          "required": ["ts_utc_rfc3339", "ts_unix_uint64"],
+          "anchor_rule": "EXPLICIT_USER_CONFIRMED",
+          "ordering": {
+            "az_epoch": "ORDER_ONLY_NO_TIME",
+            "rule": "MONOTONIC_PER_ARCHIVE_NODE"
+          },
+          "external_refs": {
+            "rfc3339": "DATE_TIME_FORMAT_REFERENCE"
+          }
+        },
+
+        "external_norm_baselines": {
+          "canonical_json_baseline": {
+            "name": "RFC8785_JCS",
+            "role": "EXTERNAL_COMPARISON_BASELINE",
+            "note": "GX uses its own canonical profile (Phase-A A2/A5). Differences must be explicit, not accidental."
+          },
+          "newline_delimited_json_baseline": {
+            "name": "JSON_LINES",
+            "role": "EXTERNAL_FORMAT_BASELINE",
+            "note": "GX may be stricter than JSON Lines; strictness must be stated as GX profile."
+          },
+          "hash_baseline": {
+            "name": "SHA-256",
+            "role": "EXTERNAL_HASH_BASELINE"
+          }
+        },
+
+        "ontology": {
+          "truth_projection": {
+            "assert_state_enum": ["unknown", "false", "true"],
+            "rule": {
+              "true_requires": "PROOF",
+              "false_requires": "PROOF",
+              "unknown_default": true
+            }
+          },
+          "system_guards": {
+            "guard_state_enum": ["blocked", "frozen"],
+            "rule": "GUARDS_NEVER_CREATE_TRIGGERS"
+          },
+          "singularity_model": {
+            "time": "OBSERVER_PROJECTION",
+            "frame_time": "ORDERING_METADATA_ONLY",
+            "core_truth": "TIMELESS_REFERENCE",
+            "note": "Frames carry anchors for audit/order; not ontological truth-time."
+          }
+        },
+
+        "frame_rules": {
+          "atomicity": "ONE_ASSERTION_PER_FRAME",
+          "immutability": true,
+          "hash": {
+            "algo": "SHA-256",
+            "input": "CANONICAL_SERIALIZATION_PLUS_LF",
+            "hex": "LOWERCASE_64"
+          },
+          "visibility_enum": ["PUBLIC", "PRIVATE", "LOCAL", "REDACTED"]
+        },
+
+        "proofs": {
+          "types": ["PROOF_PRESENCE", "PROOF_HASH", "PROOF_SYNC", "PROOF_RECEIPT"],
+          "rule": "PROOF_IS_MANDATORY_NOT_BONUS",
+          "meta_rule": "PROOF_PROVES_CHECK_EVENT_NOT_CONTENT_TRUTH"
+        },
+
+        "indexing": {
+          "index_first": true,
+          "allow_competing_indexes": true,
+          "competing_rule": "MULTIPLE_INDEX_FRAMES_ALLOWED_IF_CANONICAL_AND_APPEND_ONLY",
+          "integrity_rule": "INDEX_MAY_BE_WRONG_BUT_NOT_BROKEN"
+        },
+
+        "audit": {
+          "content_evaluation": false,
+          "scope": ["existence", "order", "integrity", "reference_consistency"],
+          "outputs_are_frames": true
+        },
+
+        "phase_A": {
+          "status": "FINAL_LOCKED",
+          "blocks": {
+            "A1": "PRESENT_FINAL",
+            "A2": "PRESENT_FINAL",
+            "A3": "PRESENT_FINAL",
+            "A4": "PRESENT_FINAL",
+            "A5": "PRESENT_FINAL",
+            "A6": "PRESENT_FINAL",
+            "A7": "PRESENT_FINAL",
+            "A8": "PRESENT_FINAL",
+            "A9": "PRESENT_FINAL",
+            "A10": "PRESENT_FINAL",
+            "A11": "PRESENT_FINAL",
+            "A12": "PRESENT_FINAL",
+            "A13": "PRESENT_FINAL",
+            "A14": "PRESENT_FINAL",
+            "A15": "PRESENT_FINAL",
+            "A16": "PRESENT_FINAL",
+            "A17": "PRESENT_FINAL",
+            "A18": "PRESENT_FINAL",
+            "A19": "PRESENT_FINAL"
+          },
+          "masterflow": {
+            "type": "DIRECTED_ACYCLIC_GRAPH",
+            "rule": "NO_MUTATION_ONLY_ADDITIVE_LAYERS",
+            "note": "Masterflow exists as a graph of references, not as retroactive edits."
+          },
+          "conflict_map": {
+            "status": "OPEN_BUT_NON_DESTRUCTIVE",
+            "rule": "KEEP_ALL_VERSIONS_APPEND_ONLY; RESOLVE_BY_ADDING_NEW_REFERENCE_FRAMES",
+            "known_conflicts": [
+              {
+                "topic": "top_level_field_names",
+                "examples": ["frame_id vs id", "az_epoch vs az", "state enum variants"],
+                "resolution_style": "DECLARE_PROFILE_AND_COMPAT_TABLE"
+              },
+              {
+                "topic": "canonical_json_policy",
+                "examples": ["GX key-order rules vs external JCS baseline"],
+                "resolution_style": "EXPLICIT_GX_PROFILE; DO_NOT_SILENTLY_DRIFT"
+              }
+            ]
+          }
+        },
+
+        "marker": {
+          "id": "LK501-AS-I-STATE",
+          "name": "AS I STATE",
+          "symbol": "K501x🥇",
+          "declaration": "I DECLARE",
+          "status": ["KANON", "HISTORICAL", "ETERNITY", "FREEZE"],
+          "epoch_anchor": {
+            "ts_unix": 1769512086,
+            "ts_utc": "2026-01-27T11:08:06Z"
+          },
+          "role": "REFERENCE_ANCHOR_ONLY",
+          "note": "Exact phrase only. No extra tokens."
+        },
+
+        "governance": {
+          "human_is_not_sole_gatekeeper": true,
+          "archive_self_feedback_is_input": true,
+          "inputs": ["human", "system", "environment", "time", "archive_self"],
+          "non_overrideable_core": true,
+          "rule": "NO_STATE_CHANGE_BY_CONFIRM; PROOF_BEFORE_STATE"
+        },
+
+        "derivations": {
+          "rendering": "DERIVATIVE_ONLY",
+          "pdf_svg_audio": "POST_MODULE_PHASE_B",
+          "export_rule": "HASH_PROOFS_REQUIRED_FOR_EXPORT"
+        }
+      }
+    },
+
+    "compatibility_table": {
+      "compatibility_table": {
+        "id": "GX-COMPAT-GX-RFC8785-JSONLINES",
+        "mode": "REFERENCE_ONLY",
+        "freeze": true,
+        "scope": "FORMAT_CANONICALIZATION_AND_STREAMING",
+        "principle": "EXPLICIT_DIFFERENCES_NO_SILENT_DRIFT",
+
+        "dimensions": [
+          "encoding",
+          "whitespace",
+          "object_key_order",
+          "number_representation",
+          "string_escaping",
+          "line_delimitation",
+          "file_structure",
+          "hash_input",
+          "error_tolerance"
+        ],
+
+        "profiles": {
+          "GX_PROFILE_PHASE_A": {
+            "encoding": "UTF-8_NO_BOM",
+            "whitespace": "FORBIDDEN_OUTSIDE_STRINGS",
+            "object_key_order": "STRICT_LEXICOGRAPHIC_ASCII",
+            "number_representation": "NO_TRAILING_ZEROS_NO_EXP_NOTATION_UNLESS_REQUIRED",
+            "string_escaping": "JSON_STANDARD_ESCAPES_ONLY",
+            "line_delimitation": "LF_ONLY",
+            "file_structure": "NDJSON_APPEND_ONLY",
+            "hash_input": "CANONICAL_JSON_PLUS_LF",
+            "error_tolerance": "ZERO_TOLERANCE_FAIL_FRAME",
+            "notes": [
+              "GX canonicalization is normative for GX only",
+              "Designed for auditability and append-only archives",
+              "Stricter than common internet baselines by design"
+            ]
+          },
+
+          "RFC8785_JCS": {
+            "encoding": "UTF-8",
+            "whitespace": "INSIGNIFICANT_OUTSIDE_STRINGS",
+            "object_key_order": "LEXICOGRAPHIC_BY_UNICODE_CODEPOINT",
+            "number_representation": "ECMASCRIPT_NUMBER_RULES",
+            "string_escaping": "JSON_STANDARD_ESCAPES",
+            "line_delimitation": "NOT_APPLICABLE",
+            "file_structure": "SINGLE_JSON_DOCUMENT",
+            "hash_input": "CANONICALIZED_JSON",
+            "error_tolerance": "STRICT_CANONICAL_FAIL",
+            "notes": [
+              "Baseline for cryptographic signing",
+              "Widely accepted external reference",
+              "Does not define streaming or append-only semantics"
+            ]
+          },
+
+          "JSON_LINES": {
+            "encoding": "UTF-8_RECOMMENDED",
+            "whitespace": "ALLOWED_OUTSIDE_STRINGS",
+            "object_key_order": "UNSPECIFIED",
+            "number_representation": "JSON_STANDARD",
+            "string_escaping": "JSON_STANDARD_ESCAPES",
+            "line_delimitation": "LF_OR_CRLF",
+            "file_structure": "ONE_JSON_OBJECT_PER_LINE",
+            "hash_input": "UNDEFINED",
+            "error_tolerance": "PARSER_DEPENDENT",
+            "notes": [
+              "Format convention, not a cryptographic canonicalization",
+              "Optimized for streaming and logs",
+              "Allows implementation variance"
+            ]
+          }
+        },
+
+        "gx_vs_external_summary": {
+          "gx_vs_rfc8785": {
+            "compatible": true,
+            "differences": [
+              "GX enforces LF-only; RFC8785 is agnostic",
+              "GX forbids insignificant whitespace entirely",
+              "GX restricts number formatting more tightly"
+            ],
+            "rule": "GX_MUST_DECLARE_PROFILE_WHEN_USING_RFC8785_TOOLS"
+          },
+          "gx_vs_json_lines": {
+            "compatible": true,
+            "differences": [
+              "GX fixes key order; JSON Lines does not",
+              "GX fixes hash input; JSON Lines does not define hashing",
+              "GX forbids CRLF; JSON Lines allows it"
+            ],
+            "rule": "GX_IS_STRICT_SUBSET_FOR_ARCHIVAL_USE"
+          }
+        },
+
+        "anti_drift_rules": [
+          "NEVER_ASSUME_EXTERNAL_DEFAULTS_MATCH_GX",
+          "DECLARE_PROFILE_ON_IMPORT_AND_EXPORT",
+          "HASHES_ARE_ONLY_COMPARABLE_WITH_SAME_PROFILE",
+          "COMPETING_PROFILES_MAY_COEXIST_AS_SEPARATE_INDEX_FRAMES"
+        ],
+
+        "status": "REFERENCE_STABLE"
+      }
+    },
+
+    "impex_declarations": [
+      {
+        "id": "GX-IMPEX-PROFILES-DECL-0001",
+        "t": "REFERENCE",
+        "mode": "REFERENCE_ONLY",
+        "freeze": true,
+        "p": {
+          "purpose": "IMPORT_EXPORT_PROFILE_DECLARATIONS",
+          "principles": [
+            "NO_SILENT_TRANSFORMS",
+            "PROFILE_ID_REQUIRED_ON_IO",
+            "HASHES_ONLY_COMPARABLE_WITH_SAME_PROFILE_ID",
+            "IMPORT_MAY_STORE_AS_RECEIVED_PLUS_NORMALIZED_DERIVATIVE_AS_SEPARATE_FRAME"
+          ],
+          "profiles": {
+            "GX_PROFILE_A_CANON": {
+              "profile_id": "GX_PROFILE_A_CANON",
+              "family": "GX",
+              "stream": "NDJSON",
+              "encoding": "UTF-8_NO_BOM",
+              "line_end": "LF_ONLY",
+              "one_frame": "ONE_JSON_OBJECT_PLUS_LF",
+              "whitespace_outside_strings": "FORBIDDEN",
+              "object_key_order": "GX_TOPLEVEL_ORDER_OR_STRICT_ASCII_LEX_FOR_OBJECTS",
+              "duplicate_keys": "REJECT",
+              "numbers": {
+                "exponent_notation": "REJECT",
+                "nan_inf": "REJECT",
+                "leading_zeros": "REJECT",
+                "float_policy": "AVOID_USE_INT_SCALE_RECOMMENDED"
+              },
+              "strings": {
+                "control_chars": "ESCAPE_REQUIRED",
+                "unicode_policy": "NO_SILENT_NORMALIZATION"
+              },
+              "hash_input": "CANONICAL_BYTES_PLUS_LF",
+              "hash_algo": "SHA-256"
+            },
+            "RFC8785_JCS": {
+              "profile_id": "RFC8785_JCS",
+              "family": "JCS",
+              "stream": "SINGLE_JSON",
+              "encoding": "UTF-8",
+              "line_end": "N/A",
+              "canonicalization": "RFC8785",
+              "object_key_order": "UNICODE_CODEPOINT_LEX",
+              "duplicate_keys": "UNDEFINED_BY_JSON_PARSER_BUT_CANON_IMPL_SHOULD_REJECT",
+              "numbers": {
+                "rule": "RFC8785_NUMBER_FORMATTING",
+                "exponent_notation": "ALLOWED_BY_SPEC_CANON",
+                "nan_inf": "REJECT"
+              },
+              "hash_input": "JCS_CANONICAL_JSON",
+              "hash_algo": "SHA-256"
+            },
+            "JSON_LINES_LOOSE": {
+              "profile_id": "JSON_LINES_LOOSE",
+              "family": "JSON_LINES",
+              "stream": "JSONL",
+              "encoding": "UTF-8_RECOMMENDED",
+              "line_end": "LF_OR_CRLF",
+              "whitespace_outside_strings": "ALLOWED",
+              "object_key_order": "UNSPECIFIED",
+              "duplicate_keys": "PARSER_DEPENDENT",
+              "numbers": {
+                "exponent_notation": "ALLOWED",
+                "nan_inf": "REJECT_BY_JSON",
+                "leading_zeros": "PARSER_DEPENDENT"
+              },
+              "hash_input": "UNDEFINED",
+              "hash_algo": "UNDEFINED"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "GX-IMPEX-MAPPING-RULES-0001",
+        "t": "REFERENCE",
+        "mode": "REFERENCE_ONLY",
+        "freeze": true,
+        "p": {
+          "purpose": "PROFILE_MAPPING_AND_TRANSFORM_RULES",
+          "core_rule": "IMPORT_NEVER_MUTATES_SOURCE; NORMALIZATION_IS_A_DERIVATION",
+          "allowed_imports": [
+            {
+              "from_profile": "RFC8785_JCS",
+              "to_profile": "GX_PROFILE_A_CANON",
+              "policy": "DERIVE_CANONICAL_GX_FRAME_LINE",
+              "requirements": [
+                "DECLARE_SOURCE_PROFILE_ID",
+                "STORE_SOURCE_BYTES_AS_RAW_OPTIONAL",
+                "EMIT_DERIVED_GX_FRAME_WITH_PROFILE_ID"
+              ],
+              "reject_if": [
+                "DUPLICATE_KEYS_DETECTED",
+                "NON_JSON_VALUES",
+                "NUMBERS_NAN_INF"
+              ],
+              "notes": [
+                "Exponent numbers in JCS MUST be converted into GX-accepted decimal form OR rejected if cannot be losslessly represented under GX policy."
+              ]
+            },
+            {
+              "from_profile": "JSON_LINES_LOOSE",
+              "to_profile": "GX_PROFILE_A_CANON",
+              "policy": "STRICT_IMPORT_GATE",
+              "requirements": [
+                "LINE_DELIMITED_PARSE",
+                "REJECT_IF_CRLF_PRESENT_UNLESS_EXPLICITLY_ALLOWED",
+                "REJECT_IF_WHITESPACE_OUTSIDE_STRINGS_PRESENT",
+                "REJECT_IF_OBJECT_KEYS_NOT_CANON_ORDER_OR_DUP_KEYS",
+                "EMIT_GX_FRAME_ONLY_IF_FULL_GX_CANON_PASSES"
+              ],
+              "notes": [
+                "JSONL is not canonical; GX treats it as hostile/ambiguous unless strict-gated."
+              ]
+            }
+          ],
+          "export_rules": [
+            {
+              "from_profile": "GX_PROFILE_A_CANON",
+              "to_profile": "RFC8785_JCS",
+              "policy": "EXPORT_DERIVATIVE_ONLY",
+              "requirements": [
+                "DECLARE_TARGET_PROFILE_ID",
+                "EMIT_EXPORT_FRAME_WITH_HASH_PROOF",
+                "NEVER_CLAIM_BYTE_IDENTITY_WITH_GX"
+              ]
+            },
+            {
+              "from_profile": "GX_PROFILE_A_CANON",
+              "to_profile": "JSON_LINES_LOOSE",
+              "policy": "NOT_RECOMMENDED",
+              "requirements": [
+                "IF_USED_DECLARE_LOSS_OF_CANON",
+                "DO_NOT_COMPARE_HASHES_ACROSS_PROFILES"
+              ]
+            }
+          ],
+          "reject_matrix": {
+            "hard_reject": [
+              "NON_UTF8",
+              "BOM_PRESENT_WHERE_FORBIDDEN",
+              "DUPLICATE_KEYS",
+              "INVALID_JSON",
+              "NAN_INF",
+              "HASH_MISMATCH_WHEN_HASH_PRESENT"
+            ],
+            "gx_specific_hard_reject": [
+              "CRLF_PRESENT",
+              "WHITESPACE_OUTSIDE_STRINGS",
+              "EXPONENT_NUMBER",
+              "LEADING_ZERO_INTEGER"
+            ]
+          }
+        }
+      },
+
+      {
+        "id": "GX-IMPEX-PROOF-BINDINGS-0001",
+        "t": "REFERENCE",
+        "mode": "REFERENCE_ONLY",
+        "freeze": true,
+        "p": {
+          "purpose": "HASH_AND_PROOF_COMPARABILITY_RULES",
+          "hash_comparability": {
+            "rule": "HASHES_ONLY_COMPARABLE_IF_PROFILE_ID_MATCHES",
+            "required_fields_for_comparison": ["profile_id", "hash_algo", "hash_hex"],
+            "notes": [
+              "Same semantic JSON may yield different bytes across profiles -> different hashes.",
+              "Never treat mismatch across profiles as corruption; treat as expected."
+            ]
+          },
+          "proof_frames_policy": {
+            "proof_is_mandatory": true,
+            "proof_is_not_bonus": true,
+            "minimum_proofs_for_export": ["PROOF_HASH", "PROOF_PRESENCE"],
+            "minimum_proofs_for_transfer": ["PROOF_SYNC", "PROOF_RECEIPT"],
+            "profile_in_proofs": "MUST_INCLUDE_profile_id_in_subject_or_context"
+          }
+        }
+      },
+
+      {
+        "id": "GX-PREFINAL-CLOSEOUT-FLOW-0001",
+        "t": "REFERENCE",
+        "mode": "REFERENCE_ONLY",
+        "freeze": true,
+        "p": {
+          "purpose": "MINIMAL_CLOSEOUT_STEPS_NO_ACTIONISM",
+          "steps": [
+            {
+              "step": "S1_DECLARE_PROFILES",
+              "output": "GX-IMPEX-PROFILES-DECL-0001",
+              "done_when": "PROFILE_IDS_EXIST_AND_ARE_USED_ON_IO"
+            },
+            {
+              "step": "S2_DECLARE_MAPPING_RULES",
+              "output": "GX-IMPEX-MAPPING-RULES-0001",
+              "done_when": "IMPORT_EXPORT_RULES_EXIST_AND_HAVE_REJECT_MATRIX"
+            },
+            {
+              "step": "S3_DECLARE_PROOF_BINDINGS",
+              "output": "GX-IMPEX-PROOF-BINDINGS-0001",
+              "done_when": "HASH_COMPARABILITY_RULE_IS_EXPLICIT"
+            },
+            {
+              "step": "S4_LOCK_PREFINAL",
+              "output": "PREFINAL_LOCK_MARKER",
+              "done_when": "YOU_CONFIRM_PREFINAL_AS_NEXT_REVIEW_TARGET"
+            },
+            {
+              "step": "S5_NEXT_ONLY_IF_NEEDED",
+              "output": "OPTIONAL_PROFILE_TEST_CASES_REFERENCE",
+              "done_when": "ONLY_IF_IMPLEMENTATION_STARTS"
+            }
+          ],
+          "note": "No tooling, no build, no pdf. Only declarations and reject rules."
+        }
+      }
+    ]
+  },
+
+  "bootpack_footer": {
+    "copy_paste_instruction": "PASTE_THIS_WHOLE_JSON_AS_FIRST_MESSAGE_IN_NEW_CHAT",
+    "next_expected_user_action": "CONFIRM_PREFINAL_REVIEW_TARGET_OR_REQUEST_DELTA_FRAME",
+    "constraints_reminder": [
+      "NO_EXECUTION",
+      "NO_TOOLING",
+      "NO_NETWORK_LOOKUP",
+      "ONLY_APPEND_ONLY_REFERENCE_UPDATES"
+    ]
+  }
+}

@@ -1,0 +1,348 @@
+# GXvGENESIS · ARCHIVATOR — BOOTPACK v0.5
+# MODE: REFERENCE_ONLY · EXECUTION: BLOCKED · AUTOMATION: OFF
+# APPEND_ONLY: TRUE · INTERPRETATION: FORBIDDEN · NO_PHANTOM: TRUE
+#
+# GOAL
+# - One single Copy&Paste block for a new chat / new iSH session.
+# - Contains: (A) Shell setup (B) Mini-Interpreter (READ-ONLY)
+#             (C) RAW Emitter (append-only) (D) Minimal Index (optional)
+# - Makes NO assumptions beyond /root. Everything is created/checked.
+#
+# IMPORTANT (iSH / Alpine / BusyBox ash)
+# - Here-doc must be closed EXACTLY with the token alone on a line: PY
+# - Do NOT type anything between the cat <<'PY' and the closing PY line.
+
+set -eu
+umask 077
+
+# ------------------------------------------------------------
+# (A) SHELL BOOT — SAFE SETUP (Alpine / iSH)
+# ------------------------------------------------------------
+
+export GX_ROOT="${GX_ROOT:-/root}"
+export GX_DB="${GX_DB:-$GX_ROOT/GX_DB}"
+export GX_KERNEL="${GX_KERNEL:-$GX_ROOT/GX_KERNEL}"
+
+mkdir -p "$GX_DB" "$GX_KERNEL"
+
+: > "$GX_DB/frames.ndjson" 2>/dev/null || true
+: > "$GX_DB/index.ndjson"  2>/dev/null || true
+
+# Sanity (read-only listing)
+ls -la "$GX_ROOT"   || true
+ls -la "$GX_DB"     || true
+ls -la "$GX_KERNEL" || true
+
+# ------------------------------------------------------------
+# (B) MINI INTERPRETER — READ ONLY (no writes)
+# FILE: /root/GX_KERNEL/mini_interpreter.py
+# ------------------------------------------------------------
+
+cat > "$GX_KERNEL/mini_interpreter.py" <<'PY'
+#!/usr/bin/env python3
+# GXvGENESIS · ARCHIVATOR — mini_interpreter.py
+# MODE: REFERENCE_ONLY · EXECUTION: BLOCKED · AUTOMATION: OFF · APPEND_ONLY: TRUE
+# READ-ONLY: never mutates ledger files.
+
+import os, sys, json
+from typing import Any, Dict, Iterable, Optional, Tuple
+
+def eprint(*a):
+    print(*a, file=sys.stderr)
+
+def gx_db_root() -> str:
+    return os.environ.get("GX_DB", "/root/GX_DB")
+
+def frames_path() -> str:
+    return os.path.join(gx_db_root(), "frames.ndjson")
+
+def index_path() -> str:
+    return os.path.join(gx_db_root(), "index.ndjson")
+
+def file_info(path: str) -> Tuple[int, int]:
+    try:
+        st = os.stat(path)
+        size = st.st_size
+    except FileNotFoundError:
+        return (0, 0)
+    lines = 0
+    try:
+        with open(path, "rb") as f:
+            for _ in f:
+                lines += 1
+    except Exception:
+        pass
+    return (size, lines)
+
+def iter_lines(path: str) -> Iterable[Tuple[int, str]]:
+    with open(path, "rb") as f:
+        for i, b in enumerate(f, start=1):
+            yield i, b.decode("utf-8", errors="replace").rstrip("\n")
+
+def parse_json_line(line: str) -> Optional[Dict[str, Any]]:
+    try:
+        v = json.loads(line)
+        return v if isinstance(v, dict) else None
+    except Exception:
+        return None
+
+def pretty(obj: Any) -> str:
+    return json.dumps(obj, ensure_ascii=True, sort_keys=True, separators=(",", ":"), indent=2)
+
+def cmd_help() -> int:
+    print("GXvGENESIS · ARCHIVATOR — mini_interpreter.py")
+    print("READ-ONLY ledger inspector (frames.ndjson; index.ndjson optional).")
+    print("")
+    print("Usage:")
+    print("  python3 /root/GX_KERNEL/mini_interpreter.py stats")
+    print("  python3 /root/GX_KERNEL/mini_interpreter.py validate")
+    print("  python3 /root/GX_KERNEL/mini_interpreter.py latest [N]")
+    print("  python3 /root/GX_KERNEL/mini_interpreter.py by_id <FRAME_ID>")
+    print("  python3 /root/GX_KERNEL/mini_interpreter.py by_type <T>")
+    print("  python3 /root/GX_KERNEL/mini_interpreter.py by_tag <TAG>")
+    print("")
+    print("Env:")
+    print("  GX_DB=/root/GX_DB (default)")
+    return 0
+
+def cmd_stats() -> int:
+    fp = frames_path()
+    ip = index_path()
+    f_bytes, f_lines = file_info(fp)
+    i_bytes, i_lines = file_info(ip)
+
+    last_id = last_t = last_ts = None
+    bad = 0
+
+    if os.path.exists(fp) and f_lines > 0:
+        for _, line in iter_lines(fp):
+            o = parse_json_line(line)
+            if not o:
+                bad += 1
+                continue
+            last_id = o.get("id")
+            last_t  = o.get("t")
+            last_ts = o.get("ts_unix") or (o.get("time") or {}).get("ts_unix")
+
+    out = {
+        "gx_db": gx_db_root(),
+        "frames": {
+            "path": fp, "exists": os.path.exists(fp),
+            "bytes": f_bytes, "lines": f_lines,
+            "bad_json_lines": bad,
+            "last": {"id": last_id, "t": last_t, "ts_unix": last_ts}
+        },
+        "index": {
+            "path": ip, "exists": os.path.exists(ip),
+            "bytes": i_bytes, "lines": i_lines
+        },
+        "note": "read-only stats"
+    }
+    print(pretty(out))
+    return 0
+
+def cmd_validate() -> int:
+    fp = frames_path()
+    if not os.path.exists(fp):
+        eprint("ERR: frames.ndjson not found:", fp)
+        return 2
+    ok = bad = 0
+    first_bad = None
+    for ln, line in iter_lines(fp):
+        o = parse_json_line(line)
+        if o is None:
+            bad += 1
+            if first_bad is None:
+                first_bad = {"line": ln, "raw": line[:240]}
+        else:
+            ok += 1
+    print(pretty({"path": fp, "ok": ok, "bad": bad, "first_bad": first_bad}))
+    return 0 if bad == 0 else 1
+
+def cmd_latest(n: int) -> int:
+    fp = frames_path()
+    if not os.path.exists(fp):
+        eprint("ERR: frames.ndjson not found:", fp)
+        return 2
+    buf = []
+    for _, line in iter_lines(fp):
+        buf.append(line)
+        if len(buf) > n:
+            buf.pop(0)
+    for s in buf:
+        print(s)
+    return 0
+
+def cmd_by_id(frame_id: str) -> int:
+    fp = frames_path()
+    if not os.path.exists(fp):
+        eprint("ERR: frames.ndjson not found:", fp)
+        return 2
+    for _, line in iter_lines(fp):
+        o = parse_json_line(line)
+        if o and o.get("id") == frame_id:
+            print(pretty(o))
+            return 0
+    return 1
+
+def cmd_by_type(t: str) -> int:
+    fp = frames_path()
+    if not os.path.exists(fp):
+        eprint("ERR: frames.ndjson not found:", fp)
+        return 2
+    for _, line in iter_lines(fp):
+        o = parse_json_line(line)
+        if o and o.get("t") == t:
+            print(pretty(o))
+    return 0
+
+def cmd_by_tag(tag: str) -> int:
+    fp = frames_path()
+    if not os.path.exists(fp):
+        eprint("ERR: frames.ndjson not found:", fp)
+        return 2
+    for _, line in iter_lines(fp):
+        o = parse_json_line(line)
+        if not o:
+            continue
+        p = o.get("p") or {}
+        tags = p.get("tags") or []
+        if isinstance(tags, list) and tag in tags:
+            print(pretty(o))
+    return 0
+
+def main(argv) -> int:
+    if len(argv) < 2:
+        return cmd_help()
+    cmd = argv[1]
+    if cmd in ("-h", "--help", "help"):
+        return cmd_help()
+    if cmd == "stats":
+        return cmd_stats()
+    if cmd == "validate":
+        return cmd_validate()
+    if cmd == "latest":
+        n = 10
+        if len(argv) >= 3:
+            try:
+                n = int(argv[2])
+            except Exception:
+                n = 10
+        return cmd_latest(max(1, min(n, 200)))
+    if cmd == "by_id" and len(argv) >= 3:
+        return cmd_by_id(argv[2])
+    if cmd == "by_type" and len(argv) >= 3:
+        return cmd_by_type(argv[2])
+    if cmd == "by_tag" and len(argv) >= 3:
+        return cmd_by_tag(argv[2])
+    return cmd_help()
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))
+PY
+
+chmod +x "$GX_KERNEL/mini_interpreter.py"
+
+# ------------------------------------------------------------
+# (C) RAW EMITTER — APPEND ONLY (writes frames.ndjson)
+# FILE: /root/GX_KERNEL/emit_raw_frame.py
+# ------------------------------------------------------------
+
+cat > "$GX_KERNEL/emit_raw_frame.py" <<'PY'
+#!/usr/bin/env python3
+# GXvGENESIS · ARCHIVATOR — emit_raw_frame.py
+# MODE: REFERENCE_ONLY · EXECUTION: BLOCKED · AUTOMATION: OFF
+# APPEND_ONLY: writes to frames.ndjson (and optionally index.ndjson)
+#
+# INPUT: a single JSON object via STDIN.
+# BEHAVIOR:
+# - If ts_unix missing: set best-effort host time.
+# - Append the raw JSON line to frames.ndjson.
+# - If GX_INDEX=1: append minimal pointer line to index.ndjson.
+
+import os, sys, json, time
+from typing import Any, Dict
+
+def gx_db_root() -> str:
+    return os.environ.get("GX_DB", "/root/GX_DB")
+
+def frames_path() -> str:
+    return os.path.join(gx_db_root(), "frames.ndjson")
+
+def index_path() -> str:
+    return os.path.join(gx_db_root(), "index.ndjson")
+
+def now_unix() -> int:
+    return int(time.time())
+
+def append_line(path: str, line: str) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "ab") as f:
+        f.write((line + "\n").encode("utf-8"))
+
+def emit_frame(obj: Dict[str, Any]) -> None:
+    # frames.ndjson: append-only
+    line = json.dumps(obj, ensure_ascii=True, separators=(",", ":"), sort_keys=False)
+    append_line(frames_path(), line)
+
+def emit_index(obj: Dict[str, Any]) -> None:
+    if os.environ.get("GX_INDEX", "0") != "1":
+        return
+    # index.ndjson: minimal pointer (append-only)
+    entry = {
+        "id": obj.get("id"),
+        "t": obj.get("t"),
+        "ts_unix": obj.get("ts_unix"),
+        "vis": obj.get("vis"),
+    }
+    line = json.dumps(entry, ensure_ascii=True, separators=(",", ":"), sort_keys=False)
+    append_line(index_path(), line)
+
+def main() -> int:
+    raw = sys.stdin.read()
+    if not raw or not raw.strip():
+        print("ERR: expected JSON object on stdin", file=sys.stderr)
+        return 2
+    try:
+        obj = json.loads(raw)
+        if not isinstance(obj, dict):
+            raise ValueError("root must be JSON object")
+    except Exception as e:
+        print("ERR: invalid JSON:", e, file=sys.stderr)
+        return 2
+
+    if "ts_unix" not in obj:
+        obj["ts_unix"] = now_unix()
+
+    emit_frame(obj)
+    emit_index(obj)
+
+    print("EMITTED:", obj.get("id"))
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+PY
+
+chmod +x "$GX_KERNEL/emit_raw_frame.py"
+
+# ------------------------------------------------------------
+# (D) QUICK START COMMANDS (copy & run)
+# ------------------------------------------------------------
+
+# 1) Stats (read-only)
+python3 "$GX_KERNEL/mini_interpreter.py" stats
+
+# 2) Validate ledger (read-only)
+python3 "$GX_KERNEL/mini_interpreter.py" validate || true
+
+# 3) Emit a minimal TIME_ANCHOR frame (append-only)
+#    Optional: also write minimal index pointers by setting GX_INDEX=1 for this command only.
+cat <<'JSON' | GX_INDEX=1 python3 "$GX_KERNEL/emit_raw_frame.py"
+{"id":"GX-TIME-ANCHOR-LOCAL-0001","t":"TIME_ANCHOR","vis":"PUBLIC","p":{"note":"local host time anchor (best-effort)","source":"shell_time()"}}
+JSON
+
+# 4) Tail last 5 frames (read-only)
+python3 "$GX_KERNEL/mini_interpreter.py" latest 5
+
+# END BOOTPACK v0.5

@@ -1,0 +1,222 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\fnil\fcharset0 .SFUI-Semibold;\f1\fnil\fcharset0 .SFUI-Regular;\f2\fswiss\fcharset0 Helvetica;
+\f3\fnil\fcharset0 .SFUI-RegularItalic;}
+{\colortbl;\red255\green255\blue255;\red17\green17\blue17;}
+{\*\expandedcolortbl;;\cssrgb\c6700\c6700\c6700;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 UTC 2026-02-04T19:07:12Z \'b7 Unix Epoch 1770232032
+\f1\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs44 \cf2 Quantum Archivator Language (QAL)
+\f1\b0\fs34 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 Chapter 9 \'97 Canonicalization Versioning and Freeze Discipline
+\f1\b0\fs34 \
+\
+This chapter defines how canonical forms evolve without breaking auditability, and how freezes prevent retroactive drift.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.1 Canonicalization Versions
+\f1\b0\fs34 \
+\
+A 
+\f3\i canonicalization version
+\f1\i0  specifies the exact rules used by serialization 
+\f2\fs24 \cf0 \\mathrm\{SER\}_v
+\f1\fs34 \cf2 .\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \\mathrm\{SER\}_v : A \\rightarrow B
+\f1\fs34 \cf2 \
+\
+Each version 
+\f2\fs24 \cf0 v
+\f1\fs34 \cf2  is immutable once released.\
+Two artifacts serialized under different versions are 
+\f0\b not
+\f1\b0  equivalent.\
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.2 Version Binding Rule
+\f1\b0\fs34 \
+\
+Every QAL artifact MUST bind explicitly to its canonicalization version:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 A \\mapsto (v, \\mathrm\{SER\}_v(A))
+\f1\fs34 \cf2 \
+\
+Hashes are valid 
+\f0\b only
+\f1\b0  with respect to the bound version.\
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.3 Forward Evolution, No Rewrite
+\f1\b0\fs34 \
+\
+Evolution is permitted 
+\f0\b only forward
+\f1\b0 :\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	New canonicalization rules \uc0\u8594  new version 
+\f2\fs24 \cf0 v+1
+\f1\fs34 \cf2 \
+	\'95	Existing artifacts remain bound to 
+\f2\fs24 \cf0 v
+\f1\fs34 \cf2 \
+	\'95	No back-porting, no silent upgrades\
+\
+This guarantees historical integrity.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.4 Freeze Discipline
+\f1\b0\fs34 \
+\
+A 
+\f3\i freeze
+\f1\i0  is a declaration that a canonical set is closed.\
+\
+Formally, for a set 
+\f2\fs24 \cf0 S_v
+\f1\fs34 \cf2 :\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \\mathrm\{FREEZE\}(S_v) \\Rightarrow \\nexists A' \\in S_v : A' \\text\{ may change\}
+\f1\fs34 \cf2 \
+\
+After freeze:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	serialization rules fixed,\
+	\'95	hashes final,\
+	\'95	references stable.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.5 Freeze Scope
+\f1\b0\fs34 \
+\
+Freezes may apply at different scopes:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	Artifact-level\
+	\'95	Frame-block level\
+	\'95	Pack / Super-pack level\
+	\'95	Canonicalization-version level\
+\
+Scope MUST be explicit.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.6 Append-Only Enforcement
+\f1\b0\fs34 \
+\
+All changes after freeze require 
+\f0\b new artifacts
+\f1\b0 :\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 A \\xrightarrow\{\\text\{change\}\} A' \\quad \\text\{with\} \\quad A' \\neq A
+\f1\fs34 \cf2 \
+\
+Original artifacts remain intact and verifiable.\
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.7 Audit Implications
+\f1\b0\fs34 \
+\
+Freeze discipline ensures:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	reproducible audits,\
+	\'95	stable citations,\
+	\'95	legal and scientific defensibility.\
+\
+A frozen artifact is a 
+\f3\i time-anchored fact
+\f1\i0 .\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 9.8 Non-Optional Rule
+\f1\b0\fs34 \
+\
+Canonicalization versioning and freeze discipline are 
+\f0\b mandatory
+\f1\b0 .\
+Artifacts lacking explicit version or freeze state are 
+\f0\b non-auditable
+\f1\b0  by definition.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+Next chapter, if you wish to continue:\
+\
+\uc0\u55357 \u56393  
+\f0\b Chapter 10 \'97 Minimal Completeness Conditions}

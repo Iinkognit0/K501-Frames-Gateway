@@ -1,0 +1,172 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">UTC 2026-02-04T19:22:41Z · Unix Epoch 1770232961</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h2><span class="s1">Quantum Archivator Language (QAL)</span></h2></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2"><h3><span class="s1">Chapter 14 — QAL as a Proof Boundary and Audit Substrate</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This chapter defines QAL’s role as a strict boundary between </span><span class="s4">facts</span><span class="s3"> and </span><span class="s4">interpretation</span><span class="s3">, and as a substrate for auditability.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.1 Proof Boundary Definition</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL defines a </span><span class="s1">hard proof boundary</span><span class="s3">.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Only artifacts that are:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">canonically serialized,</span></p>
+</li><li>
+<p class="p1"><span class="s1">hash-bound,</span></p>
+</li><li>
+<p class="p1"><span class="s1">version-explicit,</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">are considered </span><span class="s4">provable</span><span class="s3">.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Everything outside QAL is </span><span class="s1">non-proof context</span><span class="s3">.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Formally:</span></p>
+<p class="p2"><span class="s2">\text{Proof}(A) \iff A \in \mathrm{QAL}</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.2 Separation of Proof and Meaning</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL stores </span><span class="s1">structure</span><span class="s3">, not meaning.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Let:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">A</span><span class="s2"> be a QAL artifact,</span></p>
+</li><li>
+<p class="p1"><span class="s1">I</span><span class="s2"> be an interpretation.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Then:</span></p>
+<p class="p2"><span class="s2">I \notin A</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Interpretation is always external, reversible, and discardable.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.3 Auditability as a First-Class Property</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Every QAL artifact supports deterministic audit.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Given:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">artifact </span><span class="s2">A</span><span class="s1">,</span></p>
+</li><li>
+<p class="p1"><span class="s1">canonicalization </span><span class="s2">C_v</span><span class="s1">,</span></p>
+</li><li>
+<p class="p1"><span class="s1">hash function </span><span class="s2">H</span><span class="s1">,</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">audit verification is:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">\text{audit}(A) = \big(H(\mathrm{SER}_{C_v}(A)) = h_{\text{stored}}\big)</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">No additional context is required.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.4 Proof Chains</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Artifacts MAY be linked via hashes.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">A proof chain is defined as:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">A_1 \rightarrow A_2 \rightarrow \dots \rightarrow A_n</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">where:</span></p>
+<p class="p2"><span class="s2">h_{i} = H(\mathrm{SER}(A_{i-1}))</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Chains are append-only and acyclic.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.5 Temporal Independence</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Proof validity does not depend on time.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Timestamps provide </span><span class="s4">ordering</span><span class="s3">, not truth.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">\text{Truth}(A) \perp \text{Time}</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.6 Tool-Agnostic Verification</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL verification is independent of:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">software,</span></p>
+</li><li>
+<p class="p1"><span class="s1">hardware,</span></p>
+</li><li>
+<p class="p1"><span class="s1">platform,</span></p>
+</li><li>
+<p class="p1"><span class="s1">organization.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Any system capable of:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">parsing canonical form,</span></p>
+</li><li>
+<p class="p1"><span class="s1">computing hashes,</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">can verify QAL artifacts.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.7 Failure Modes</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">If any of the following is missing:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">canonicalization version,</span></p>
+</li><li>
+<p class="p1"><span class="s1">canonical form,</span></p>
+</li><li>
+<p class="p1"><span class="s1">stored hash,</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">then:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2">\text{Proof}(A) = \text{invalid}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">No fallback mechanisms exist by design.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.8 Long-Term Audit Resilience</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL enables verification decades later, provided:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">the canonicalization spec is preserved,</span></p>
+</li><li>
+<p class="p1"><span class="s1">the hash algorithm remains defined.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Algorithm deprecation does not invalidate historical proofs.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.9 Non-Executability Guarantee</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL artifacts:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">do not execute,</span></p>
+</li><li>
+<p class="p1"><span class="s1">do not infer,</span></p>
+</li><li>
+<p class="p1"><span class="s1">do not decide.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">They </span><span class="s4">only</span><span class="s3"> prove existence and structure.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">14.10 Formal Closure</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL establishes:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">a provable boundary,</span></p>
+</li><li>
+<p class="p1"><span class="s1">an audit substrate,</span></p>
+</li><li>
+<p class="p1"><span class="s1">a permanent separation between fact and interpretation.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This completes QAL’s role as a proof system.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p1"><span class="s3">If you want to proceed:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">👉 </span><span class="s1">Chapter 15 — Minimal Mathematical Core of QAL</span></p>
+
+</body>
+</html>

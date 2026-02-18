@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">UTC 2026-02-04T18:56:12Z · Unix Epoch 1770231372</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h2><span class="s1">Quantum Archivator Language (QAL)</span></h2></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s2"><h3><span class="s1">Chapter 5 — Index Layers and Presence Proofs (L0 / L1)</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">This chapter defines how existence and structure are made observable without interpreting content.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">5.1 Index Layers Overview</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL distinguishes </span><span class="s1">content-bearing Frames</span><span class="s3"> from </span><span class="s1">indexing Frames</span><span class="s3">.</span></p>
+<p class="p1"><span class="s3">Indexing Frames never add semantics; they only report </span><span class="s1">presence and structure</span><span class="s3">.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Two canonical layers are defined:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">L0 — Presence Index</span></p>
+</li><li>
+<p class="p1"><span class="s1">L1 — Verified Index</span></p>
+</li></ul></span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">5.2 L0: Presence Index</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">The </span><span class="s1">L0 Index</span><span class="s3"> is a pointer-only inventory.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">It lists:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Frame identifiers,</span></p>
+</li><li>
+<p class="p1"><span class="s1">basic metadata (type, byte size),</span></p>
+</li><li>
+<p class="p1"><span class="s1">ordering position.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s4">Formally, let </span><span class="s2">\mathcal{F} = \{F_1,\dots,F_n\}</span><span class="s4">.</span></p>
+<p class="p1"><span class="s3">Then:</span></p>
+<p class="p2"><span class="s2">\text{L0}(\mathcal{F}) = \{\, id(F_i) \mid 1 \le i \le n \,\}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Properties:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">no hashes required,</span></p>
+</li><li>
+<p class="p1"><span class="s1">no validation performed,</span></p>
+</li><li>
+<p class="p1"><span class="s1">existence claim only.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">L0 answers the question:</span></p>
+<p class="p1"><span class="s1">“What exists?”</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">5.3 L1: Verified Index</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">The </span><span class="s1">L1 Index</span><span class="s3"> extends L0 with cryptographic verification.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">It includes:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">self-hash of each Frame,</span></p>
+</li><li>
+<p class="p1"><span class="s1">previous-hash linkage,</span></p>
+</li><li>
+<p class="p1"><span class="s1">optional pack checksum references.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Formally:</span></p>
+<p class="p2"><span class="s2">\text{L1}(\mathcal{F}) = \{\, (id(F_i), h_{self}(F_i), h_{prev}(F_i)) \,\}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">L1 answers the question:</span></p>
+<p class="p1"><span class="s1">“What exists, and can its structure be verified?”</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">5.4 Presence Proof vs. Validity Proof</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">A critical distinction:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">Presence Proof</span><span class="s2">: the Frame exists in the archive.</span></p>
+</li><li>
+<p class="p1"><span class="s1">Validity Proof</span><span class="s2">: the Frame’s structure is consistent.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">QAL guarantees </span><span class="s1">presence proofs by L0</span></p>
+<p class="p1"><span class="s3">and </span><span class="s1">structural validity proofs by L1</span><span class="s3">.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">No index asserts truth, correctness, or meaning.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">5.5 Monotonic Index Growth</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Indices are append-only.</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p2"><span class="s4">Let </span><span class="s2">I_k</span><span class="s4"> be an index over </span><span class="s2">\mathcal{F}_k</span><span class="s4">.</span></p>
+<p class="p2"><span class="s4">After appending </span><span class="s2">F_{k+1}</span><span class="s4">:</span></p>
+<p class="p2"><span class="s2">I_{k+1} = I_k \cup \{F_{k+1}\}</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Previous index states remain reproducible.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p2"><span class="s2"><h3><span class="s1">5.6 Offline and Tool-Agnostic Verification</span></h3></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">Index verification requires only:</span></p>
+<p class="p2"><span class="s2"><ul><li>
+<p class="p1"><span class="s1">the index file,</span></p>
+</li><li>
+<p class="p1"><span class="s1">the referenced Frames,</span></p>
+</li><li>
+<p class="p1"><span class="s1">a standard hash function.</span></p>
+</li></ul></span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">No runtime, no execution, no external service.</span></p>
+<p class="p2"><span class="s2"><hr></span></p>
+<p class="p1"><span class="s3">If you want to proceed, the next chapter is:</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p1"><span class="s3">👉 </span><span class="s1">Chapter 6 — PackBlocks and Aggregation without Semantics</span></p>
+
+</body>
+</html>

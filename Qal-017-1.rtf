@@ -1,0 +1,299 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling1\cocoaplatform1{\fonttbl\f0\fnil\fcharset0 .SFUI-Semibold;\f1\fnil\fcharset0 .SFUI-Regular;\f2\fswiss\fcharset0 Helvetica;
+\f3\fnil\fcharset0 .SFUI-RegularItalic;}
+{\colortbl;\red255\green255\blue255;\red17\green17\blue17;}
+{\*\expandedcolortbl;;\cssrgb\c6700\c6700\c6700;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 UTC 2026-02-04T19:31:02Z \'b7 Unix Epoch 1770233462
+\f1\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs44 \cf2 Quantum Archivator Language (QAL)
+\f1\b0\fs34 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 Chapter 17 \'97 Relationship to Frames, Headers, and Archivator Systems
+\f1\b0\fs34 \
+\
+This chapter situates QAL within the broader ecosystem of 
+\f0\b Frames
+\f1\b0 , 
+\f0\b Headers
+\f1\b0 , and 
+\f0\b Archivator architectures
+\f1\b0 , clarifying boundaries, interfaces, and invariants.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.1 Conceptual Layering
+\f1\b0\fs34 \
+\
+QAL occupies the 
+\f0\b serialization and proof layer
+\f1\b0 . It is strictly below semantics and strictly above raw storage.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f0\b Below:
+\f1\b0  interpretation, inference, execution\
+	\'95	
+\f0\b Above:
+\f1\b0  byte storage, filesystems, transports\
+\
+QAL provides a canonical envelope for permanence and verification.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.2 Frames as Atomic Carriers
+\f1\b0\fs34 \
+\
+A 
+\f0\b Frame
+\f1\b0  is the minimal archival unit. QAL does not define Frames; it 
+\f0\b encodes
+\f1\b0  them.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	Frame = structured record with header + payload\
+	\'95	QAL = canonical grammar to serialize that record\
+\
+Frames may evolve; QAL remains stable.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.3 Headers and the Quantum Header (QH)
+\f1\b0\fs34 \
+\
+Headers declare 
+\f0\b context without meaning
+\f1\b0 .\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	Examples: timestamps, indices, guards, partitions\
+	\'95	QH (e.g., QH56) supplies structural gating and alignment\
+\
+QAL requires headers to be:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	explicit,\
+	\'95	fixed-width or canonically delimited,\
+	\'95	included in hash scope.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.4 Hash Scope and Proof Boundaries
+\f1\b0\fs34 \
+\
+QAL defines 
+\f0\b what is hashed
+\f1\b0 , not why.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	Object-hash: header + payload\
+	\'95	Pack-hash: ordered aggregation of object-hashes\
+\
+This separation enables:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	local verification,\
+	\'95	layered proofs,\
+	\'95	append-only growth without rehashing history.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.5 Archivator Systems
+\f1\b0\fs34 \
+\
+An 
+\f0\b Archivator
+\f1\b0  is any system that:\
+\pard\tqr\tx300\tx460\li460\fi-460\sl250\slmult1\sb240\partightenfactor0
+\AppleTypeServices\AppleTypeServicesF393216 \cf2 	1.	\AppleTypeServices accepts inputs,\
+\AppleTypeServices\AppleTypeServicesF393216 	2.	\AppleTypeServices produces QAL-conformant artifacts,\
+\AppleTypeServices\AppleTypeServicesF393216 	3.	\AppleTypeServices enforces append-only storage,\
+\AppleTypeServices\AppleTypeServicesF393216 	4.	\AppleTypeServices exposes verification.\
+\
+QAL does not prescribe Archivator behavior; it constrains outputs.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.6 Packs, Superpacks, and Blocks
+\f1\b0\fs34 \
+\
+Aggregation levels sit 
+\f0\b outside
+\f1\b0  QAL grammar but 
+\f0\b inside
+\f1\b0  QAL proof rules.\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f0\b Frame-Block:
+\f1\b0  ordered frames\
+	\'95	
+\f0\b Super-Block / Ultra-Block:
+\f1\b0  ordered blocks\
+	\'95	
+\f0\b Quantum-Block:
+\f1\b0  highest aggregation, no added semantics\
+\
+All aggregations are proof-only structures.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.7 Canonicalization Discipline
+\f1\b0\fs34 \
+\
+QAL is compatible with canonicalization layers (e.g., JSON canonical forms), provided that:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	the canonical form is frozen at creation,\
+	\'95	the exact byte representation is hashed,\
+	\'95	version identifiers are explicit.\
+\
+No silent canonical upgrades are allowed.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.8 Interoperability
+\f1\b0\fs34 \
+\
+QAL artifacts are interoperable across systems that agree on:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	grammar,\
+	\'95	hash algorithms,\
+	\'95	byte-order and encoding.\
+\
+No shared runtime, network, or platform is required.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.9 Non-Interference Principle
+\f1\b0\fs34 \
+\
+Frames, headers, and Archivators may add metadata 
+\f0\b around
+\f1\b0  QAL artifacts, but must never:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	alter serialized bytes,\
+	\'95	reinterpret stored content,\
+	\'95	inject semantics into QAL scope.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.10 Minimal Contract
+\f1\b0\fs34 \
+\
+The full contract between systems is:\
+\
+\pard\tx860\tx1420\tx1980\tx2540\tx3100\tx3660\tx4220\tx4780\tx5340\tx5900\tx6460\tx7020\li300\sl250\slmult1\partightenfactor0
+
+\f3\i \cf2 \'93If you can parse the grammar and verify the hash, you can trust the record\'92s integrity.\'94
+\f1\i0 \
+\
+Nothing more is assumed.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.11 Architectural Consequence
+\f1\b0\fs34 \
+\
+This separation enables:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl250\slmult1\sb240\partightenfactor0
+\cf2 	\'95	long-term archival,\
+	\'95	cross-domain reuse,\
+	\'95	scientific reproducibility,\
+	\'95	machine and human coexistence without coupling.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf2 17.12 Closure
+\f1\b0\fs34 \
+\
+QAL is the 
+\f0\b silent spine
+\f1\b0  connecting Frames, Headers, and Archivators\'97\
+invisible in operation, decisive in proof.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 \
+\uc0\u11835 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl250\slmult1\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf2 \
+If you wish to continue:\
+\uc0\u55357 \u56393  
+\f0\b Chapter 18 \'97 Formal Grammar Summary and Reference Tables}

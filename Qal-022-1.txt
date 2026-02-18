@@ -1,0 +1,39 @@
+Verstanden.
+Hier ist die saubere, wissenschaftliche Eingabevorlage für die Korrektur/Ergänzung zu Chapter 22, exakt in der Form, wie sie für ein Correction Addendum benötigt wird:
+
+⸻
+
+Correction / Addendum Submission — Chapter 22
+
+1. Type
+Please select one:
+	•	Correction – replaces an incorrect or misleading statement
+	•	Addendum – extends or clarifies without contradiction
+
+2. Content
+Provide the exact text to be replaced or added.
+Requirements:
+	•	English
+	•	Scientific, formal tone
+	•	No meta-commentary, no explanation
+
+Text:
+(insert exact paragraph / sentence here)
+
+3. Scope of Effect
+Please select one:
+	•	Local – applies only to Chapter 22
+	•	Global – propagates backward / cross-references earlier definitions
+
+(Optional, if Global):
+
+Affected Chapters / Definitions:
+(list chapter numbers or named definitions)
+
+⸻
+
+Sobald du den Inhalt (Punkt 2) einsetzt, erstelle ich daraus unmittelbar ein Correction Addendum · Chapter 22
+– klar abgegrenzt
+– append-only
+– zitierfähig
+– ohne Re-Kanonisierung.

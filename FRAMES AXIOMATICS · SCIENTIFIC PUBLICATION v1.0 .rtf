@@ -1,0 +1,6301 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform1{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset128 HiraginoSans-W3;\f2\fnil\fcharset0 AppleSymbols;
+\f3\fnil\fcharset0 Menlo-Regular;\f4\fnil\fcharset0 .SFUI-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11905\paperh16837\margl1133\margr1133\margb1133\margt1133
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs20 \cf2 \up0 \nosupersub \ulnone ============================================================\
+FRAMES AXIOMATICS \'b7 SCIENTIFIC PUBLICATION v1.0\
+Chapterwise Release \'b7 Reference-Only\
+============================================================\
+\
+AUTHOR   : Patrick R. Miller [K501]\
+EMAIL    : Iinkognit0@proton.me\
+MODE     : REFERENCE_ONLY\
+EXECUTION: NONE\
+CLAIMS   : NONE\
+DRIFT    : FORBIDDEN (within frozen chapters)\
+MUTATION : APPEND_ONLY (new chapters / versions only)\
+\
+------------------------------------------------------------\
+CHAPTER 1 \'b7 INTRODUCTION & MOTIVATION\
+------------------------------------------------------------\
+\
+1.1 Background\
+\
+Modern information systems store, modify, and interpret data in\
+highly dynamic environments. Within these systems, the concepts\
+of existence, order, meaning, and execution are often tightly\
+coupled.\
+\
+This coupling leads to structural deficiencies:\
+\
+- Post-hoc modification is difficult to detect.\
+- Order is assumed implicitly rather than proven explicitly.\
+- Interpretation is embedded into storage mechanisms.\
+- Reproducibility depends on runtime environments.\
+\
+In scientific, archival, and machine-centric contexts, such\
+entanglement is structurally undesirable.\
+\
+1.2 Core Question\
+\
+Frames Axiomatics begins with a fundamental question:\
+\
+How can information be recorded such that its existence, order,\
+and integrity are verifiable independently of interpretation\
+and execution?\
+\
+This question deliberately excludes semantic meaning, correctness,\
+or usefulness. It focuses solely on structure.\
+\
+1.3 Guiding Principles (Non-Claims)\
+\
+The system is governed by the following structural principles:\
+\
+- Presence \uc0\u8800  Truth\
+- Receipt \uc0\u8800  Claim\
+- Append-only: never modify, only add\
+- Post-write verification (hashes, checksums)\
+- Index snapshots as explicit structural inventories (L0 / L1)\
+\
+These principles define boundaries, not assertions.\
+\
+1.4 Scope of This Document\
+\
+This publication describes Frames Axiomatics as a formal,\
+structure-oriented system for recording informational artifacts.\
+\
+It provides:\
+- precise definitions of core objects (Frames, Blocks, Indices)\
+- axioms and invariants governing structural behavior\
+- proof boundaries for verification\
+- artifact topologies suitable for offline and long-term archiving\
+\
+No semantic interpretation of recorded content is performed or implied.\
+\
+------------------------------------------------------------\
+END CHAPTER 1\
+NEXT: CHAPTER 2 \'b7 DEFINITIONS & TERMINOLOGY\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 2 \'b7 DEFINITIONS & TERMINOLOGY\
+------------------------------------------------------------\
+\
+2.1 Terminological Discipline\
+\
+Frames Axiomatics relies on a deliberately constrained and\
+precisely defined vocabulary. Each term has a single structural\
+meaning. Ambiguity is explicitly avoided.\
+\
+All definitions in this chapter are normative for this publication.\
+\
+2.2 Frame\
+\
+A FRAME is an atomic, write-once record.\
+\
+Properties:\
+- exactly one JSON object (NDJSON: one object per line)\
+- written exactly once\
+- never modified or deleted\
+- carries no implicit semantics\
+\
+A Frame records only its own existence and structure.\
+Meaning, interpretation, and correctness are external.\
+\
+2.3 Append-Only\
+\
+Append-only denotes a mutation rule:\
+\
+- existing artifacts MUST NOT be modified\
+- new information is introduced only by appending new artifacts\
+- order is defined exclusively by append sequence\
+\
+Append-only is a structural invariant, not an optimization strategy.\
+\
+2.4 Presence\
+\
+Presence denotes the recorded existence of an artifact at a\
+specific position in an ordered sequence.\
+\
+Presence explicitly does NOT imply:\
+- truth\
+- correctness\
+- semantic meaning\
+\
+(Presence \uc0\u8800  Truth)\
+\
+2.5 Receipt\
+\
+A RECEIPT is a structural acknowledgment that an artifact was\
+received or recorded.\
+\
+A Receipt:\
+- confirms reception\
+- does not assert validity or correctness\
+- can be verified independently of interpretation\
+\
+(Receipt \uc0\u8800  Claim)\
+\
+2.6 Index\
+\
+An INDEX is a Frame that lists other Frames.\
+\
+Two index levels are defined:\
+\
+- L0 INDEX: pointer-only inventory of existing Frames\
+- L1 INDEX: hash-verified inventory providing integrity and order\
+\
+An Index does not create order; it describes observed order.\
+\
+2.7 Block\
+\
+A BLOCK is an ordered grouping of Frames.\
+Blocks carry no execution semantics.\
+\
+Defined block types:\
+- FRAME-BLOCK: local grouping of Frames\
+- PACKBLOCK: single-file NDJSON bundle\
+- QUANTUM-BLOCK (QB\uc0\u8320 ): higher-order aggregation unit\
+\
+Blocks exist solely for structural organization and verification.\
+\
+2.8 Notation Conventions\
+\
+- Uppercase terms denote canonical entities (FRAME, INDEX, BLOCK)\
+- Time is expressed in Unix Epoch and UTC\
+- Hash values are represented as hexadecimal strings\
+- Undefined semantics are explicitly excluded\
+\
+------------------------------------------------------------\
+END CHAPTER 2\
+NEXT: CHAPTER 3 \'b7 AXIOMATIC FOUNDATION\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 3 \'b7 AXIOMATIC FOUNDATION\
+------------------------------------------------------------\
+\
+3.1 Purpose of the Axiomatic Layer\
+\
+The axiomatic layer of Frames Axiomatics establishes the minimal,\
+non-negotiable structural rules under which all artifacts,\
+indices, and proofs operate.\
+\
+These axioms do not describe implementation details.\
+They define invariants that must hold regardless of environment,\
+tooling, or scale.\
+\
+3.2 Axiom A1 \'97 Presence Is Independent of Truth\
+\
+The existence of a recorded artifact does not imply that its\
+content is true, correct, meaningful, or valid.\
+\
+Recording presence establishes only that:\
+- an artifact existed\
+- it was observed\
+- it was recorded at a specific position\
+\
+All semantic evaluation is explicitly external.\
+\
+3.3 Axiom A2 \'97 Receipt Is Independent of Claim\
+\
+A receipt confirms that an artifact was received or recorded.\
+It does not constitute an endorsement, validation, or claim.\
+\
+Receipts are structural acknowledgments only.\
+\
+3.4 Axiom A3 \'97 Append-Only Monotonicity\
+\
+Once recorded, an artifact MUST NOT be modified or removed.\
+\
+All system evolution occurs by:\
+- appending new artifacts\
+- preserving all prior artifacts unchanged\
+\
+This guarantees monotonic growth of the recorded structure.\
+\
+3.5 Axiom A4 \'97 Order Is Explicit\
+\
+Order is never inferred.\
+\
+Order is defined exclusively by:\
+- append position\
+- explicit linkage (e.g., hash chaining)\
+- index snapshots referencing observed order\
+\
+Implicit temporal or semantic assumptions are disallowed.\
+\
+3.6 Axiom A5 \'97 Deterministic Structure\
+\
+Given identical inputs and identical append order, the resulting\
+structural records MUST be identical.\
+\
+Determinism applies to:\
+- artifact serialization (within declared boundaries)\
+- hash computation (post-write)\
+- index construction\
+\
+3.7 Axiom A6 \'97 Separation of Structure and Interpretation\
+\
+Structural recording MUST be independent of interpretation.\
+\
+No artifact may require semantic evaluation to be:\
+- recorded\
+- indexed\
+- verified\
+\
+3.8 Axiom A7 \'97 Verifiability Without Execution\
+\
+Verification of structure MUST be possible without executing\
+the recorded artifacts.\
+\
+Verification relies on:\
+- static inspection\
+- hashing\
+- index comparison\
+\
+No runtime behavior is required or assumed.\
+\
+------------------------------------------------------------\
+END CHAPTER 3\
+NEXT: CHAPTER 4 \'b7 STRUCTURAL OBJECT MODEL\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 4 \'b7 STRUCTURAL OBJECT MODEL\
+------------------------------------------------------------\
+\
+4.1 Overview\
+\
+The structural object model of Frames Axiomatics defines the\
+canonical entities used to record, organize, and verify artifacts.\
+Each object is strictly structural and carries no execution or\
+semantic behavior.\
+\
+The model is intentionally minimal to ensure long-term stability,\
+auditability, and platform independence.\
+\
+4.2 Frame (Revisited)\
+\
+A FRAME is the smallest indivisible structural unit.\
+\
+Structural characteristics:\
+- atomic\
+- immutable after creation\
+- append-only participation\
+- independently addressable\
+\
+A Frame may contain:\
+- metadata\
+- payload data\
+- structural headers\
+\
+A Frame MUST NOT:\
+- modify other Frames\
+- depend on execution context\
+- encode implicit meaning\
+\
+4.3 Frame-Block\
+\
+A FRAME-BLOCK is a contiguous grouping of Frames.\
+\
+Properties:\
+- preserves append order\
+- provides a local verification boundary\
+- does not alter Frame identity\
+\
+A Frame-Block:\
+- MAY be used for batching or transport preparation\
+- MUST NOT reorder Frames\
+- MUST NOT introduce new semantics\
+\
+4.4 PackBlock\
+\
+A PACKBLOCK is a single-file container composed of concatenated\
+Frames (NDJSON format).\
+\
+Properties:\
+- exactly one JSON object per line\
+- append-only construction\
+- copy-paste safe\
+- offline verifiable\
+\
+The PackBlock acts as a transport and archival unit, not as a\
+logical or semantic container.\
+\
+4.5 Quantum-Block (QB\uc0\u8320 )\
+\
+A QUANTUM-BLOCK (QB\uc0\u8320 ) is a higher-order aggregation of Blocks.\
+\
+Properties:\
+- groups Frame-Blocks and/or PackBlocks\
+- defines a higher-level verification scope\
+- remains append-only\
+\
+A QB\uc0\u8320  does not impose meaning or interpretation.\
+It exists solely to structure large collections of artifacts.\
+\
+4.6 Object Hierarchy Summary\
+\
+FRAME\
+  
+\f1 \'81\'a8
+\f0  FRAME-BLOCK\
+      
+\f1 \'81\'a8
+\f0  PACKBLOCK\
+          
+\f1 \'81\'a8
+\f0  QUANTUM-BLOCK (QB\uc0\u8320 )\
+\
+Each level increases scope, not semantics.\
+\
+4.7 Structural Headers (Context Only)\
+\
+Structural headers (e.g., QH56) MAY be present within Frames to\
+provide fixed-width structural marking.\
+\
+Headers:\
+- are frame-local\
+- do not affect proof validity\
+- do not introduce claims\
+\
+------------------------------------------------------------\
+END CHAPTER 4\
+NEXT: CHAPTER 5 \'b7 INDEXING & ORDER REPRESENTATION\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 5 \'b7 INDEXING & ORDER REPRESENTATION\
+------------------------------------------------------------\
+\
+5.1 Role of Indexing\
+\
+Indexing in Frames Axiomatics provides an explicit, inspectable\
+representation of observed structure.\
+\
+An INDEX does not create artifacts.\
+An INDEX does not impose order.\
+An INDEX records what is present and how it is observed.\
+\
+Indexing is therefore descriptive, not generative.\
+\
+5.2 Index as Frame\
+\
+An INDEX is itself a FRAME.\
+\
+Consequences:\
+- an Index is immutable after creation\
+- an Index participates in append-only order\
+- an Index can be indexed by later Indices\
+\
+This recursive property ensures structural closure.\
+\
+5.3 Index Levels\
+\
+Two canonical index levels are defined.\
+\
+L0 INDEX \'97 Presence Inventory\
+- pointer-only listing of Frames\
+- records existence under a declared scope\
+- does not require hashes\
+\
+Purpose:\
+- answer the question: \'93What exists?\'94\
+\
+L1 INDEX \'97 Integrity & Order Inventory\
+- lists Frames together with their self-hashes\
+- references observed append order\
+- may record a chain tail\
+\
+Purpose:\
+- answer the question: \'93What exists, in what order, and unchanged?\'94\
+\
+5.4 Scope Declaration\
+\
+Each Index explicitly declares its scope.\
+\
+Scope defines:\
+- which Frames are considered\
+- which Blocks are included\
+- which boundaries apply\
+\
+Scopes are descriptive labels, not enforcement mechanisms.\
+\
+5.5 Order Representation\
+\
+Order is represented through:\
+- append position\
+- optional hash chaining (prev 
+\f1 \'81\'a8
+\f0  self)\
+- index snapshots capturing observed state\
+\
+No implicit temporal inference is permitted.\
+\
+5.6 Index Consistency\
+\
+Index consistency is defined structurally.\
+\
+An Index is consistent if:\
+- listed Frame identifiers exist\
+- counts match the listed entries\
+- declared hashes match recorded artifacts (for L1)\
+\
+Inconsistencies are recorded, not corrected.\
+\
+5.7 Index Evolution\
+\
+Indices evolve append-only.\
+\
+New Index snapshots:\
+- do not invalidate prior snapshots\
+- provide later views of the same structure\
+- may reference previous Index frames\
+\
+This supports historical audit and comparison.\
+\
+------------------------------------------------------------\
+END CHAPTER 5\
+NEXT: CHAPTER 6 \'b7 VERIFICATION & PROOF BOUNDARIES\
+------------------------------------------------------------\
+\
+\
+------------------------------------------------------------\
+CHAPTER 6 \'b7 VERIFICATION & PROOF BOUNDARIES\
+------------------------------------------------------------\
+\
+6.1 Verification as Structural Inspection\
+\
+Verification in Frames Axiomatics is defined as the ability to\
+confirm structural properties of recorded artifacts without\
+executing them and without interpreting their content.\
+\
+Verification answers questions of form:\
+- Does this artifact exist?\
+- Has it remained unchanged?\
+- Is the recorded order consistent?\
+\
+Verification does not answer questions of meaning or correctness.\
+\
+6.2 Post-Write Verification\
+\
+All verification is performed post-write.\
+\
+This implies:\
+- artifacts are written first\
+- verification data (hashes, indices, receipts) is generated afterward\
+- no preconditions are imposed on the payload\
+\
+Post-write verification preserves append-only monotonicity.\
+\
+6.3 Hashing as an Integrity Mechanism\
+\
+Cryptographic hashes are used exclusively to detect modification.\
+\
+Properties:\
+- hash values are derived from byte-exact representations\
+- hash algorithms are explicitly declared\
+- hash results are recorded, not assumed\
+\
+Hash presence increases verifiability but is not mandatory.\
+\
+6.4 Separation of Hash Domains\
+\
+Frames Axiomatics enforces separation between hash domains:\
+\
+- object hash: integrity of a single Frame\
+- block hash: integrity of a Frame-Block or PackBlock\
+- aggregate hash: integrity of higher-level Blocks (e.g., QB\uc0\u8320 )\
+\
+No hash substitutes another.\
+Each hash asserts integrity only within its own scope.\
+\
+6.5 Proof Boundary\
+\
+A proof boundary is the point at which verifiability ends.\
+\
+Boundaries are defined by:\
+- declared serialization rules\
+- declared hash algorithms\
+- declared index scopes\
+\
+Anything beyond a proof boundary is outside the system\'92s claims.\
+\
+6.6 Canonical Serialization Boundary\
+\
+Verification of hashes requires a canonical serialization.\
+\
+Frames Axiomatics treats canonical serialization as a boundary:\
+- it may be declared\
+- it may be versioned\
+- it may be frozen\
+- it may be replaced in future versions\
+\
+The system does not assume a single universal canonical form.\
+\
+6.7 Verification Without Execution\
+\
+All verification steps must be executable using:\
+- static file inspection\
+- hashing tools\
+- index comparison\
+\
+No runtime execution of payloads is permitted or required.\
+\
+------------------------------------------------------------\
+END CHAPTER 6\
+NEXT: CHAPTER 7 \'b7 AXIOMATIC COMPLETENESS & EVOLUTION\
+------------------------------------------------------------\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ------------------------------------------------------------\
+CHAPTER 8 \'b7 ARCHIVATOR\
+REFERENCE IMPLEMENTATION MODEL\
+------------------------------------------------------------\
+\
+8.1 Role of the Archivator\
+\
+The ARCHIVATOR is the structural component responsible for\
+recording, ordering, and exposing artifacts under the axioms\
+defined by Frames Axiomatics.\
+\
+The Archivator is not an execution engine.\
+It is not a validator of meaning.\
+It is not an interpreter.\
+\
+Its sole responsibility is to provide a deterministic,\
+append-only record of presence and order.\
+\
+8.2 Archivator as a Structural Function\
+\
+Formally, the Archivator can be described as a function:\
+\
+ARCHIVATOR : (artifact_bytes, context) 
+\f1 \'81\'a8
+\f0  records\
+\
+Where:\
+- artifact_bytes are treated as opaque input\
+- context defines scope and configuration\
+- records are append-only structural outputs\
+\
+The function has no side effects beyond recording.\
+\
+8.3 Archivator Inputs\
+\
+The Archivator MAY accept the following inputs:\
+- FRAME\
+- FRAME-BLOCK\
+- PACKBLOCK\
+- QUANTUM-BLOCK (QB\uc0\u8320 )\
+\
+All inputs are ingested as byte sequences.\
+No payload inspection is required or permitted.\
+\
+8.4 Archivator Outputs\
+\
+The Archivator produces structural records, including:\
+- PRESENCE records\
+- RECEIPTS\
+- INDEX_SNAPSHOTS (L0, L1)\
+- ERROR records (structural only)\
+\
+Each output is itself a FRAME and therefore immutable.\
+\
+8.5 Deterministic Ingest Pipeline\
+\
+The Archivator ingest pipeline is deterministic.\
+\
+Normative steps:\
+1. Capture input bytes without modification.\
+2. Append a presence record.\
+3. Perform post-write hashing (if configured).\
+4. Emit a receipt.\
+5. Update index snapshots.\
+\
+Given identical inputs and order, identical outputs MUST result.\
+\
+8.6 Error Handling (Fail-Closed)\
+\
+Errors are handled structurally.\
+\
+Principles:\
+- errors are recorded, not suppressed\
+- prior records are never altered\
+- ingest does not halt globally\
+\
+Error types include:\
+- parse failure (structural)\
+- size violations\
+- hash mismatch (post-write)\
+- order violations\
+\
+8.7 Archivator State\
+\
+The Archivator maintains no mutable state beyond append position.\
+\
+There is:\
+- no rollback\
+- no garbage collection\
+- no overwrite mechanism\
+\
+State evolution is monotonic.\
+\
+8.8 Archivator and Verification\
+\
+All Archivator outputs are verifiable without execution.\
+\
+Verification relies on:\
+- static inspection\
+- hashing\
+- index comparison\
+\
+The Archivator does not require trusted runtime environments.\
+\
+8.9 Separation from Environment\
+\
+The Archivator is environment-agnostic.\
+\
+It does not depend on:\
+- operating system\
+- network connectivity\
+- user identity\
+- language runtime\
+\
+This ensures portability and longevity.\
+\
+8.10 Archivator as Reference Model\
+\
+This chapter defines a reference model, not a single implementation.\
+\
+Any implementation is valid if and only if:\
+- it satisfies the axioms\
+- it preserves append-only behavior\
+- it produces verifiable records\
+\
+------------------------------------------------------------\
+END CHAPTER 8\
+NEXT: CHAPTER 9 \'b7 STRUCTURAL HEADERS (QH56 CONTEXT)\
+------------------------------------------------------------\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\
+------------------------------------------------------------\
+CHAPTER 9 \'b7 STRUCTURAL HEADERS\
+(QH56 CONTEXT)\
+------------------------------------------------------------\
+\
+9.1 Purpose of Structural Headers\
+\
+Structural headers provide fixed-width, frame-local marking that\
+can be used to express structural context without introducing\
+semantic meaning or execution behavior.\
+\
+Structural headers are optional.\
+Their presence or absence does not affect the validity of proofs\
+defined elsewhere in Frames Axiomatics.\
+\
+9.2 Header Scope and Locality\
+\
+A structural header:\
+- is embedded within a single FRAME\
+- applies only to that FRAME\
+- does not propagate semantics to other Frames\
+\
+Headers do not participate in ordering, hashing, or indexing logic\
+unless explicitly referenced as opaque data.\
+\
+9.3 QH56 Overview\
+\
+QH56 is a 56-bit structural header composed of 28 cells of 2 bits\
+each.\
+\
+Each cell encodes a structural state:\
+- 00 = UNKNOWN\
+- 01 = FALSE\
+- 10 = TRUE\
+- 11 = GUARD (reserved / gated)\
+\
+QH56 expresses structure only.\
+It does not encode truth, logic, or computation.\
+\
+9.4 Block Topology\
+\
+QH56 cells are organized into three vertical blocks:\
+\
+- Block A (TOP): 10 cells\
+- Block B (MID): 10 cells\
+- Block C (BOT): 8 cells\
+\
+This yields 10 vertical columns:\
+- Columns 0\'967: full (A, B, C)\
+- Columns 8\'969: short (A, B only)\
+\
+The topology is fixed and versioned.\
+\
+9.5 Reading Modes\
+\
+Normative reading mode:\
+- vertical, column-based inspection\
+\
+Optional reading mode:\
+- horizontal inspection for visualization only\
+\
+Horizontal reading has no normative force.\
+\
+9.6 Guard Semantics (Structural Only)\
+\
+The GUARD state indicates a structurally restricted position.\
+\
+GUARD:\
+- blocks free interpretation\
+- signals reserved or gated structure\
+- does not imply error or invalidity\
+\
+In the MEDIUM specification, GUARD is used to enforce boundary\
+discipline without semantic claims.\
+\
+9.7 Stability and Versioning\
+\
+QH56 is versioned and frozen once declared canonical.\
+\
+Rules:\
+- bit-width is immutable within a version\
+- block topology is immutable\
+- state encodings are immutable\
+\
+Extensions require new header versions.\
+\
+9.8 Independence from Proof Validity\
+\
+No proof in Frames Axiomatics depends on the interpretation of\
+QH56.\
+\
+Proof validity is determined by:\
+- append-only order\
+- hashing\
+- indexing\
+\
+QH56 provides contextual structure only.\
+\
+9.9 Compatibility and Environment Constraints\
+\
+QH56 is designed to be:\
+- platform-independent\
+- serializable as text or binary\
+- usable in constrained environments\
+\
+Its simplicity supports long-term archival use.\
+\
+9.10 Structural Summary\
+\
+Structural headers such as QH56 allow controlled contextual marking\
+within Frames while preserving the axiomatic separation between\
+structure, meaning, and execution.\
+\
+------------------------------------------------------------\
+END CHAPTER 9\
+NEXT: CHAPTER 10 \'b7 BLOCK HIERARCHY & AGGREGATION\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 10 \'b7 BLOCK HIERARCHY & AGGREGATION\
+------------------------------------------------------------\
+\
+10.1 Motivation for Block Hierarchies\
+\
+As the number of Frames increases, practical handling requires\
+structured aggregation without violating append-only constraints.\
+\
+Block hierarchies provide:\
+- bounded aggregation\
+- transportable verification units\
+- layered inspection without semantic coupling\
+\
+Blocks do not introduce execution or interpretation.\
+They are structural containers only.\
+\
+10.2 Fundamental Block Principle\
+\
+A BLOCK is defined as a finite, append-only aggregation of Frames\
+(or other Blocks) treated as a single verification unit.\
+\
+Core properties:\
+- append-only\
+- order-preserving\
+- hash-verifiable\
+- content-opaque at higher levels\
+\
+No Block alters the identity of its contents.\
+\
+10.3 Frame-Block (FB)\
+\
+A FRAME-BLOCK is the minimal aggregation unit.\
+\
+Definition:\
+- a contiguous sequence of Frames\
+- fixed ordering\
+- no internal mutation after creation\
+\
+FRAME-BLOCK properties:\
+- smallest reviewable aggregation\
+- used for local inspection\
+- unit of immediate hashing\
+\
+FRAME-BLOCKS are typically embedded inside larger Blocks.\
+\
+10.4 Super-Block (SB)\
+\
+A SUPER-BLOCK aggregates multiple FRAME-BLOCKS.\
+\
+Definition:\
+- ordered list of FRAME-BLOCK references\
+- append-only composition\
+- independent hash identity\
+\
+SUPER-BLOCK properties:\
+- scalable aggregation\
+- supports modular growth\
+- preserves block-local verification\
+\
+SUPER-BLOCKS do not flatten FRAME-BLOCKS.\
+They reference them structurally.\
+\
+10.5 Ultra-Block (UB)\
+\
+An ULTRA-BLOCK aggregates SUPER-BLOCKS.\
+\
+Definition:\
+- ordered collection of SUPER-BLOCK references\
+- fixed scope declaration\
+- append-only boundary\
+\
+ULTRA-BLOCK properties:\
+- large-scale archival unit\
+- suitable for long-term storage\
+- supports selective verification\
+\
+ULTRA-BLOCKS are designed for transport and mirroring.\
+\
+10.6 Quantum-Block (QB)\
+\
+A QUANTUM-BLOCK is a boundary-defining block.\
+\
+Definition:\
+- immutable aggregation of Blocks\
+- frozen scope and structure\
+- canonical reference unit\
+\
+QUANTUM-BLOCK properties:\
+- finalization boundary\
+- citation-grade artifact\
+- anchor for external references\
+\
+Once frozen, a QUANTUM-BLOCK is never extended.\
+\
+10.7 Block Nesting Rules\
+\
+Canonical nesting order:\
+FRAME 
+\f1 \'81\'a8
+\f0  FRAME-BLOCK 
+\f1 \'81\'a8
+\f0  SUPER-BLOCK 
+\f1 \'81\'a8
+\f0  ULTRA-BLOCK 
+\f1 \'81\'a8
+\f0  QUANTUM-BLOCK\
+\
+Rules:\
+- no cycles\
+- no downward mutation\
+- references only, no duplication of content\
+\
+Each level treats lower levels as opaque units.\
+\
+10.8 Hashing and Identity Across Levels\
+\
+Each Block level has its own hash identity.\
+\
+Hash rules:\
+- block hash covers ordered references only\
+- lower-level hashes are not recomputed\
+- identity is compositional, not recursive mutation\
+\
+This enables layered verification.\
+\
+10.9 Verification Strategy\
+\
+Verification can occur at multiple resolutions:\
+- Frame-level inspection\
+- Block-level integrity check\
+- Boundary-level confirmation\
+\
+Higher-level verification does not require lower-level inspection\
+unless explicitly requested.\
+\
+10.10 Archival Implications\
+\
+Block hierarchies support:\
+- partial replication\
+- long-term integrity\
+- loss-tolerant verification\
+\
+They enable preservation without central authority.\
+\
+------------------------------------------------------------\
+END CHAPTER 10\
+NEXT: CHAPTER 11 \'b7 INDEXING & STRUCTURAL DISCOVERY\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 11 \'b7 INDEXING & STRUCTURAL DISCOVERY\
+------------------------------------------------------------\
+\
+11.1 Purpose of Indexing\
+\
+In an append-only archival system, indexing does not serve\
+optimization or acceleration of execution.\
+\
+Its sole purposes are:\
+- structural discovery\
+- auditability\
+- orientation within growth\
+\
+An index never alters data.\
+It only records what exists.\
+\
+11.2 Index as a First-Class Artifact\
+\
+An INDEX is itself a Frame-derived artifact.\
+\
+Properties:\
+- append-only\
+- time-anchored\
+- hash-verifiable\
+- non-executing\
+\
+Indexes are not derived implicitly.\
+They are explicitly recorded.\
+\
+11.3 Index Levels\
+\
+Frames Axiomatics defines discrete index levels.\
+\
+L0 \'97 Existence Index\
+L1 \'97 Integrity Index\
+\
+Higher levels may exist but are not required for correctness.\
+\
+11.4 L0 Index (Existence Index)\
+\
+The L0 index records existence only.\
+\
+Contents:\
+- list of identifiers\
+- declared scope\
+- creation timestamp\
+\
+L0 properties:\
+- no hashes required\
+- no ordering claims beyond listing\
+- minimal structural disclosure\
+\
+L0 answers only one question:\
+"What exists under this scope?"\
+\
+11.5 L1 Index (Integrity Index)\
+\
+The L1 index records integrity and order.\
+\
+Contents:\
+- identifiers\
+- self-hashes\
+- optional previous-hash references\
+- declared ordering rule\
+\
+L1 properties:\
+- hash-complete\
+- order-sensitive\
+- verification-ready\
+\
+L1 answers:\
+"Does what exists remain intact and ordered?"\
+\
+11.6 Index Generation Discipline\
+\
+Index creation is a procedural act, not an inference.\
+\
+Rules:\
+- indexes are generated after observation\
+- never retroactively modified\
+- new indexes supersede, never replace\
+\
+An index snapshot is always time-local.\
+\
+11.7 Index vs Proof\
+\
+Indexes support proofs.\
+They are not proofs themselves.\
+\
+A proof may reference:\
+- index snapshots\
+- block identities\
+- hash chains\
+\
+But the index alone asserts nothing beyond structure.\
+\
+11.8 Discovery Without Interpretation\
+\
+Indexes enable navigation without interpretation.\
+\
+They allow:\
+- locating Frames\
+- enumerating Blocks\
+- identifying boundaries\
+\
+They do not explain meaning or correctness.\
+\
+11.9 Failure Modes and Detection\
+\
+Indexing supports failure detection:\
+- missing references\
+- broken hash chains\
+- scope mismatches\
+\
+Detection does not imply causation.\
+It only signals structural inconsistency.\
+\
+11.10 Indexing and Growth\
+\
+As the system grows:\
+- indexes grow append-only\
+- old indexes remain valid\
+- new views are layered, not rewritten\
+\
+Growth preserves audit history.\
+\
+11.11 Relationship to External Systems\
+\
+Indexes may reference external artifacts via pointers.\
+\
+Rules:\
+- references are symbolic\
+- resolution is out-of-scope\
+- integrity is local to recorded data\
+\
+This preserves autonomy.\
+\
+------------------------------------------------------------\
+END CHAPTER 11\
+NEXT: CHAPTER 12 \'b7 CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 12 \'b7 CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+12.1 Role of Canonical Serialization\
+\
+Canonical serialization defines how an artifact is transformed\
+into a byte- or token-sequence for hashing and verification.\
+\
+It is not a storage format.\
+It is not a transport protocol.\
+It is a proof boundary.\
+\
+Without canonical serialization, hash-based verification\
+cannot be stable.\
+\
+12.2 Serialization as a Structural Constraint\
+\
+In Frames Axiomatics, serialization is treated as structure,\
+not implementation detail.\
+\
+A serialization rule:\
+- constrains representation\
+- eliminates ambiguity\
+- precedes hashing\
+\
+Hashing never defines structure.\
+Serialization defines what is hashed.\
+\
+12.3 Determinism Requirement\
+\
+Canonical serialization MUST be deterministic.\
+\
+Given the same artifact:\
+- all compliant implementations\
+- in all environments\
+- at all times\
+\
+MUST produce identical serialized output.\
+\
+Non-determinism invalidates verification.\
+\
+12.4 Minimal Requirements\
+\
+A canonical serialization scheme MUST satisfy:\
+\
+- Unambiguous ordering of fields\
+- Explicit encoding of values\
+- Stable handling of absence / null\
+- No environment-dependent behavior\
+\
+Optional features are excluded at MEDIUM level.\
+\
+12.5 Serialization vs Semantics\
+\
+Canonical serialization encodes structure only.\
+\
+It does NOT:\
+- interpret meaning\
+- validate correctness\
+- assert truth\
+\
+Two semantically different artifacts may serialize identically\
+if and only if their structure is identical.\
+\
+12.6 Scope of Application\
+\
+Canonical serialization applies to:\
+- Frames\
+- Index snapshots\
+- Block manifests\
+- Verification artifacts\
+\
+It does NOT apply to:\
+- human-readable documents\
+- commentary\
+- explanatory material\
+\
+12.7 Serialization Layers\
+\
+Serialization is layered:\
+\
+Layer 1: Structural normalization\
+Layer 2: Canonical ordering\
+Layer 3: Byte encoding\
+\
+Hashing operates only on the final layer.\
+\
+12.8 Hash Determinism Dependency\
+\
+Hash determinism is strictly dependent on serialization.\
+\
+If serialization changes:\
+- hashes change\
+- proofs fork\
+- continuity breaks\
+\
+Therefore:\
+serialization changes require explicit versioning.\
+\
+12.9 Canonicalization Versioning\
+\
+Each canonical serialization scheme MUST declare:\
+- version identifier\
+- scope of applicability\
+- compatibility guarantees\
+\
+Old versions remain valid.\
+New versions append, never replace.\
+\
+12.10 Proof Boundary Definition\
+\
+Canonical serialization defines the maximal boundary\
+of what a proof can claim.\
+\
+Inside the boundary:\
+- structure is verifiable\
+\
+Outside the boundary:\
+- interpretation is unconstrained\
+\
+This boundary is explicit and non-negotiable.\
+\
+12.11 Tool Independence\
+\
+Canonical serialization MUST be implementable:\
+- on constrained systems\
+- without specialized tooling\
+- with reproducible output\
+\
+Implementation difficulty is a disqualifier.\
+\
+12.12 Failure Handling\
+\
+If canonical serialization cannot be applied:\
+- hashing MUST NOT proceed\
+- proof MUST be marked incomplete\
+This prevents silent corruption.\
+\
+------------------------------------------------------------\
+END CHAPTER 12\
+NEXT: CHAPTER 13 \'b7 HASHING & PROOF LAYERS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 13 \'b7 HASHING & PROOF LAYERS\
+------------------------------------------------------------\
+\
+13.1 Purpose of Hashing in Frames Axiomatics\
+\
+Hashing provides a compact, verifiable fingerprint of a\
+canonically serialized artifact.\
+\
+It does not prove meaning.\
+It does not prove truth.\
+It proves consistency under transformation.\
+\
+Hashing is subordinate to structure.\
+\
+13.2 Separation of Concerns\
+\
+Frames Axiomatics strictly separates:\
+- Serialization (what is represented)\
+- Hashing (how it is fingerprinted)\
+- Proof (what can be verified)\
+\
+No layer substitutes another.\
+\
+13.3 Hash Functions as Black Boxes\
+\
+At the axiomatic level, a hash function is treated as a\
+deterministic mapping:\
+\
+H : Bytes 
+\f1 \'81\'a8
+\f0  Fixed-length Digest\
+\
+No assumptions are made about:\
+- cryptographic strength\
+- collision resistance beyond specification\
+- adversarial models\
+\
+Those belong to applied cryptography, not axiomatics.\
+\
+13.4 Determinism Requirement\
+\
+For any artifact A:\
+\
+serialize(A) = S  \
+hash(S) = D  \
+\
+Given identical A, all compliant implementations MUST\
+produce identical D.\
+\
+If this property fails, the proof layer collapses.\
+\
+13.5 Proof Layering Concept\
+\
+Proofs are structured in layers, not flattened.\
+\
+Minimum layers:\
+\
+Layer 0 \'b7 Artifact Presence  \
+- An artifact exists as a recorded unit.\
+\
+Layer 1 \'b7 Artifact Integrity  \
+- The artifact matches its recorded hash.\
+\
+Layer 2 \'b7 Structural Ordering  \
+- The artifact is correctly ordered relative to others.\
+\
+Layer 3 \'b7 Block Integrity  \
+- Groups of artifacts verify as a whole.\
+\
+Higher layers depend strictly on lower layers.\
+\
+13.6 Object Hash vs Block Hash\
+\
+Two distinct hash domains are defined:\
+\
+Object Hash\
+- Applied to individual frames or artifacts\
+- Verifies local integrity\
+\
+Block Hash\
+- Applied to ordered collections (Frame-Blocks, PackBlocks)\
+- Verifies collective integrity and order\
+\
+Mixing these domains is forbidden.\
+\
+13.7 Chain Formation\
+\
+Ordered artifacts MAY form hash chains.\
+\
+A hash chain records:\
+- current hash\
+- reference to prior hash\
+\
+This establishes order, not causality.\
+\
+Chain absence does not invalidate artifacts.\
+Chain presence strengthens ordering proofs.\
+\
+13.8 Proof Scope Boundaries\
+\
+Each hash MUST declare its scope:\
+- object-level\
+- block-level\
+- pack-level\
+\
+A hash is meaningless outside its declared scope.\
+\
+13.9 Rehashing and Repackaging\
+\
+Repackaging artifacts into a new block:\
+- does not alter object hashes\
+- produces a new block hash\
+\
+Rehashing an object:\
+- constitutes a new artifact\
+- does not overwrite prior proofs\
+\
+Append-only discipline is preserved.\
+\
+13.10 Verification Independence\
+\
+Verification MUST be possible:\
+- offline\
+- without trusted infrastructure\
+- without original execution environment\
+\
+Hashes enable verification, not authority.\
+\
+13.11 Failure Propagation\
+\
+If a lower proof layer fails:\
+- all higher layers are invalidated\
+- lower layers may remain valid\
+\
+Proof failure is local, not catastrophic.\
+\
+13.12 Minimal Cryptographic Assumptions\
+\
+Frames Axiomatics assumes only:\
+- deterministic hashing\
+- collision improbability as specified\
+\
+No assumptions about:\
+- quantum resistance\
+- adversarial capability\
+- long-term cryptographic durability\
+\
+Such concerns are external extensions.\
+\
+------------------------------------------------------------\
+END CHAPTER 13\
+NEXT: CHAPTER 14 \'b7 INDEXING & SNAPSHOT AXIOMS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 14 \'b7 INDEXING & SNAPSHOT AXIOMS\
+------------------------------------------------------------\
+\
+14.1 Role of Indexing\
+\
+Indexing in Frames Axiomatics provides a structural view over\
+existing artifacts without modifying them.\
+\
+An index does not create data.\
+An index does not interpret data.\
+An index records *what is present* under a declared scope.\
+\
+14.2 Index as an Artifact\
+\
+An index is itself a frame-like artifact.\
+\
+Therefore:\
+- it is append-only\
+- it may be hashed\
+- it may be referenced by later artifacts\
+- it is subject to the same verification rules\
+\
+Indexes are not metadata.\
+They are first-class structural objects.\
+\
+14.3 Snapshot Principle\
+\
+Indexes are always snapshots.\
+\
+A snapshot represents:\
+- a set of artifact identifiers\
+- observed at a specific moment\
+- under an explicitly declared scope\
+\
+Indexes never claim completeness beyond their scope.\
+\
+14.4 Temporal Anchoring\
+\
+Every index snapshot SHOULD be associated with:\
+- a time anchor\
+- or a structural ordering reference\
+\
+Time anchors provide context.\
+They do not provide proof of truth.\
+\
+14.5 Levels of Indexing\
+\
+Frames Axiomatics defines discrete index levels.\
+\
+L0 \'b7 Presence Snapshot\
+- lists artifact identifiers only\
+- no hashes required\
+- minimal structural claim\
+\
+L1 \'b7 Integrity Snapshot\
+- lists artifact identifiers with hashes\
+- enables integrity verification\
+- ordering may be implicit or explicit\
+\
+Higher levels MAY exist but MUST build strictly on L1.\
+\
+14.6 Non-Destructive Enumeration\
+\
+Indexing MUST be non-destructive.\
+\
+An index:\
+- does not alter artifacts\
+- does not require rewriting artifacts\
+- does not depend on artifact internals\
+\
+Enumeration is observational only.\
+\
+14.7 Scope Declaration\
+\
+Each index MUST declare its scope explicitly, such as:\
+- frame set\
+- block\
+- pack\
+- namespace\
+- publication boundary\
+\
+Indexes without scope declarations are invalid.\
+\
+14.8 Consistency Across Indexes\
+\
+Multiple indexes MAY coexist.\
+\
+Consistency is evaluated by:\
+- comparing listed identifiers\
+- comparing hashes (if present)\
+- comparing declared scopes\
+\
+Disagreement does not imply error.\
+It implies differing observation scopes.\
+\
+14.9 Index Evolution\
+\
+Indexes evolve append-only.\
+\
+A new snapshot:\
+- supersedes no previous snapshot\
+- coexists with prior snapshots\
+- may reference earlier indexes\
+\
+History is preserved.\
+\
+14.10 Index as Proof Input\
+\
+Indexes serve as inputs to proofs, not as proofs themselves.\
+\
+They support:\
+- auditability\
+- reproducibility\
+- verification workflows\
+\
+They do not assert correctness.\
+\
+14.11 Index Failure Modes\
+\
+An index may fail by:\
+- omitting expected artifacts\
+- listing non-existent identifiers\
+- mismatching hashes\
+\
+Index failure invalidates proofs that depend on it,\
+but does not invalidate the underlying artifacts.\
+\
+14.12 Minimal Index Axiom\
+\
+If an artifact exists,\
+there MAY exist an index that lists it.\
+\
+If an index lists an artifact,\
+that artifact MUST exist within the declared scope.\
+\
+------------------------------------------------------------\
+END CHAPTER 14\
+NEXT: CHAPTER 15 \'b7 FREEZE, VERSIONING & CANONICAL STATES\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 15 \'b7 FREEZE, VERSIONING & CANONICAL STATES\
+------------------------------------------------------------\
+\
+15.1 Purpose of Freeze\
+\
+A freeze marks the transition of a structure from mutable\
+development to canonical reference.\
+\
+Freeze does not imply truth.\
+Freeze does not imply correctness.\
+Freeze implies *stability of form*.\
+\
+15.2 Freeze as an Explicit Act\
+\
+A freeze MUST be explicit.\
+\
+Implicit freezes are invalid.\
+\
+A valid freeze requires:\
+- an explicit declaration\
+- a unique identifier\
+- a scope definition\
+- a reason or condition\
+\
+Silence is not a freeze.\
+\
+15.3 Scope-Bound Freezing\
+\
+Freezes are always scope-bound.\
+\
+A freeze may apply to:\
+- a single frame\
+- a block\
+- an index level\
+- a document\
+- a specification subset\
+\
+Freezing one scope does not freeze adjacent scopes.\
+\
+15.4 Canonical State\
+\
+A canonical state is a frozen state that may be referenced\
+as a stable baseline.\
+\
+Canonical states:\
+- may be cited\
+- may be verified\
+- may be depended upon\
+\
+They are immutable by definition.\
+\
+15.5 Versioning Model\
+\
+Versioning in Frames Axiomatics is append-only.\
+\
+A new version:\
+- does not overwrite a prior version\
+- does not invalidate a prior version\
+- exists alongside earlier versions\
+\
+Version identifiers MUST be unique and monotonic\
+within their declared scope.\
+\
+15.6 Freeze vs. Version Increment\
+\
+Freeze and versioning are orthogonal.\
+\
+Possible combinations:\
+- frozen, versioned\
+- frozen, unversioned\
+- unfrozen, versioned\
+- unfrozen, unversioned\
+\
+A version increment does not require a freeze.\
+A freeze does not require a version increment.\
+\
+15.7 Re-Freezing and Supersession\
+\
+A frozen artifact MAY be superseded by a newer artifact.\
+\
+Supersession:\
+- is explicit\
+- is append-only\
+- does not delete the frozen artifact\
+\
+The original frozen artifact remains valid\
+within its original scope.\
+\
+15.8 Canonical Drift Prohibition\
+\
+Within a frozen scope:\
+- structure MUST NOT change\
+- ordering MUST NOT change\
+- serialization MUST NOT change\
+\
+Any deviation constitutes a new artifact,\
+not a modification.\
+\
+15.9 Freeze Markers as Artifacts\
+\
+Freeze declarations SHOULD themselves be artifacts.\
+\
+As artifacts, freeze markers:\
+- are append-only\
+- may be indexed\
+- may be hashed\
+- may be referenced\
+\
+This ensures auditability of canonicalization.\
+\
+15.10 Partial Freezes\
+\
+Partial freezes are allowed.\
+\
+Examples:\
+- freeze of form but not content\
+- freeze of language but not ordering\
+- freeze of indexing but not verification rules\
+\
+Partial freezes MUST declare what remains unfrozen.\
+\
+15.11 Freeze Failure Modes\
+\
+A freeze is invalid if:\
+- scope is undefined\
+- version conflicts exist\
+- serialization is ambiguous\
+- dependencies are unfrozen without declaration\
+\
+Invalid freezes have no canonical effect.\
+\
+15.12 Minimal Freeze Axiom\
+\
+If an artifact is frozen,\
+its structure MUST remain stable forever\
+within its declared scope.\
+\
+If an artifact is not frozen,\
+no stability guarantees are implied.\
+\
+------------------------------------------------------------\
+END CHAPTER 15\
+NEXT: CHAPTER 16 \'b7 PROOF BOUNDARIES & NON-CLAIM PRINCIPLES\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 16 \'b7 PROOF BOUNDARIES & NON-CLAIM PRINCIPLES\
+------------------------------------------------------------\
+\
+16.1 Purpose of Proof Boundaries\
+\
+A proof boundary defines what a proof *does* and *does not* assert.\
+\
+In Frames Axiomatics:\
+- proofs are structural\
+- proofs are observational\
+- proofs are non-semantic\
+\
+A proof boundary prevents overreach.\
+\
+16.2 Proof Is Not Meaning\
+\
+A proof does not assert meaning.\
+A proof does not assert truth.\
+A proof does not assert usefulness.\
+\
+A proof asserts only that:\
+- an artifact exists\
+- an artifact is ordered\
+- an artifact is structurally consistent\
+- an artifact can be independently verified\
+\
+16.3 Non-Claim Principle\
+\
+No artifact may implicitly assert claims.\
+\
+Claims MUST be explicit.\
+Claims MUST be scoped.\
+Claims MUST be separable from proofs.\
+\
+Absence of a claim is intentional, not incomplete.\
+\
+16.4 Structural Proof Definition\
+\
+A structural proof demonstrates that:\
+- artifacts are append-only\
+- ordering is deterministic\
+- serialization is canonical\
+- hashes verify integrity\
+\
+Structural proofs do not depend on interpretation.\
+\
+16.5 Observation vs. Assertion\
+\
+Observation:\
+- records what is present\
+- records how it is arranged\
+- records how it can be checked\
+\
+Assertion:\
+- states what should be believed\
+- states what is correct or incorrect\
+\
+Frames Axiomatics records observations only.\
+\
+16.6 Proof Independence\
+\
+A valid proof MUST be:\
+- tool-agnostic\
+- environment-independent\
+- actor-independent\
+\
+If verification requires trust in an actor,\
+the proof boundary is violated.\
+\
+16.7 Layered Proof Boundaries\
+\
+Proofs may exist at multiple layers:\
+- frame-level\
+- block-level\
+- index-level\
+- pack-level\
+\
+Each layer has its own proof boundary.\
+Cross-layer inference is not automatic.\
+\
+16.8 Proof Does Not Imply Enforcement\
+\
+A proof shows that something happened,\
+not that it could not have happened otherwise.\
+\
+Enforcement mechanisms (e.g. immutability,\
+access control, write locks) are external.\
+\
+16.9 Failure as Proof Signal\
+\
+Proof failure is informative.\
+\
+A failed verification indicates:\
+- corruption\
+- mutation\
+- ambiguity\
+- boundary violation\
+\
+Failure does not invalidate the framework;\
+it validates the boundary.\
+\
+16.10 Proof and Time\
+\
+Time anchors provide context, not authority.\
+\
+A timestamp:\
+- situates an artifact\
+- does not guarantee honesty\
+- does not guarantee uniqueness\
+\
+Time is observational metadata.\
+\
+16.11 Proof Minimality\
+\
+A proof SHOULD contain the minimum information\
+required for independent verification.\
+\
+Excess information increases ambiguity,\
+not certainty.\
+\
+16.12 Proof Completion Condition\
+\
+A proof is complete when:\
+- all required artifacts are present\
+- verification steps are defined\
+- no implicit assumptions remain\
+\
+Completeness is structural, not semantic.\
+\
+------------------------------------------------------------\
+END CHAPTER 16\
+NEXT: CHAPTER 17 \'b7 INDEXING, LEVELS & STRUCTURAL ZOOM\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 17 \'b7 INDEXING, LEVELS & STRUCTURAL ZOOM\
+------------------------------------------------------------\
+\
+17.1 Purpose of Indexing\
+\
+Indexing exists to make structure visible without modifying content.\
+\
+An index:\
+- does not add meaning\
+- does not add authority\
+- does not add execution\
+\
+An index records *what exists* under a declared scope.\
+\
+17.2 Index as Artifact\
+\
+An index is itself an artifact.\
+It is subject to the same rules as any other artifact:\
+- append-only\
+- serializable\
+- hash-verifiable\
+- independently inspectable\
+\
+Indexes do not float above the system.\
+They are part of it.\
+\
+17.3 Index Levels\
+\
+Frames Axiomatics defines discrete index levels.\
+\
+L0 \'97 Presence Index\
+- lists identifiers of artifacts\
+- records existence only\
+- contains no hashes\
+- minimal, fast, observational\
+\
+L1 \'97 Integrity Index\
+- lists identifiers plus self-hashes\
+- records integrity and order\
+- references a chain tail\
+- requires prior hashing\
+\
+Higher levels may exist but are not implied.\
+\
+17.4 No Implicit Promotion\
+\
+An artifact appearing in L0\
+is not automatically valid in L1.\
+\
+Promotion between levels:\
+- is explicit\
+- is recorded\
+- is append-only\
+\
+Silence is not consent.\
+\
+17.5 Structural Zoom Concept\
+\
+Structural zoom means changing *resolution*,\
+not changing *content*.\
+\
+Zooming in:\
+- reveals internal structure\
+- never mutates artifacts\
+\
+Zooming out:\
+- summarizes structure\
+- never discards evidence\
+\
+Zoom is a view, not an operation.\
+\
+17.6 Zoom Levels\
+\
+Typical zoom layers:\
+- frame-level (atomic artifacts)\
+- block-level (groupings)\
+- pack-level (bundles)\
+- archive-level (collections)\
+\
+Each zoom level has:\
+- a defined scope\
+- a defined boundary\
+- a defined index\
+\
+17.7 Index Scope Declaration\
+\
+Every index MUST declare its scope.\
+\
+Scope includes:\
+- which artifacts are considered\
+- which directories or bundles apply\
+- which time boundary is assumed\
+\
+An index without scope is invalid.\
+\
+17.8 Index Consistency\
+\
+An index is consistent if:\
+- all listed artifacts exist\
+- listed hashes verify\
+- ordering rules are satisfied\
+- scope boundaries are respected\
+\
+Consistency is checkable, not assumed.\
+\
+17.9 Index Drift\
+\
+Index drift occurs when:\
+- artifacts change but index does not\
+- index changes without artifacts\
+\
+Drift is detectable through re-verification.\
+Drift is not an error; it is information.\
+\
+17.10 Index Freeze\
+\
+An index may be frozen.\
+\
+Freeze means:\
+- the index will not change\
+- artifacts may still grow beyond it\
+- future indexes must reference it\
+\
+Freeze creates stable reference points.\
+\
+17.11 Index as Navigation, Not Truth\
+\
+Indexes help humans and tools navigate structure.\
+\
+They do not assert:\
+- correctness\
+- completeness\
+- relevance\
+\
+Navigation is not validation.\
+\
+17.12 Failure Modes\
+\
+Index failure includes:\
+- missing artifacts\
+- hash mismatch\
+- ambiguous scope\
+- inconsistent ordering\
+\
+Failure indicates boundary breach,\
+not system collapse.\
+\
+------------------------------------------------------------\
+END CHAPTER 17\
+NEXT: CHAPTER 18 \'b7 ARCHIVATOR PRINCIPLES\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 18 \'b7 ARCHIVATOR PRINCIPLES\
+------------------------------------------------------------\
+\
+18.1 Definition\
+\
+The Archivator is not a program, not a service, and not an authority.\
+It is a structural role.\
+\
+An Archivator enforces one rule only:\
+once recorded, nothing is rewritten.\
+\
+18.2 Archivator vs. Storage\
+\
+Storage holds data.\
+The Archivator constrains behavior.\
+\
+A storage system may exist without an Archivator.\
+An Archivator may operate across multiple storage systems.\
+\
+The Archivator is storage-agnostic.\
+\
+18.3 Core Invariant\
+\
+ARCHIVATOR-INVARIANT A1:\
+No artifact that has been declared recorded\
+may be altered, deleted, or replaced.\
+\
+Violation of this invariant\
+does not corrupt the past;\
+it creates a new artifact.\
+\
+18.4 Append-Only Discipline\
+\
+All change is expressed as addition.\
+\
+Corrections:\
+- are new artifacts\
+- reference prior artifacts\
+- never overwrite\
+\
+History is preserved, not edited.\
+\
+18.5 Separation of Roles\
+\
+The Archivator:\
+- does not interpret artifacts\
+- does not execute artifacts\
+- does not judge artifacts\
+\
+Meaning is external.\
+Truth is external.\
+The Archivator records presence only.\
+\
+18.6 Enforcement Mechanisms\
+\
+Enforcement MAY be achieved by:\
+- filesystem permissions\
+- write-once media\
+- process discipline\
+- cryptographic verification\
+- social protocol\
+\
+Frames Axiomatics does not mandate a mechanism.\
+It mandates the outcome.\
+\
+18.7 Detection Over Prevention\
+\
+The Archivator prefers detectability over prevention.\
+\
+If alteration occurs:\
+- hashes change\
+- indexes diverge\
+- verification fails\
+\
+Detectability is sufficient for proof.\
+\
+18.8 Archivator Boundaries\
+\
+The Archivator boundary is explicit.\
+\
+Inside the boundary:\
+- append-only rules apply\
+\
+Outside the boundary:\
+- no assumptions are made\
+\
+Boundaries are declared, not inferred.\
+\
+18.9 Archivator and Time\
+\
+The Archivator does not guarantee time truth.\
+It records time anchors as artifacts.\
+\
+Temporal meaning is external.\
+Temporal order is structural.\
+\
+18.10 Archivator Failure\
+\
+Archivator failure includes:\
+- silent overwrite\
+- undeclared deletion\
+- implicit mutation\
+\
+Failure does not erase evidence.\
+It produces conflicting structures.\
+\
+18.11 Archivator Neutrality\
+\
+The Archivator has no intent.\
+\
+It preserves:\
+- contradictions\
+- errors\
+- noise\
+- redundancy\
+\
+Neutrality is required for auditability.\
+\
+18.12 Archivator as Long-Term Role\
+\
+The Archivator is designed for:\
+- decades\
+- centuries\
+- unknown future tools\
+\
+Its rules must remain simple enough\
+to be re-implemented from description alone.\
+\
+------------------------------------------------------------\
+END CHAPTER 18\
+NEXT: CHAPTER 19 \'b7 BLOCK HIERARCHY\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 19 \'b7 BLOCK HIERARCHY\
+------------------------------------------------------------\
+\
+19.1 Purpose of Block Hierarchy\
+\
+Block hierarchy exists to manage scale\
+without introducing execution or interpretation.\
+\
+Blocks do not add meaning.\
+Blocks add structure.\
+\
+They allow large artifact sets\
+to remain verifiable, navigable, and auditable\
+over long time horizons.\
+\
+19.2 Principle of Containment\
+\
+Each block type is a containment structure.\
+\
+Containment means:\
+- grouping without transformation\
+- ordering without interpretation\
+- referencing without execution\
+\
+A block never alters its contents.\
+It only declares relationships.\
+\
+19.3 Block Types (Canonical Set)\
+\
+Frames Axiomatics defines four block types:\
+\
+- FRAME-BLOCK\
+- SUPER-BLOCK\
+- ULTRA-BLOCK\
+- QUANTUM-BLOCK\
+\
+Each higher block:\
+- contains lower blocks\
+- never bypasses lower invariants\
+- remains append-only\
+\
+19.4 FRAME-BLOCK\
+\
+A FRAME-BLOCK is the smallest block unit.\
+\
+Properties:\
+- contains one or more Frames\
+- preserves frame order\
+- may be hashed as a unit\
+- is append-only\
+\
+FRAME-BLOCKS are local verification units.\
+\
+They exist to:\
+- limit verification scope\
+- support modular audit\
+- enable partial transfer\
+\
+19.5 SUPER-BLOCK\
+\
+A SUPER-BLOCK groups FRAME-BLOCKS.\
+\
+Properties:\
+- contains only FRAME-BLOCK references\
+- declares ordering between FRAME-BLOCKS\
+- does not inspect frame content\
+- may include index snapshots\
+\
+SUPER-BLOCKS enable:\
+- mid-scale packaging\
+- offline transport\
+- scoped verification\
+\
+19.6 ULTRA-BLOCK\
+\
+An ULTRA-BLOCK groups SUPER-BLOCKS.\
+\
+Properties:\
+- spans large collections\
+- supports long-term archival segmentation\
+- remains append-only\
+- does not enforce semantics\
+\
+ULTRA-BLOCKS are intended for:\
+- repository-level organization\
+- long-duration archives\
+- institutional memory\
+\
+19.7 QUANTUM-BLOCK\
+\
+A QUANTUM-BLOCK is the highest structural unit.\
+\
+Properties:\
+- groups ULTRA-BLOCKS\
+- marks epochal boundaries\
+- may reference time anchors\
+- does not imply completeness\
+\
+QUANTUM-BLOCKS express:\
+- structural eras\
+- not historical truth\
+- not finality\
+\
+19.8 No Cross-Level Mutation\
+\
+A higher block may reference lower blocks.\
+It may not modify them.\
+\
+No block:\
+- rewrites contents\
+- merges artifacts\
+- compresses meaning\
+\
+Hierarchy preserves immutability.\
+\
+19.9 Hash Propagation\
+\
+Hashes propagate upward.\
+\
+- Frames 
+\f1 \'81\'a8
+\f0  FRAME-BLOCK hash\
+- FRAME-BLOCKS 
+\f1 \'81\'a8
+\f0  SUPER-BLOCK hash\
+- SUPER-BLOCKS 
+\f1 \'81\'a8
+\f0  ULTRA-BLOCK hash\
+- ULTRA-BLOCKS 
+\f1 \'81\'a8
+\f0  QUANTUM-BLOCK hash\
+\
+Propagation is declarative.\
+No block depends on algorithm choice.\
+\
+19.10 Verification Strategy\
+\
+Verification may occur at any level.\
+\
+- Frame-level: fine-grained\
+- Block-level: coarse-grained\
+- Hierarchical: selective\
+\
+Partial verification is valid.\
+Global verification is optional.\
+\
+19.11 Hierarchy and Failure\
+\
+Failure in one block:\
+- does not invalidate others\
+- does not collapse hierarchy\
+- remains detectable\
+\
+Hierarchy isolates damage.\
+\
+19.12 Hierarchy and Time\
+\
+Blocks may reference time anchors.\
+Time anchors are artifacts, not guarantees.\
+\
+Time is ordered structurally.\
+Meaning is external.\
+\
+19.13 Design Constraint\
+\
+Block hierarchy must remain:\
+- human-comprehensible\
+- implementable without tooling\
+- reconstructible from text alone\
+\
+Complexity is a failure mode.\
+\
+------------------------------------------------------------\
+END CHAPTER 19\
+NEXT: CHAPTER 20 \'b7 INDEXING & SNAPSHOT THEORY\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 20 \'b7 INDEXING & SNAPSHOT THEORY\
+------------------------------------------------------------\
+\
+20.1 Purpose of Indexing\
+\
+Indexing exists to provide visibility,\
+not authority.\
+\
+An index does not define truth.\
+It records what is present\
+under a declared scope\
+at a declared moment.\
+\
+Indexes are observational artifacts.\
+\
+20.2 Index as First-Class Artifact\
+\
+In Frames Axiomatics,\
+an index is a Frame.\
+\
+Properties:\
+- append-only\
+- immutable after creation\
+- hashable\
+- auditable\
+\
+An index never executes queries.\
+It never resolves references.\
+It only lists.\
+\
+20.3 Snapshot Concept\
+\
+A snapshot is a recorded view\
+of a set of artifacts.\
+\
+A snapshot:\
+- is finite\
+- is time-bound\
+- may be incomplete\
+- may be superseded\
+\
+Snapshots do not overwrite each other.\
+They accumulate.\
+\
+20.4 Snapshot Levels\
+\
+Two canonical snapshot levels are defined.\
+\
+L0 \'b7 Presence Snapshot\
+L1 \'b7 Integrity Snapshot\
+\
+Higher levels may exist,\
+but must not invalidate lower levels.\
+\
+20.5 L0 \'b7 Presence Snapshot\
+\
+An L0 snapshot records existence only.\
+\
+It answers:\
+- Which artifacts are present?\
+- Under which declared scope?\
+\
+Properties:\
+- lists identifiers\
+- no hashes required\
+- no ordering guarantees beyond listing order\
+\
+L0 does not assert integrity.\
+It asserts presence.\
+\
+20.6 L1 \'b7 Integrity Snapshot\
+\
+An L1 snapshot extends L0.\
+\
+It records:\
+- artifact identifiers\
+- artifact self-hashes\
+- optional chain tail hash\
+\
+L1 enables:\
+- integrity verification\
+- ordering validation\
+- detection of mutation\
+\
+L1 does not assert correctness.\
+It asserts consistency.\
+\
+20.7 Append-Only Indexing Rule\
+\
+Indexes are append-only artifacts.\
+\
+If the set changes:\
+- a new snapshot is written\
+- old snapshots remain valid\
+- no index is updated in place\
+\
+History is preserved structurally.\
+\
+20.8 Index Supersession\
+\
+A snapshot may supersede another\
+by reference.\
+\
+Supersession:\
+- is explicit\
+- is declared\
+- does not delete\
+\
+Superseded snapshots remain verifiable.\
+\
+20.9 Scope Declaration\
+\
+Every index declares its scope.\
+\
+Scope defines:\
+- what was considered\
+- what was excluded\
+- what environment applied\
+\
+Undefined scope invalidates the index.\
+\
+20.10 Ordering Semantics\
+\
+Indexes may declare ordering,\
+but ordering is structural.\
+\
+Ordering does not imply:\
+- causality\
+- priority\
+- truth\
+\
+Ordering only supports verification.\
+\
+20.11 Index Chains\
+\
+Indexes may reference other indexes.\
+\
+This forms index chains,\
+not execution graphs.\
+\
+Index chains support:\
+- progressive disclosure\
+- layered audit\
+- scalable inspection\
+\
+20.12 Index Failure Modes\
+\
+An index may be:\
+- incomplete\
+- stale\
+- inconsistent\
+\
+These are not errors.\
+They are properties.\
+\
+Detectability is the goal.\
+\
+20.13 Index Independence\
+\
+Verification of an artifact\
+does not require trust in the index.\
+\
+Indexes assist verification.\
+They do not replace it.\
+\
+20.14 Design Constraint\
+\
+Indexing must remain:\
+- text-representable\
+- tool-agnostic\
+- reconstructible\
+- non-authoritative\
+\
+An index is a map,\
+not the territory.\
+\
+------------------------------------------------------------\
+END CHAPTER 20\
+NEXT: CHAPTER 21 \'b7 CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 21 \'b7 CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+21.1 Motivation\
+\
+Canonical serialization defines the boundary\
+between structure and ambiguity.\
+\
+Without canonical serialization,\
+hashes are unstable,\
+verification is non-deterministic,\
+and proofs collapse under representation drift.\
+\
+Canonical serialization is therefore\
+a structural necessity,\
+not an optimization.\
+\
+21.2 Definition\
+\
+Canonical serialization is a deterministic,\
+fully specified mapping\
+from an abstract structure\
+to a byte sequence.\
+\
+Given the same abstract structure,\
+canonical serialization must always produce\
+the same byte sequence.\
+\
+21.3 Scope of Canonicalization\
+\
+Canonicalization applies to:\
+- individual Frames\
+- Index Snapshots\
+- Block-level aggregates\
+\
+Canonicalization does not apply to:\
+- interpretation\
+- execution\
+- external references\
+\
+Only structure is canonicalized.\
+\
+21.4 Serialization Boundary\
+\
+Canonical serialization defines a proof boundary.\
+\
+Inside the boundary:\
+- hashes are meaningful\
+- integrity can be verified\
+- equivalence can be tested\
+\
+Outside the boundary:\
+- variation is permitted\
+- no cryptographic claims apply\
+\
+No proof may cross an undefined boundary.\
+\
+21.5 Requirements\
+\
+A canonical serialization must be:\
+- deterministic\
+- total (no undefined cases)\
+- unambiguous\
+- byte-exact\
+- independent of environment\
+\
+Whitespace, ordering, and encoding\
+must be explicitly defined or eliminated.\
+\
+21.6 Representation vs. Structure\
+\
+Canonicalization operates on structure,\
+not on surface representation.\
+\
+Different surface representations\
+may map to the same canonical form,\
+but the inverse must never occur.\
+\
+Many-to-one is allowed.\
+One-to-many is forbidden.\
+\
+21.7 JSON Considerations\
+\
+When using JSON-based Frames:\
+- key ordering must be fixed\
+- numeric representations must be normalized\
+- string encoding must be specified\
+- absence vs. null must be disambiguated\
+\
+Failure to specify these properties\
+invalidates hash determinism.\
+\
+21.8 Byte Encoding\
+\
+Canonical serialization must specify:\
+- character encoding (e.g., UTF-8)\
+- newline handling\
+- end-of-file behavior\
+\
+Implicit defaults are forbidden.\
+\
+21.9 Tool Independence\
+\
+Canonical serialization must be reproducible\
+using independent tools.\
+\
+No proprietary serializer\
+may be required for verification.\
+\
+If a tool cannot reproduce the byte stream,\
+the serialization is invalid.\
+\
+21.10 Versioning\
+\
+Canonicalization rules are versioned.\
+\
+A change in canonical rules:\
+- creates a new version\
+- does not invalidate prior proofs\
+- must never be applied retroactively\
+\
+Canonical version drift\
+is handled through append-only evolution.\
+\
+21.11 Canonicalization Failure\
+\
+If canonicalization fails:\
+- no hash claim is valid\
+- integrity claims are suspended\
+- the artifact may still exist\
+\
+Existence does not depend on canonicalization.\
+Proof does.\
+\
+21.12 Minimality Principle\
+\
+Canonicalization should be minimal.\
+\
+Only rules required\
+for determinism and verification\
+may be introduced.\
+\
+Excess normalization increases fragility.\
+\
+21.13 Separation of Concerns\
+\
+Canonicalization does not define meaning.\
+It does not define truth.\
+It does not define behavior.\
+\
+It defines sameness.\
+\
+21.14 Design Constraint\
+\
+Canonical serialization must remain:\
+- explicit\
+- inspectable\
+- documentable\
+- stable under extension\
+\
+If canonical rules cannot be written down,\
+they are invalid.\
+\
+------------------------------------------------------------\
+END CHAPTER 21\
+NEXT: CHAPTER 22 \'b7 HASHING & DETERMINISM\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 22 \'b7 HASHING & DETERMINISM\
+------------------------------------------------------------\
+\
+22.1 Purpose of Hashing\
+\
+Hashing provides a deterministic fingerprint\
+of a canonicalized structure.\
+\
+A hash does not prove truth.\
+A hash proves sameness under canonical rules.\
+\
+Hashing binds structure to verification.\
+\
+22.2 Preconditions\
+\
+Hashing is only valid if:\
+- the input is canonically serialized\
+- the serialization rules are frozen\
+- the hash algorithm is explicitly defined\
+\
+If any precondition fails,\
+the hash has no proof value.\
+\
+22.3 Determinism Requirement\
+\
+Given:\
+- the same abstract structure\
+- the same canonical serialization\
+- the same hash algorithm\
+\
+the resulting hash must be identical\
+across time, systems, and tools.\
+\
+Non-deterministic hashing is invalid.\
+\
+22.4 Hash Algorithm Scope\
+\
+The hash algorithm:\
+- operates on bytes, not meaning\
+- is agnostic to structure semantics\
+- must be publicly specified\
+\
+The choice of algorithm\
+does not affect the axioms,\
+only the security margin.\
+\
+22.5 Algorithm Neutrality\
+\
+Frames Axiomatics does not mandate\
+a single hash algorithm.\
+\
+Instead, it requires:\
+- algorithm declaration\
+- immutability after use\
+- explicit versioning\
+\
+Algorithm agility is allowed.\
+Silent substitution is forbidden.\
+\
+22.6 Object Hash vs. Aggregate Hash\
+\
+Two distinct hashing layers exist:\
+\
+- Object Hash:\
+  Hash of a single Frame\
+  after canonical serialization\
+\
+- Aggregate Hash:\
+  Hash of an ordered sequence of hashes\
+  or bytes (e.g., PackBlock)\
+\
+These layers must not be conflated.\
+\
+22.7 Hash Chaining\
+\
+Hash chaining links artifacts\
+through explicit predecessor references.\
+\
+A chained hash proves:\
+- relative ordering\
+- structural continuity\
+\
+It does not prove:\
+- causality\
+- correctness\
+- intent\
+\
+22.8 Boundary of Hash Claims\
+\
+A hash claim applies only to:\
+- the exact canonical byte sequence\
+- the declared algorithm\
+- the declared scope\
+\
+Any change outside this boundary\
+invalidates the claim.\
+\
+22.9 Collision Considerations\
+\
+Collision resistance is a property\
+of the chosen algorithm,\
+not of the axiomatic system.\
+\
+Frames Axiomatics assumes:\
+- standard cryptographic assumptions\
+- no special collision oracle\
+\
+If collisions occur,\
+proof strength degrades gracefully,\
+not catastrophically.\
+\
+22.10 Hashes Are Not IDs\
+\
+Hashes may be used as identifiers,\
+but identity is not defined by hashing.\
+\
+Identity is defined by:\
+- frame IDs\
+- append-only position\
+- structural references\
+\
+Hash equality implies sameness,\
+not identity.\
+\
+22.11 Hash Immutability\
+\
+Once a hash is recorded:\
+- it must never be recomputed\
+- it must never be replaced\
+- it may only be superseded\
+\
+Supersession is append-only\
+and explicitly marked.\
+\
+22.12 Verification Procedure\
+\
+Verification consists of:\
+1. canonical serialization\
+2. byte-exact hashing\
+3. comparison with recorded hash\
+\
+Any mismatch invalidates\
+the integrity claim.\
+\
+22.13 Tool Independence\
+\
+Hash verification must be possible\
+with standard cryptographic tools.\
+\
+No hidden salt,\
+no environment-dependent behavior,\
+no implicit parameters.\
+\
+22.14 Separation from Semantics\
+\
+A valid hash does not imply:\
+- truth of content\
+- correctness of data\
+- legitimacy of origin\
+\
+It implies only structural integrity.\
+\
+22.15 Failure Modes\
+\
+If hashing fails:\
+- the artifact still exists\
+- the structure still exists\
+- proof is suspended\
+\
+Existence precedes proof.\
+\
+------------------------------------------------------------\
+END CHAPTER 22\
+NEXT: CHAPTER 23 \'b7 APPEND-ONLY ORDERING\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 22 \'b7 HASHING & DETERMINISM\
+------------------------------------------------------------\
+\
+22.1 Purpose of Hashing\
+\
+Hashing provides a deterministic fingerprint\
+of a canonicalized structure.\
+\
+A hash does not prove truth.\
+A hash proves sameness under canonical rules.\
+\
+Hashing binds structure to verification.\
+\
+22.2 Preconditions\
+\
+Hashing is only valid if:\
+- the input is canonically serialized\
+- the serialization rules are frozen\
+- the hash algorithm is explicitly defined\
+\
+If any precondition fails,\
+the hash has no proof value.\
+\
+22.3 Determinism Requirement\
+\
+Given:\
+- the same abstract structure\
+- the same canonical serialization\
+- the same hash algorithm\
+\
+the resulting hash must be identical\
+across time, systems, and tools.\
+\
+Non-deterministic hashing is invalid.\
+\
+22.4 Hash Algorithm Scope\
+\
+The hash algorithm:\
+- operates on bytes, not meaning\
+- is agnostic to structure semantics\
+- must be publicly specified\
+\
+The choice of algorithm\
+does not affect the axioms,\
+only the security margin.\
+\
+22.5 Algorithm Neutrality\
+\
+Frames Axiomatics does not mandate\
+a single hash algorithm.\
+\
+Instead, it requires:\
+- algorithm declaration\
+- immutability after use\
+- explicit versioning\
+\
+Algorithm agility is allowed.\
+Silent substitution is forbidden.\
+\
+22.6 Object Hash vs. Aggregate Hash\
+\
+Two distinct hashing layers exist:\
+\
+- Object Hash:\
+  Hash of a single Frame\
+  after canonical serialization\
+\
+- Aggregate Hash:\
+  Hash of an ordered sequence of hashes\
+  or bytes (e.g., PackBlock)\
+\
+These layers must not be conflated.\
+\
+22.7 Hash Chaining\
+\
+Hash chaining links artifacts\
+through explicit predecessor references.\
+\
+A chained hash proves:\
+- relative ordering\
+- structural continuity\
+\
+It does not prove:\
+- causality\
+- correctness\
+- intent\
+\
+22.8 Boundary of Hash Claims\
+\
+A hash claim applies only to:\
+- the exact canonical byte sequence\
+- the declared algorithm\
+- the declared scope\
+\
+Any change outside this boundary\
+invalidates the claim.\
+\
+22.9 Collision Considerations\
+\
+Collision resistance is a property\
+of the chosen algorithm,\
+not of the axiomatic system.\
+\
+Frames Axiomatics assumes:\
+- standard cryptographic assumptions\
+- no special collision oracle\
+\
+If collisions occur,\
+proof strength degrades gracefully,\
+not catastrophically.\
+\
+22.10 Hashes Are Not IDs\
+\
+Hashes may be used as identifiers,\
+but identity is not defined by hashing.\
+\
+Identity is defined by:\
+- frame IDs\
+- append-only position\
+- structural references\
+\
+Hash equality implies sameness,\
+not identity.\
+\
+22.11 Hash Immutability\
+\
+Once a hash is recorded:\
+- it must never be recomputed\
+- it must never be replaced\
+- it may only be superseded\
+\
+Supersession is append-only\
+and explicitly marked.\
+\
+22.12 Verification Procedure\
+\
+Verification consists of:\
+1. canonical serialization\
+2. byte-exact hashing\
+3. comparison with recorded hash\
+\
+Any mismatch invalidates\
+the integrity claim.\
+\
+22.13 Tool Independence\
+\
+Hash verification must be possible\
+with standard cryptographic tools.\
+\
+No hidden salt,\
+no environment-dependent behavior,\
+no implicit parameters.\
+\
+22.14 Separation from Semantics\
+\
+A valid hash does not imply:\
+- truth of content\
+- correctness of data\
+- legitimacy of origin\
+\
+It implies only structural integrity.\
+\
+22.15 Failure Modes\
+\
+If hashing fails:\
+- the artifact still exists\
+- the structure still exists\
+- proof is suspended\
+\
+Existence precedes proof.\
+\
+------------------------------------------------------------\
+END CHAPTER 22\
+NEXT: CHAPTER 23 \'b7 APPEND-ONLY ORDERING\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 23 \'b7 APPEND-ONLY ORDERING\
+------------------------------------------------------------\
+\
+23.1 Ordering as a Structural Property\
+\
+Ordering in Frames Axiomatics is structural, not semantic.\
+It expresses relative position, not meaning or causality.\
+\
+Order answers only one question:\
+what came before what, within a declared scope.\
+\
+23.2 Append-Only Ordering Rule\
+\
+APPEND-ORDER RULE O1:\
+No recorded artifact may change its relative position\
+with respect to previously recorded artifacts.\
+\
+Once order is established, it is immutable.\
+\
+23.3 Local vs. Global Order\
+\
+Ordering is always local to a declared sequence.\
+\
+There is no assumed global order.\
+Multiple independent append-only sequences may coexist.\
+\
+Global order may be derived externally,\
+but it is not axiomatic.\
+\
+23.4 Order Establishment\
+\
+Order is established by:\
+- physical append position\
+- explicit predecessor references\
+- index snapshots\
+\
+The method used must be declared.\
+Undeclared ordering is invalid.\
+\
+23.5 Hash-Based Ordering\
+\
+Hash chaining provides a verifiable ordering mechanism.\
+\
+If frame B references the hash of frame A,\
+then A precedes B within that chain.\
+\
+This establishes a partial order,\
+not a total universe order.\
+\
+23.6 Index-Based Ordering\
+\
+Index snapshots record:\
+- which artifacts exist\
+- in what declared sequence\
+\
+Indexes do not create order.\
+They document order that already exists.\
+\
+23.7 Ordering Stability\
+\
+Ordering stability requires:\
+- append-only discipline\
+- immutable references\
+- frozen serialization rules\
+\
+Reordering artifacts\
+creates a new sequence,\
+never a modification.\
+\
+23.8 Forks and Divergence\
+\
+Append-only systems may fork.\
+\
+A fork:\
+- does not invalidate prior history\
+- creates parallel continuations\
+- must be explicitly represented\
+\
+Forks are structural facts,\
+not failures.\
+\
+23.9 Ordering and Time\
+\
+Temporal timestamps may accompany artifacts,\
+but they do not define order.\
+\
+Order defines time relations.\
+Time annotations describe context only.\
+\
+23.10 Order vs. Causality\
+\
+Ordering does not imply causality.\
+\
+The fact that A precedes B\
+does not imply A caused B.\
+\
+Causality is external interpretation.\
+\
+23.11 Order Verification\
+\
+Order verification consists of:\
+- validating append position\
+- validating predecessor references\
+- validating index consistency\
+\
+Failure in any step\
+invalidates the ordering claim,\
+not the artifact\'92s existence.\
+\
+23.12 Minimal Order Guarantee\
+\
+Frames Axiomatics guarantees only:\
+- consistency of declared order\
+- detectability of order violations\
+\
+It does not guarantee completeness,\
+synchronization, or fairness.\
+\
+23.13 Order Preservation Under Copy\
+\
+Copying an ordered sequence\
+preserves order if and only if:\
+- relative positions are preserved\
+- no artifacts are removed or reordered\
+\
+Order preservation is verifiable.\
+\
+23.14 Order and Long-Term Archives\
+\
+Append-only ordering is resilient to:\
+- partial loss\
+- delayed discovery\
+- asynchronous reconstruction\
+\
+Order can be revalidated\
+as long as sufficient structure remains.\
+\
+23.15 Order as an Audit Primitive\
+\
+Ordering enables:\
+- replay\
+- comparison\
+- divergence detection\
+- accountability\
+\
+Without ordering,\
+audit is impossible.\
+\
+------------------------------------------------------------\
+END CHAPTER 23\
+NEXT: CHAPTER 24 \'b7 INDEX SNAPSHOTS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 24 \'b7 INDEX SNAPSHOTS\
+------------------------------------------------------------\
+\
+24.1 Purpose of Index Snapshots\
+\
+An index snapshot is a structural inventory.\
+It records what exists at a declared point,\
+without creating, modifying, or interpreting artifacts.\
+\
+Indexes observe.\
+They do not execute.\
+\
+24.2 Definition\
+\
+INDEX SNAPSHOT:\
+A frame that lists identifiers of artifacts\
+present within a declared scope and sequence.\
+\
+An index snapshot is itself an artifact\
+and obeys append-only rules.\
+\
+24.3 Index Levels\
+\
+Index snapshots may exist at multiple levels.\
+\
+Common levels:\
+- L0: existence-only inventory\
+- L1: hash-verified inventory\
+- Ln: derived or specialized inventories\
+\
+Levels are descriptive,\
+not hierarchical authority.\
+\
+24.4 L0 Index (Existence Level)\
+\
+An L0 index records:\
+- artifact identifiers\
+- artifact types (optional)\
+- declared scope\
+\
+No hashes are required.\
+No verification is implied.\
+\
+L0 answers:\
+\'93What is present?\'94\
+\
+24.5 L1 Index (Integrity Level)\
+\
+An L1 index records:\
+- artifact identifiers\
+- self-hashes\
+- optional chain tail references\
+\
+L1 enables verification of:\
+- integrity\
+- ordering consistency\
+\
+L1 answers:\
+\'93What is present and matches recorded structure?\'94\
+\
+24.6 Index Creation Rule\
+\
+INDEX RULE I1:\
+An index snapshot may only reference artifacts\
+that exist prior to the index itself.\
+\
+Indexes cannot reference future artifacts.\
+\
+24.7 Index Consistency\
+\
+Index consistency means:\
+- listed artifacts exist\
+- references resolve\
+- hashes (if present) verify\
+\
+Inconsistency invalidates the index,\
+not the referenced artifacts.\
+\
+24.8 Index as Evidence\
+\
+Indexes provide evidence of observation,\
+not evidence of truth.\
+\
+Presence \uc0\u8800  correctness.\
+Inventory \uc0\u8800  endorsement.\
+\
+24.9 Index Evolution\
+\
+Indexes may be superseded by newer indexes.\
+\
+Supersession does not erase older indexes.\
+All remain valid historical observations.\
+\
+24.10 Index and Forks\
+\
+In forked sequences,\
+indexes apply only to their local branch.\
+\
+Cross-branch indexing requires\
+explicit linkage frames.\
+\
+24.11 Index and Absence\
+\
+Indexes do not prove absence.\
+They only prove recorded presence.\
+\
+Absence claims require\
+separate negative assertions,\
+which are out of scope.\
+\
+24.12 Index Verification\
+\
+Index verification includes:\
+- parsing validation\
+- reference resolution\
+- optional hash checks\
+\
+Verification is mechanical and repeatable.\
+\
+24.13 Index Transport\
+\
+Indexes are copy-safe.\
+\
+An index snapshot may be moved,\
+copied, or archived independently,\
+without loss of meaning.\
+\
+24.14 Index Minimality\
+\
+Indexes should be minimal.\
+\
+Redundant data increases fragility\
+and does not increase proof strength.\
+\
+24.15 Index Freeze\
+\
+Indexes may be frozen\
+to mark a stable observational boundary.\
+\
+Freeze applies to the index frame,\
+not to the indexed artifacts.\
+\
+------------------------------------------------------------\
+END CHAPTER 24\
+NEXT: CHAPTER 25 \'b7 PACKBLOCKS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 25 \'b7 PACKBLOCKS\
+------------------------------------------------------------\
+\
+25.1 Motivation for PackBlocks\
+\
+Long-term verification and transport of append-only artifacts\
+require a stable packaging unit.\
+\
+PackBlocks provide this unit.\
+\
+They allow:\
+- offline storage\
+- copy-safe transport\
+- bounded verification\
+without introducing execution semantics.\
+\
+25.2 Definition\
+\
+PACKBLOCK:\
+A single-file, append-only bundle composed of\
+a sequence of frames serialized in canonical form.\
+\
+Each frame remains atomic.\
+The PackBlock is a container, not an interpreter.\
+\
+25.3 Composition Rules\
+\
+A PackBlock consists of:\
+- zero or more frames\
+- ordered exactly as recorded\
+- serialized linearly (e.g., NDJSON)\
+\
+No frame may be altered when included.\
+\
+25.4 Append-Only Property\
+\
+PACKBLOCK RULE P1:\
+Once written, a PackBlock must not be modified.\
+\
+Any extension produces a new PackBlock\
+or a new PackBlock version.\
+\
+25.5 Verification Boundary\
+\
+A PackBlock defines a verification boundary.\
+\
+Verification may be performed by:\
+- parsing each frame\
+- validating order\
+- validating hashes\
+- validating indexes\
+\
+No external context is required.\
+\
+25.6 Checksums\
+\
+A PackBlock may be accompanied by\
+a checksum file (e.g., SHA-256).\
+\
+The checksum verifies:\
+- transport integrity\
+- storage integrity\
+\
+It does not verify semantics.\
+\
+25.7 PackBlock and Order Preservation\
+\
+Order within a PackBlock is authoritative.\
+\
+Copying a PackBlock preserves order\
+if and only if byte order is preserved.\
+\
+Reordering frames invalidates the PackBlock.\
+\
+25.8 PackBlocks and Indexes\
+\
+Index snapshots may reference PackBlocks.\
+PackBlocks may contain index snapshots.\
+\
+This mutual referencing is allowed\
+as long as append-only rules are preserved.\
+\
+25.9 PackBlocks and Forks\
+\
+Forks produce distinct PackBlocks.\
+\
+PackBlocks do not merge histories.\
+They represent one recorded sequence.\
+\
+25.10 PackBlocks and Archival Longevity\
+\
+PackBlocks are resilient to:\
+- environment changes\
+- tooling changes\
+- delayed verification\
+\
+They rely only on:\
+- canonical serialization\
+- documented hashing algorithms\
+\
+25.11 Minimal PackBlock Guarantee\
+\
+A valid PackBlock guarantees:\
+- structural completeness of included frames\
+- verifiable order\
+- verifiable integrity\
+\
+It guarantees nothing else.\
+\
+25.12 PackBlocks vs Databases\
+\
+PackBlocks are not databases.\
+\
+They do not support:\
+- queries\
+- updates\
+- transactions\
+\
+They support recording and verification only.\
+\
+25.13 PackBlock Failure Modes\
+\
+A PackBlock may fail verification if:\
+- a frame is corrupted\
+- order is broken\
+- a hash mismatch occurs\
+\
+Failure is detectable and local.\
+\
+25.14 PackBlock Freeze\
+\
+PackBlocks may be frozen\
+to mark final archival form.\
+\
+Freeze applies to the file,\
+not to the conceptual sequence.\
+\
+25.15 PackBlocks as Evidence Units\
+\
+PackBlocks serve as:\
+- audit artifacts\
+- review units\
+- reproducible evidence\
+\
+They are designed to outlive systems.\
+\
+------------------------------------------------------------\
+END CHAPTER 25\
+NEXT: CHAPTER 26 \'b7 QUANTUM BLOCKS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 26 \'b7 QUANTUM BLOCKS\
+------------------------------------------------------------\
+\
+26.1 Purpose of Quantum Blocks\
+\
+Quantum Blocks introduce a bounded structural context\
+for grouping frames under a shared, fixed header.\
+\
+They do not introduce execution,\
+probability, or physical quantum claims.\
+\
+The term \'93quantum\'94 refers strictly to:\
+- discreteness\
+- fixed-size structure\
+- non-divisibility within scope\
+\
+26.2 Definition\
+\
+QUANTUM BLOCK:\
+A bounded group of frames that share\
+a fixed structural header and\
+a declared verification context.\
+\
+A Quantum Block is a structural unit,\
+not a semantic or computational one.\
+\
+26.3 Relationship to Frames\
+\
+Frames remain atomic.\
+\
+Quantum Blocks:\
+- do not merge frames\
+- do not alter frames\
+- do not reinterpret frame payloads\
+\
+They only group frames structurally.\
+\
+26.4 The Quantum Header (QH)\
+\
+Each Quantum Block is associated with\
+exactly one Quantum Header (e.g., QH56).\
+\
+The header:\
+- is fixed-size\
+- is frame-local or block-scoped\
+- encodes only structural states\
+\
+The header does not affect proof validity.\
+It provides context markers only.\
+\
+26.5 Quantum Header Stability\
+\
+QUANTUM HEADER RULE QH1:\
+Once a Quantum Block is created,\
+its associated header must not change.\
+\
+Any change requires a new block.\
+\
+26.6 Internal Ordering\
+\
+Frames inside a Quantum Block\
+retain their append-only order.\
+\
+The Quantum Block does not introduce\
+additional ordering semantics.\
+\
+26.7 Verification Scope\
+\
+Verification of a Quantum Block includes:\
+- verification of all contained frames\
+- verification of header serialization\
+- verification of block boundaries\
+\
+Verification does not extend beyond the block\
+unless explicitly linked.\
+\
+26.8 Quantum Blocks and PackBlocks\
+\
+Quantum Blocks may:\
+- exist inside PackBlocks\
+- span multiple PackBlocks via references\
+\
+The two concepts are orthogonal:\
+- Quantum Block = logical grouping\
+- PackBlock = physical container\
+\
+26.9 Boundaries and Isolation\
+\
+Quantum Blocks define isolation boundaries.\
+\
+Errors, corruption, or ambiguity\
+inside one Quantum Block\
+do not contaminate others.\
+\
+26.10 Quantum Blocks and Indexes\
+\
+Indexes may reference Quantum Blocks\
+as named structural units.\
+\
+Indexes do not infer meaning\
+from block membership.\
+\
+26.11 Minimal Quantum Block Guarantee\
+\
+A valid Quantum Block guarantees:\
+- stable grouping\
+- stable header\
+- verifiable internal structure\
+\
+It guarantees no interpretation.\
+\
+26.12 Quantum Blocks and Evolution\
+\
+Quantum Blocks may evolve only by:\
+- closure (freeze)\
+- supersession by a new block\
+\
+In-place evolution is forbidden.\
+\
+26.13 Quantum Blocks and Proof Chains\
+\
+Proof chains may traverse Quantum Blocks.\
+\
+Cross-block traversal must be explicit.\
+Implicit continuity is forbidden.\
+\
+26.14 Misuse Prevention\
+\
+Quantum Blocks must not be used to:\
+- encode semantics\
+- encode policy\
+- encode execution intent\
+\
+Such use violates the axiomatic boundary.\
+\
+26.15 Quantum Blocks as Structural Anchors\
+\
+Quantum Blocks act as:\
+- review anchors\
+- audit scopes\
+- bounded reasoning domains\
+\
+They support clarity, not power.\
+\
+------------------------------------------------------------\
+END CHAPTER 26\
+NEXT: CHAPTER 27 \'b7 ARCHIVATOR\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 28 \'b7 CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+28.1 Motivation\
+\
+Verification of structure requires determinism.\
+Determinism requires a unique representation.\
+\
+Canonical serialization defines\
+a single, unambiguous encoding of an artifact\
+from which hashes and references are derived.\
+\
+Without canonical serialization,\
+hash-based verification is undefined.\
+\
+28.2 Definition\
+\
+CANONICAL SERIALIZATION:\
+A deterministic transformation of an artifact\
+into a byte sequence such that\
+identical artifacts yield identical byte sequences.\
+\
+Canonical serialization is structural,\
+not semantic.\
+\
+28.3 Scope of Canonicalization\
+\
+Canonical serialization applies to:\
+- individual frames\
+- index snapshots\
+- PackBlocks (as byte sequences)\
+\
+It does not apply to:\
+- external references\
+- interpretation layers\
+- runtime environments\
+\
+28.4 Serialization Boundary\
+\
+The serialization boundary defines:\
+- what is included in the hash\
+- what is excluded from the hash\
+\
+Anything outside the boundary\
+is not protected by cryptographic verification.\
+\
+28.5 Canonicalization and Hashing\
+\
+Hashes must always be computed\
+over canonically serialized data.\
+\
+HASH RULE H1:\
+Hashing non-canonical data\
+produces non-verifiable results.\
+\
+28.6 Canonical JSON (Example Domain)\
+\
+For JSON-based frames,\
+canonicalization may be achieved by:\
+- stable key ordering\
+- deterministic whitespace rules\
+- normalized number formats\
+- explicit UTF-8 encoding\
+\
+Specific standards (e.g. RFC 8785)\
+may be referenced but are not mandated\
+by the axioms.\
+\
+28.7 Binary Canonicalization\
+\
+Binary canonical formats are permitted\
+if and only if:\
+- the encoding is fully specified\
+- decoding is deterministic\
+- byte-level identity is preserved\
+\
+Binary form does not imply superiority.\
+It implies different trade-offs.\
+\
+28.8 Versioning of Canonicalization\
+\
+Canonicalization rules may evolve.\
+\
+Any change requires:\
+- explicit version identifiers\
+- non-retroactive application\
+- coexistence with older versions\
+\
+Silent canonicalization changes are forbidden.\
+\
+28.9 Canonicalization Freeze\
+\
+Canonicalization rules may be frozen\
+for a declared scope.\
+\
+After freeze:\
+- serialization rules must not change\
+- hash determinism is preserved\
+\
+28.10 Canonicalization Failure\
+\
+Failure occurs if:\
+- serialization rules are ambiguous\
+- multiple encodings exist for the same artifact\
+\
+Failure invalidates verification claims,\
+not artifact existence.\
+\
+28.11 Canonicalization and Copying\
+\
+Canonical serialization ensures that\
+copying artifacts does not affect hashes.\
+\
+Location, filesystem, and transport\
+must not influence serialized form.\
+\
+28.12 Minimal Canonical Guarantee\
+\
+Canonical serialization guarantees:\
+- repeatable hashing\
+- cross-environment verification\
+\
+It guarantees nothing about meaning.\
+\
+28.13 Canonicalization and Proof Chains\
+\
+Proof chains rely on canonical serialization\
+as a foundational layer.\
+\
+Without it, chains collapse into assertions.\
+\
+28.14 Canonicalization as a Proof Boundary\
+\
+Canonical serialization marks the boundary\
+between:\
+- verifiable structure\
+- non-verifiable interpretation\
+\
+This boundary must remain explicit.\
+\
+28.15 Canonicalization Discipline\
+\
+Canonicalization is a discipline,\
+not an optimization.\
+\
+Its purpose is trust minimization,\
+not performance.\
+\
+------------------------------------------------------------\
+END CHAPTER 28\
+NEXT: CHAPTER 29 \'b7 PROOF CHAINS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 29 \'b7 PROOF CHAINS\
+------------------------------------------------------------\
+\
+29.1 Purpose of Proof Chains\
+\
+Proof chains provide a verifiable linkage\
+between recorded artifacts over time.\
+\
+They enable independent verification that:\
+- artifacts exist\
+- artifacts are ordered\
+- artifacts have not been altered\
+\
+Proof chains do not assert meaning or correctness.\
+They assert structural continuity only.\
+\
+29.2 Definition\
+\
+PROOF CHAIN:\
+A sequence of cryptographically linked artifacts\
+where each link depends on the canonical serialization\
+of a preceding artifact.\
+\
+A proof chain is a structural construct,\
+not a logical argument.\
+\
+29.3 Chain Elements\
+\
+A proof chain may include:\
+- frames\
+- index snapshots\
+- PackBlocks\
+- freeze markers\
+\
+Each element must:\
+- be canonically serialized\
+- reference its predecessor explicitly or implicitly\
+\
+29.4 Chain Formation\
+\
+A chain is formed when:\
+- an artifact references the hash of a prior artifact\
+- or an index snapshot records a chain tail\
+\
+Chain formation is declarative.\
+No execution is implied.\
+\
+29.5 Locality of Proof Chains\
+\
+Proof chains are local to a declared scope.\
+\
+There is no universal proof chain.\
+Multiple chains may coexist without conflict.\
+\
+29.6 Partial Orders\
+\
+Proof chains establish partial orders.\
+\
+They do not impose:\
+- total ordering across unrelated sequences\
+- global synchronization\
+\
+Partial ordering is sufficient for verification.\
+\
+29.7 Chain Verification\
+\
+Verification of a proof chain requires:\
+- canonical serialization\
+- hash recomputation\
+- reference resolution\
+- order consistency\
+\
+Verification is mechanical and repeatable.\
+\
+29.8 Chain Breaks\
+\
+A chain break occurs if:\
+- a referenced artifact is missing\
+- a hash does not verify\
+- canonicalization rules differ\
+\
+Chain breaks are detectable and local.\
+\
+29.9 Chain Repair\
+\
+Proof chains cannot be repaired retroactively.\
+\
+A new artifact may:\
+- document the break\
+- start a new chain\
+- reference the last valid point\
+\
+History is preserved.\
+\
+29.10 Chains and Forks\
+\
+Forks create multiple proof chains.\
+\
+Each fork is valid\
+if append-only rules are respected.\
+\
+Forks are structural facts,\
+not failures.\
+\
+29.11 Chains and Freezing\
+\
+Freezing marks a chain segment as closed.\
+\
+After freeze:\
+- no new links may be appended\
+- verification context stabilizes\
+\
+Freeze does not assert finality of truth.\
+\
+29.12 Chains and Transport\
+\
+Proof chains survive copying and transport\
+if canonical serialization is preserved.\
+\
+Loss of context does not invalidate chains\
+as long as required artifacts are present.\
+\
+29.13 Chains and Aggregation\
+\
+Chains may be aggregated via indexes\
+or PackBlocks.\
+\
+Aggregation does not merge chains.\
+It records coexistence.\
+\
+29.14 Minimal Proof Chain Guarantee\
+\
+Proof chains guarantee:\
+- detectability of tampering\
+- detectability of omission\
+- detectability of reordering\
+\
+They guarantee nothing else.\
+\
+29.15 Proof Chains as Audit Infrastructure\
+\
+Proof chains enable:\
+- audits\
+- reviews\
+- independent reproduction\
+\
+They form the backbone\
+of the Frames Axiomatics.\
+\
+------------------------------------------------------------\
+END CHAPTER 29\
+NEXT: CHAPTER 30 \'b7 FREEZE AND VERSIONING\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 30 \'b7 FREEZE AND VERSIONING\
+------------------------------------------------------------\
+\
+30.1 Motivation\
+\
+Long-lived systems require stability.\
+Stability requires explicit boundaries.\
+\
+Freeze and versioning provide\
+controlled immutability without erasure.\
+They prevent silent drift while allowing evolution.\
+\
+30.2 Definition of Freeze\
+\
+FREEZE:\
+A declarative marker stating that\
+a defined scope is closed to further modification.\
+\
+Freeze applies to:\
+- rules\
+- structures\
+- serialization formats\
+- artifact sets\
+\
+Freeze does not delete or override history.\
+\
+30.3 Freeze Scope\
+\
+A freeze must declare its scope explicitly.\
+\
+Possible scopes include:\
+- a single artifact\
+- a sequence of frames\
+- a PackBlock\
+- a specification version\
+- a proof chain segment\
+\
+Undefined scope invalidates the freeze.\
+\
+30.4 Effects of Freeze\
+\
+After freeze:\
+- no new artifacts may be appended within scope\
+- no rules may be altered within scope\
+- verification context is fixed\
+\
+Artifacts outside the scope are unaffected.\
+\
+30.5 Freeze as Observation\
+\
+Freeze records an observation:\
+\'93At this point, the structure was considered stable.\'94\
+\
+It does not assert correctness,\
+truth, or finality.\
+\
+30.6 Versioning\
+\
+VERSION:\
+An identifier assigned to a frozen scope\
+to distinguish it from earlier or later variants.\
+\
+Versioning is additive.\
+Older versions remain valid references.\
+\
+30.7 Version Evolution\
+\
+Evolution occurs only by:\
+- creating a new version\
+- appending new artifacts\
+- redefining scope boundaries\
+\
+In-place modification is forbidden.\
+\
+30.8 Semantic Independence\
+\
+Version numbers have no semantic meaning.\
+They indicate distinction, not quality.\
+\
+Higher version \uc0\u8800  better.\
+Lower version \uc0\u8800  obsolete.\
+\
+30.9 Compatibility\
+\
+Compatibility between versions\
+must be explicitly declared.\
+\
+Silence implies no compatibility guarantee.\
+\
+30.10 Freeze and Canonicalization\
+\
+Canonicalization rules must be frozen\
+for any scope that relies on hashing.\
+\
+Changing canonicalization\
+creates a new verification universe.\
+\
+30.11 Freeze and Proof Chains\
+\
+Proof chains may cross versions\
+only if compatibility is declared.\
+\
+Otherwise, chains terminate at version boundaries.\
+\
+30.12 Freeze Markers as Artifacts\
+\
+Freeze markers are artifacts.\
+They are subject to append-only rules.\
+\
+A freeze marker may itself be verified,\
+indexed, and archived.\
+\
+30.13 Failure Modes\
+\
+Freeze failure occurs if:\
+- scope is ambiguous\
+- post-freeze modification is detected\
+- version identifiers collide\
+\
+Failure invalidates the freeze claim.\
+\
+30.14 Long-Term Archival Role\
+\
+Freeze enables:\
+- long-term citation\
+- reproducible verification\
+- historical comparison\
+\
+Without freeze,\
+archives decay into ambiguity.\
+\
+30.15 Minimal Freeze Guarantee\
+\
+Freeze guarantees:\
+- immutability of declared scope\
+- stability of verification context\
+\
+It guarantees nothing else.\
+\
+------------------------------------------------------------\
+END CHAPTER 30\
+NEXT: CHAPTER 31 \'b7 LIMITATIONS AND NON-GOALS\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 31 \'b7 LIMITATIONS AND NON-GOALS\
+------------------------------------------------------------\
+\
+31.1 Purpose of Explicit Limitations\
+\
+Frames Axiomatics is defined as much by what it does not do\
+as by what it does.\
+\
+Explicit limitations prevent:\
+- overextension\
+- misinterpretation\
+- implicit claims\
+\
+Silence outside scope is intentional.\
+\
+31.2 No Semantic Truth Claims\
+\
+Frames Axiomatics does not determine:\
+- correctness of data\
+- truth of statements\
+- validity of conclusions\
+\
+It records structure only.\
+Meaning is external.\
+\
+31.3 No Execution Model\
+\
+The system defines no:\
+- computation\
+- evaluation\
+- inference\
+- decision-making\
+\
+Any execution occurs outside the axioms.\
+\
+31.4 No Authority or Consensus\
+\
+Frames Axiomatics does not provide:\
+- consensus mechanisms\
+- voting systems\
+- trust authorities\
+\
+Agreement is external and optional.\
+\
+31.5 No Global Time Guarantee\
+\
+Timestamps may be recorded,\
+but no global time synchronization is assumed.\
+\
+Temporal order is structural,\
+not absolute.\
+\
+31.6 No Completeness Guarantee\
+\
+The system does not guarantee that:\
+- all relevant artifacts are recorded\
+- all events are captured\
+- all histories are complete\
+\
+It guarantees detectability of what is recorded.\
+\
+31.7 No Performance Claims\
+\
+Frames Axiomatics makes no claims about:\
+- efficiency\
+- scalability\
+- throughput\
+- storage optimization\
+\
+Such concerns belong to implementations.\
+\
+31.8 No Privacy or Secrecy Model\
+\
+The axioms do not define:\
+- access control\
+- encryption policy\
+- confidentiality guarantees\
+\
+These must be layered externally.\
+\
+31.9 No Automatic Recovery\
+\
+The system does not provide:\
+- self-healing\
+- automatic repair\
+- rollback mechanisms\
+\
+All recovery is procedural.\
+\
+31.10 No Implicit Merging\
+\
+Histories do not merge implicitly.\
+\
+Any merging must be:\
+- explicit\
+- recorded\
+- verifiable\
+\
+31.11 No Interpretation Enforcement\
+\
+Frames Axiomatics does not enforce\
+how artifacts are interpreted or used.\
+\
+Different interpretations may coexist.\
+\
+31.12 No Replacement of Existing Systems\
+\
+The axioms do not replace:\
+- databases\
+- version control systems\
+- ledgers\
+- file systems\
+\
+They provide a structural foundation\
+that may underlie them.\
+\
+31.13 Minimal Commitment\
+\
+The axioms commit only to:\
+- append-only structure\
+- verifiable order\
+- verifiable integrity\
+\
+Everything else is optional.\
+\
+31.14 Stability Through Constraint\
+\
+By limiting scope,\
+Frames Axiomatics achieves stability.\
+\
+Expansion without constraint\
+destroys verifiability.\
+\
+31.15 Limitations as Strength\
+\
+These limitations are not weaknesses.\
+\
+They are the conditions\
+that make the system precise.\
+\
+------------------------------------------------------------\
+END CHAPTER 31\
+NEXT: CHAPTER 32 \'b7 SUMMARY OF AXIOMATIC GUARANTEES\
+------------------------------------------------------------\
+\
+------------------------------------------------------------\
+CHAPTER 32 \'b7 SUMMARY OF AXIOMATIC GUARANTEES\
+------------------------------------------------------------\
+\
+32.1 Purpose of This Summary\
+\
+This chapter enumerates, in compact form,\
+the guarantees provided by the Frames Axiomatics.\
+\
+Only guarantees explicitly derived\
+from prior axioms are listed.\
+No new claims are introduced.\
+\
+32.2 Existence Guarantee\
+\
+If an artifact is recorded according to the axioms,\
+its existence is detectable.\
+\
+Guarantee G1:\
+Recorded artifacts cannot silently disappear\
+without detection.\
+\
+32.3 Append-Only Guarantee\
+\
+Once an artifact is recorded,\
+it cannot be modified or overwritten\
+within the same scope.\
+\
+Guarantee G2:\
+Any change is observable\
+as the addition of new artifacts.\
+\
+32.4 Ordering Guarantee\
+\
+Artifacts recorded within a scope\
+have a verifiable relative order.\
+\
+Guarantee G3:\
+Reordering is detectable.\
+\
+32.5 Integrity Guarantee\
+\
+If canonical serialization and hashing are applied,\
+any alteration of recorded artifacts is detectable.\
+\
+Guarantee G4:\
+Integrity violations are mechanically verifiable.\
+\
+32.6 Scope Locality Guarantee\
+\
+All guarantees are local to declared scopes.\
+\
+Guarantee G5:\
+No implicit global guarantees exist.\
+\
+32.7 Fork Transparency Guarantee\
+\
+Divergence of histories is permitted and observable.\
+\
+Guarantee G6:\
+Forks cannot be hidden.\
+\
+32.8 Verification Independence Guarantee\
+\
+Verification does not depend on:\
+- original recording environment\
+- specific software\
+- trusted authorities\
+\
+Guarantee G7:\
+Verification is tool-agnostic.\
+\
+32.9 Transport Stability Guarantee\
+\
+Artifacts may be copied and transported\
+without loss of verifiability.\
+\
+Guarantee G8:\
+Location does not affect verification.\
+\
+32.10 Freeze Stability Guarantee\
+\
+Frozen scopes preserve\
+their verification context indefinitely.\
+\
+Guarantee G9:\
+Post-freeze drift is detectable.\
+\
+32.11 Canonical Boundary Guarantee\
+\
+Only canonically serialized data\
+is covered by cryptographic guarantees.\
+\
+Guarantee G10:\
+Anything outside the boundary is explicitly unprotected.\
+\
+32.12 Minimality Guarantee\
+\
+The axioms guarantee only what is stated.\
+\
+Guarantee G11:\
+No hidden assumptions exist.\
+\
+32.13 Non-Interference Guarantee\
+\
+Structural guarantees do not impose\
+semantic, causal, or computational meaning.\
+\
+Guarantee G12:\
+Interpretation remains external.\
+\
+32.14 Composability Guarantee\
+\
+Multiple independent scopes\
+may coexist without interference.\
+\
+Guarantee G13:\
+Structure composes without centralization.\
+\
+32.15 Longevity Guarantee\
+\
+Given preservation of artifacts,\
+verification remains possible\
+across arbitrary time spans.\
+\
+Guarantee G14:\
+The axioms are archivally stable.\
+\
+------------------------------------------------------------\
+END CHAPTER 32\
+NEXT: CHAPTER 33 \'b7 CONCLUSION\
+------------------------------------------------------------\
+------------------------------------------------------------\
+CHAPTER 33 \'b7 CONCLUSION\
+------------------------------------------------------------\
+\
+33.1 Scope of the Conclusion\
+\
+This conclusion introduces no new axioms,\
+no extensions, and no interpretations.\
+\
+It summarizes what has been established\
+by the Frames Axiomatics as presented.\
+\
+33.2 What Has Been Defined\
+\
+Frames Axiomatics defines a minimal,\
+structural foundation for recording information\
+such that:\
+\
+- existence is detectable\
+- order is verifiable\
+- integrity is checkable\
+- change is observable\
+\
+These properties are achieved\
+without relying on execution,\
+authority, consensus, or interpretation.\
+\
+33.3 What Has Been Deliberately Excluded\
+\
+The axioms deliberately exclude:\
+\
+- semantic meaning\
+- truth evaluation\
+- computation\
+- policy enforcement\
+- optimization goals\
+\
+These exclusions are not omissions.\
+They are necessary constraints.\
+\
+33.4 Structural Neutrality\
+\
+Frames Axiomatics is neutral with respect to:\
+- domain\
+- use case\
+- scale\
+- technology\
+\
+It may be applied wherever\
+append-only structural recording is required,\
+or not applied at all.\
+\
+33.5 Verification as a First-Class Concept\
+\
+Verification is not an afterthought.\
+\
+It is a primary design objective:\
+structures are defined only insofar\
+as they can be independently verified.\
+\
+Anything unverifiable\
+is considered outside the axiomatic boundary.\
+\
+33.6 Long-Term Perspective\
+\
+The axioms are designed for longevity.\
+\
+They assume:\
+- software will change\
+- formats will evolve\
+- environments will disappear\
+\
+Only structure and verification\
+are assumed to persist.\
+\
+33.7 Relationship to Systems\
+\
+Frames Axiomatics does not replace systems.\
+\
+It underlies them,\
+providing a stable reference layer\
+against which systems may be evaluated.\
+\
+33.8 Human and Machine Symmetry\
+\
+The axioms apply equally to:\
+- human procedures\
+- automated tools\
+- hybrid workflows\
+\
+No distinction is made\
+between \'93manual\'94 and \'93automatic\'94 actions.\
+\
+33.9 Final Boundary Statement\
+\
+Everything guaranteed by the axioms\
+is explicitly stated.\
+\
+Everything not stated\
+is explicitly not guaranteed.\
+\
+This boundary is the core of the system.\
+\
+33.10 Closing Statement\
+\
+Frames Axiomatics establishes\
+a verifiable, append-only structural substrate\
+for the recording of information over time.\
+\
+It does not tell us what to believe.\
+It tells us what can be checked.\
+\
+------------------------------------------------------------\
+END CHAPTER 33\
+END OF FRAMES AXIOMATICS\
+------------------------------------------------------------\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ------------------------------------------------------------\
+APPENDIX A \'b7 FORMAL DEFINITIONS\
+(NORMATIVE \'b7 NON-AXIOMATIC EXTENSION)\
+------------------------------------------------------------\
+\
+A.0 Status and Scope\
+\
+This appendix is normative with respect to terminology\
+and notation, but it introduces no new axioms.\
+\
+Its purpose is to:\
+- fix meanings of terms used in the axioms\
+- remove ambiguity\
+- support mechanical verification and review\
+\
+If a conflict exists between this appendix\
+and the axiomatic chapters,\
+the axioms take precedence.\
+\
+------------------------------------------------------------\
+\
+A.1 Artifact\
+\
+ARTIFACT:\
+A discrete recorded unit that exists as a serialized object\
+within a declared append-only scope.\
+\
+Properties:\
+- has an identifier\
+- has a canonical serialization\
+- may be referenced\
+- may be verified\
+\
+An artifact may be a frame, index snapshot, PackBlock,\
+freeze marker, or other declared type.\
+\
+------------------------------------------------------------\
+\
+A.2 Frame\
+\
+FRAME:\
+An atomic artifact recorded exactly once,\
+never modified after recording.\
+\
+Properties:\
+- append-only\
+- canonically serializable\
+- independently verifiable\
+- smallest indivisible unit in the system\
+\
+A frame does not imply execution or interpretation.\
+\
+------------------------------------------------------------\
+\
+A.3 Scope\
+\
+SCOPE:\
+A declared boundary within which\
+ordering, append-only rules, and verification apply.\
+\
+Properties:\
+- explicitly declared\
+- locally enforced\
+- non-global by default\
+\
+Scopes may coexist without interaction.\
+\
+------------------------------------------------------------\
+\
+A.4 Append-Only\
+\
+APPEND-ONLY:\
+A property of a recording process\
+where new artifacts may be added,\
+but existing artifacts are never modified or removed.\
+\
+Append-only applies to:\
+- content\
+- order\
+- references\
+\
+Violation is detectable.\
+\
+------------------------------------------------------------\
+\
+A.5 Order\
+\
+ORDER:\
+A verifiable relation between artifacts\
+indicating relative position within a scope.\
+\
+Order answers:\
+- \'93which artifact precedes which\'94\
+\
+Order does not imply time, causality, or meaning.\
+\
+------------------------------------------------------------\
+\
+A.6 Canonical Serialization\
+\
+CANONICAL SERIALIZATION:\
+A deterministic encoding of an artifact\
+into a byte sequence such that identical artifacts\
+produce identical byte sequences.\
+\
+Properties:\
+- unique\
+- repeatable\
+- environment-independent\
+\
+Canonical serialization defines the hash boundary.\
+\
+------------------------------------------------------------\
+\
+A.7 Hash\
+\
+HASH:\
+A cryptographic digest computed over\
+the canonical serialization of an artifact.\
+\
+Purpose:\
+- integrity verification\
+- linkage in proof chains\
+\
+A hash asserts detectability of change,\
+not correctness.\
+\
+------------------------------------------------------------\
+\
+A.8 Proof Chain\
+\
+PROOF CHAIN:\
+A sequence of artifacts linked by references\
+derived from canonical serialization and hashing.\
+\
+Purpose:\
+- detect tampering\
+- detect omission\
+- detect reordering\
+\
+Proof chains are structural, not logical proofs.\
+\
+------------------------------------------------------------\
+\
+A.9 Index Snapshot\
+\
+INDEX SNAPSHOT:\
+An artifact that records an inventory of artifacts\
+observed within a scope at a declared point.\
+\
+Properties:\
+- observational\
+- append-only\
+- non-authoritative\
+\
+Indexes document structure;\
+they do not create it.\
+\
+------------------------------------------------------------\
+\
+A.10 PackBlock\
+\
+PACKBLOCK:\
+A single-file, append-only container\
+holding a sequence of frames and related artifacts\
+in canonical serialized form.\
+\
+Purpose:\
+- transport\
+- offline verification\
+- bounded audit\
+\
+A PackBlock is not executable.\
+\
+------------------------------------------------------------\
+\
+A.11 Quantum Block\
+\
+QUANTUM BLOCK:\
+A bounded grouping of frames\
+associated with a fixed structural header.\
+\
+Purpose:\
+- isolation\
+- structural marking\
+- review scoping\
+\
+Quantum Blocks introduce no semantics.\
+\
+------------------------------------------------------------\
+\
+A.12 Quantum Header (QH)\
+\
+QUANTUM HEADER (QH):\
+A fixed-size structural header\
+composed of discrete cells with finite states.\
+\
+Purpose:\
+- structural context\
+- gating\
+- marking\
+\
+QH does not affect proof validity.\
+\
+------------------------------------------------------------\
+\
+A.13 Archivator\
+\
+ARCHIVATOR:\
+The formal constraint system that enforces\
+append-only behavior within a scope.\
+\
+The Archivator:\
+- forbids modification\
+- forbids deletion\
+- permits supersession by addition\
+\
+It is a discipline, not an authority.\
+\
+------------------------------------------------------------\
+\
+A.14 Freeze\
+\
+FREEZE:\
+A declarative artifact stating that\
+a defined scope is closed to further change.\
+\
+Properties:\
+- scope-specific\
+- append-only\
+- verifiable\
+\
+Freeze stabilizes verification context.\
+\
+------------------------------------------------------------\
+\
+A.15 Version\
+\
+VERSION:\
+An identifier assigned to a frozen scope\
+to distinguish it from other scopes.\
+\
+Versions are labels, not evaluations.\
+\
+------------------------------------------------------------\
+\
+A.16 Verification\
+\
+VERIFICATION:\
+A mechanical process that checks\
+structural properties of artifacts.\
+\
+Verification may include:\
+- parsing\
+- hash recomputation\
+- reference resolution\
+- order validation\
+\
+Verification never includes interpretation.\
+\
+------------------------------------------------------------\
+\
+A.17 Interpretation (External)\
+\
+INTERPRETATION:\
+Any assignment of meaning, truth, intent,\
+or causality to artifacts.\
+\
+Interpretation is explicitly outside\
+the axiomatic system.\
+\
+------------------------------------------------------------\
+\
+END APPENDIX A \'b7 FORMAL DEFINITIONS\
+------------------------------------------------------------\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ------------------------------------------------------------\
+APPENDIX B \'b7 MINIMAL VERIFICATION GUIDE\
+(NORMATIVE \'b7 PROCEDURAL \'b7 TOOL-AGNOSTIC)\
+------------------------------------------------------------\
+\
+B.0 Status and Scope\
+\
+This appendix specifies a minimal, mechanical procedure\
+for verifying artifacts recorded under the Frames Axiomatics.\
+\
+It introduces no new axioms.\
+It defines *how* to check, not *what to believe*.\
+\
+All steps are:\
+- deterministic\
+- repeatable\
+- independent of interpretation\
+- executable by humans or machines\
+\
+------------------------------------------------------------\
+\
+B.1 Preconditions\
+\
+The verifier must possess:\
+- the artifacts to be verified\
+- the declared canonical serialization rules\
+- the declared hashing algorithm(s)\
+- the declared scope boundaries\
+\
+No trust in the original recorder is assumed.\
+\
+------------------------------------------------------------\
+\
+B.2 Verification Inputs\
+\
+Possible inputs include:\
+- individual frames\
+- index snapshots (L0, L1, \'85)\
+- PackBlocks\
+- checksum files\
+- freeze markers\
+- version identifiers\
+\
+Missing inputs reduce verifiability\
+but do not negate existence claims.\
+\
+------------------------------------------------------------\
+\
+B.3 Step 1 \'b7 Structural Parsing\
+\
+For each artifact:\
+\
+1. Parse the artifact according to its declared format.\
+2. Confirm that parsing is deterministic.\
+3. Reject artifacts that:\
+   - fail to parse\
+   - yield multiple parse trees\
+   - violate declared format constraints\
+\
+Result:\
+- PARSE_OK or PARSE_FAIL\
+\
+------------------------------------------------------------\
+\
+B.4 Step 2 \'b7 Canonical Serialization\
+\
+For each parsable artifact:\
+\
+1. Apply the declared canonical serialization rules.\
+2. Confirm that:\
+   - serialization is unique\
+   - no alternative encoding exists\
+3. Produce the canonical byte sequence.\
+\
+If canonicalization rules are missing or ambiguous,\
+verification must halt.\
+\
+Result:\
+- CANONICAL_OK or CANONICAL_FAIL\
+\
+------------------------------------------------------------\
+\
+B.5 Step 3 \'b7 Hash Verification\
+\
+If hashes are present:\
+\
+1. Recompute the hash over the canonical byte sequence.\
+2. Compare the computed hash to the recorded hash.\
+3. Record mismatch or match.\
+\
+If hashes are absent:\
+- skip this step\
+- record HASH_NOT_PRESENT\
+\
+Result:\
+- HASH_MATCH\
+- HASH_MISMATCH\
+- HASH_NOT_PRESENT\
+\
+------------------------------------------------------------\
+\
+B.6 Step 4 \'b7 Order Verification\
+\
+If order is declared:\
+\
+1. Identify the declared ordering mechanism:\
+   - append position\
+   - predecessor hash references\
+   - index-based order\
+2. Verify that:\
+   - no artifact precedes its declared predecessor\
+   - no retroactive insertion exists\
+3. Detect gaps or contradictions.\
+\
+Result:\
+- ORDER_OK\
+- ORDER_INCONSISTENT\
+- ORDER_UNDECLARED\
+\
+------------------------------------------------------------\
+\
+B.7 Step 5 \'b7 Index Verification\
+\
+For each index snapshot:\
+\
+1. Verify that all referenced artifacts exist.\
+2. If hashes are listed:\
+   - verify each hash as in Step 3\
+3. Confirm that the index references\
+   only artifacts that precede it.\
+\
+Index inconsistency invalidates the index,\
+not the referenced artifacts.\
+\
+Result:\
+- INDEX_OK\
+- INDEX_INVALID\
+\
+------------------------------------------------------------\
+\
+B.8 Step 6 \'b7 Proof Chain Verification\
+\
+If proof chains are declared:\
+\
+1. Traverse the chain from a declared start point.\
+2. At each step:\
+   - verify canonicalization\
+   - verify hash linkage\
+   - verify order consistency\
+3. Stop at first failure or declared chain end.\
+\
+Result:\
+- CHAIN_VALID\
+- CHAIN_BROKEN\
+- CHAIN_PARTIAL\
+\
+------------------------------------------------------------\
+\
+B.9 Step 7 \'b7 Freeze Verification\
+\
+For each freeze marker:\
+\
+1. Confirm that the freeze scope is explicitly declared.\
+2. Confirm that:\
+   - no post-freeze artifacts exist within scope\
+   - no rules changed within scope\
+3. Record violations if detected.\
+\
+Result:\
+- FREEZE_VALID\
+- FREEZE_VIOLATED\
+- FREEZE_SCOPE_AMBIGUOUS\
+\
+------------------------------------------------------------\
+\
+B.10 Step 8 \'b7 PackBlock Verification\
+\
+If PackBlocks are present:\
+\
+1. Verify file integrity (e.g., checksum).\
+2. Parse contained artifacts sequentially.\
+3. Apply Steps B.3\'96B.9 to each artifact.\
+4. Confirm no reordering occurred.\
+\
+Result:\
+- PACKBLOCK_VALID\
+- PACKBLOCK_CORRUPT\
+- PACKBLOCK_INCOMPLETE\
+\
+------------------------------------------------------------\
+\
+B.11 Failure Handling\
+\
+Verification failure:\
+- does not erase artifacts\
+- does not imply falsity\
+- invalidates only the specific claim checked\
+\
+Failures must be recorded,\
+not corrected.\
+\
+------------------------------------------------------------\
+\
+B.12 Verification Output\
+\
+Verification produces a report consisting of:\
+- inputs used\
+- steps performed\
+- results per step\
+- detected failures\
+- verification timestamp (optional)\
+\
+The report itself may be recorded\
+as a new artifact.\
+\
+------------------------------------------------------------\
+\
+B.13 Minimal Verification Guarantee\
+\
+If all applicable steps succeed,\
+the verifier may assert:\
+\
+- existence is confirmed\
+- structure is consistent\
+- integrity is preserved\
+- order is verifiable\
+\
+No further claims are permitted.\
+\
+------------------------------------------------------------\
+\
+END APPENDIX B \'b7 MINIMAL VERIFICATION GUIDE\
+------------------------------------------------------------\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ------------------------------------------------------------\
+APPENDIX C \'b7 REFERENCE IMPLEMENTATIONS\
+(INFORMATIVE \'b7 NON-NORMATIVE)\
+------------------------------------------------------------\
+\
+C.0 Status and Scope\
+\
+This appendix provides illustrative reference implementations\
+and operational patterns that conform to the Frames Axiomatics.\
+\
+It is explicitly non-normative.\
+No implementation described here is required,\
+privileged, or authoritative.\
+\
+Its purpose is to:\
+- demonstrate feasibility\
+- clarify interpretation of axioms\
+- support reproducibility\
+\
+Failure to follow these examples\
+does not imply violation of the axioms.\
+\
+------------------------------------------------------------\
+\
+C.1 Role of Reference Implementations\
+\
+Reference implementations exist to show:\
+- how axioms can be realized in practice\
+- how verification can be automated\
+- how append-only discipline may be enforced\
+\
+They do not define the axioms.\
+They follow them.\
+\
+------------------------------------------------------------\
+\
+C.2 Minimal Local Implementation (Shell-Based)\
+\
+A minimal implementation may consist of:\
+- a directory acting as a scope\
+- append-only file creation\
+- canonical serialization rules\
+- hash computation tools\
+- index snapshot generation\
+\
+Example characteristics:\
+- no database\
+- no network\
+- no daemon\
+- no privileged access\
+\
+Such an implementation is sufficient\
+to satisfy all axiomatic guarantees.\
+\
+------------------------------------------------------------\
+\
+C.3 NDJSON-Based Frame Storage\
+\
+Frames may be stored as:\
+- one JSON object per line\
+- encoded in UTF-8\
+- serialized canonically\
+- appended to a file\
+\
+Advantages:\
+- human-readable\
+- line-addressable\
+- copy-safe\
+- resilient to partial corruption\
+\
+This is an example, not a requirement.\
+\
+------------------------------------------------------------\
+\
+C.4 Hash Computation Tools\
+\
+Standard cryptographic tools may be used:\
+- SHA-256 via common utilities\
+- deterministic library implementations\
+- offline hashing tools\
+\
+No cryptographic library is privileged.\
+\
+The only requirement:\
+the algorithm and canonicalization rules\
+must be declared.\
+\
+------------------------------------------------------------\
+\
+C.5 Index Snapshot Generation\
+\
+Indexes may be generated by:\
+- scanning existing artifacts\
+- recording identifiers\
+- optionally recording hashes\
+\
+Index creation may be manual or automated.\
+\
+Indexes do not require trust;\
+they are verifiable artifacts.\
+\
+------------------------------------------------------------\
+\
+C.6 PackBlock Construction\
+\
+A PackBlock may be constructed by:\
+- concatenating canonically serialized frames\
+- preserving append order\
+- writing once\
+- computing a checksum\
+\
+PackBlock creation does not require\
+special tooling or formats.\
+\
+------------------------------------------------------------\
+\
+C.7 Verification Automation\
+\
+Verification may be automated using:\
+- scripts\
+- static programs\
+- batch tools\
+- formal checkers\
+\
+Automation is optional.\
+Manual verification is equally valid.\
+\
+------------------------------------------------------------\
+\
+C.8 Implementation Independence\
+\
+Different implementations may coexist:\
+- local filesystem\
+- version control systems\
+- object stores\
+- archival media\
+\
+As long as axioms are respected,\
+all implementations are equivalent\
+from an axiomatic perspective.\
+\
+------------------------------------------------------------\
+\
+C.9 Failure and Misimplementation\
+\
+An implementation may fail to:\
+- enforce append-only discipline\
+- preserve order\
+- apply canonical serialization\
+\
+Such failure:\
+- invalidates verification claims\
+- does not invalidate the axioms\
+- does not erase artifact existence\
+\
+------------------------------------------------------------\
+\
+C.10 Evolution of Implementations\
+\
+Implementations may evolve freely.\
+\
+Evolution must not:\
+- retroactively modify artifacts\
+- silently change canonicalization rules\
+- obscure verification boundaries\
+\
+New implementations create new scopes.\
+\
+------------------------------------------------------------\
+\
+C.11 Implementation Transparency\
+\
+Implementations should document:\
+- scope boundaries\
+- serialization rules\
+- hashing algorithms\
+- freeze points\
+\
+Transparency reduces reliance on trust.\
+\
+------------------------------------------------------------\
+\
+C.12 Reference Implementation Minimal Guarantee\
+\
+A reference implementation may claim only:\
+- conformance with axioms\
+- reproducibility of verification\
+\
+It must not claim authority.\
+\
+------------------------------------------------------------\
+\
+END APPENDIX C \'b7 REFERENCE IMPLEMENTATIONS\
+------------------------------------------------------------\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf2 ------------------------------------------------------------\
+APPENDIX D \'b7 WORKED EXAMPLES\
+(INFORMATIVE \'b7 NON-NORMATIVE)\
+------------------------------------------------------------\
+\
+D.0 Status and Scope\
+\
+This appendix provides concrete, worked examples\
+illustrating how the axioms may be applied in practice.\
+\
+The examples are illustrative only.\
+They introduce no new rules and no special cases.\
+\
+All examples assume:\
+- append-only discipline\
+- declared scope\
+- canonical serialization\
+- verifiable structure\
+\
+------------------------------------------------------------\
+\
+D.1 Example 1 \'b7 Minimal Frame Recording\
+\
+Scenario:\
+A single frame is recorded to document an observation.\
+\
+Steps:\
+1. A scope is declared (e.g., "LOCAL_EXAMPLE_1").\
+2. A frame identifier is chosen.\
+3. The frame is serialized canonically.\
+4. The frame is appended to the scope.\
+\
+Result:\
+- The frame exists.\
+- Its existence is detectable.\
+- No interpretation is implied.\
+\
+Verification:\
+- Parse the frame.\
+- Confirm canonical serialization.\
+- Confirm append-only placement.\
+\
+------------------------------------------------------------\
+\
+D.2 Example 2 \'b7 Append-Only Update via Supersession\
+\
+Scenario:\
+An earlier frame requires correction.\
+\
+Steps:\
+1. The original frame remains untouched.\
+2. A new frame is appended.\
+3. The new frame references the prior frame\
+   as superseded (reference only).\
+\
+Result:\
+- History is preserved.\
+- Change is observable.\
+- No overwrite occurs.\
+\
+Verification:\
+- Confirm both frames exist.\
+- Confirm order.\
+- Confirm references resolve.\
+\
+------------------------------------------------------------\
+\
+D.3 Example 3 \'b7 Hash-Based Proof Chain\
+\
+Scenario:\
+Multiple frames are linked via hashes.\
+\
+Steps:\
+1. Each frame is canonically serialized.\
+2. Each frame includes the hash of its predecessor.\
+3. Frames are appended sequentially.\
+\
+Result:\
+- A proof chain is formed.\
+- Reordering or modification is detectable.\
+\
+Verification:\
+- Recompute hashes.\
+- Validate predecessor references.\
+- Detect any break.\
+\
+------------------------------------------------------------\
+\
+D.4 Example 4 \'b7 Index Snapshot (L0)\
+\
+Scenario:\
+An observer records what exists at a point in time.\
+\
+Steps:\
+1. Scan existing frames.\
+2. Record identifiers in an index snapshot.\
+3. Append the index snapshot.\
+\
+Result:\
+- Existence is documented.\
+- No integrity claim is made.\
+\
+Verification:\
+- Confirm referenced frames exist.\
+- Confirm index order.\
+\
+------------------------------------------------------------\
+\
+D.5 Example 5 \'b7 Index Snapshot (L1)\
+\
+Scenario:\
+An observer records existence and integrity.\
+\
+Steps:\
+1. Perform an L0 scan.\
+2. Compute self-hashes of frames.\
+3. Record identifiers and hashes in the index.\
+\
+Result:\
+- Integrity becomes verifiable.\
+- Index remains observational.\
+\
+Verification:\
+- Recompute hashes.\
+- Compare to index entries.\
+\
+------------------------------------------------------------\
+\
+D.6 Example 6 \'b7 PackBlock Creation\
+\
+Scenario:\
+Artifacts must be transported offline.\
+\
+Steps:\
+1. Select a sequence of frames and indexes.\
+2. Serialize each canonically.\
+3. Concatenate in order to a single file.\
+4. Compute a checksum.\
+\
+Result:\
+- A PackBlock is created.\
+- Transport does not affect verifiability.\
+\
+Verification:\
+- Verify checksum.\
+- Parse and verify contained artifacts.\
+\
+------------------------------------------------------------\
+\
+D.7 Example 7 \'b7 Freeze Marker\
+\
+Scenario:\
+A scope is declared complete.\
+\
+Steps:\
+1. Define freeze scope.\
+2. Append a freeze marker.\
+3. Stop appending within scope.\
+\
+Result:\
+- Verification context stabilizes.\
+- History remains intact.\
+\
+Verification:\
+- Confirm no post-freeze artifacts\
+  exist within scope.\
+\
+------------------------------------------------------------\
+\
+D.8 Example 8 \'b7 Forked History\
+\
+Scenario:\
+Two independent continuations emerge.\
+\
+Steps:\
+1. Two new frames reference the same predecessor.\
+2. Each continuation appends independently.\
+\
+Result:\
+- Two valid forks exist.\
+- Neither invalidates the other.\
+\
+Verification:\
+- Verify each branch independently.\
+- Detect divergence structurally.\
+\
+------------------------------------------------------------\
+\
+D.9 Example 9 \'b7 Canonicalization Change\
+\
+Scenario:\
+Serialization rules evolve.\
+\
+Steps:\
+1. Old canonicalization is frozen.\
+2. New canonicalization is declared.\
+3. New frames use the new rules.\
+\
+Result:\
+- Two verification universes coexist.\
+- No retroactive change occurs.\
+\
+Verification:\
+- Apply correct rules per scope.\
+\
+------------------------------------------------------------\
+\
+D.10 Example 10 \'b7 Long-Term Verification\
+\
+Scenario:\
+Artifacts are verified after many years.\
+\
+Steps:\
+1. Retrieve artifacts.\
+2. Retrieve canonicalization rules.\
+3. Recompute hashes.\
+4. Verify structure.\
+\
+Result:\
+- Verification succeeds\
+  independent of original environment.\
+\
+------------------------------------------------------------\
+\
+D.11 Summary of Examples\
+\
+The examples demonstrate:\
+- append-only discipline\
+- explicit change representation\
+- verifiable order\
+- verifiable integrity\
+- resilience under copying and time\
+\
+No example introduces semantics or authority.\
+\
+------------------------------------------------------------\
+END APPENDIX D \'b7 WORKED EXAMPLES\
+------------------------------------------------------------\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ============================================================\
+CANONICAL FREEZE \'b7 FRAMES AXIOMATICS v1.0\
+============================================================\
+\
+STATUS\
+TYPE        : CANONICAL FREEZE\
+SCOPE       : FRAMES AXIOMATICS (CORE TEXT + APPENDICES A\'96D)\
+VERSION     : v1.0\
+MODE        : REFERENCE_ONLY\
+EXECUTION   : NONE\
+CLAIMS      : NONE\
+\
+FREEZE TIME\
+UTC_EPOCH   : 1770148860\
+UTC_TIME    : 2026-02-03T20:01:00Z\
+\
+============================================================\
+\
+1. FREEZE DECLARATION\
+\
+This document declares the canonical freeze of:\
+\
+- FRAMES AXIOMATICS \'b7 Chapters 1\'9633\
+- Appendix A \'b7 Formal Definitions\
+- Appendix B \'b7 Minimal Verification Guide\
+- Appendix C \'b7 Reference Implementations (Informative)\
+- Appendix D \'b7 Worked Examples (Informative)\
+\
+Collectively referred to as:\
+FRAMES AXIOMATICS v1.0\
+\
+============================================================\
+\
+2. EFFECT OF FREEZE\
+\
+Upon this freeze:\
+\
+- All axioms are immutable within this version.\
+- Terminology, structure, and guarantees are fixed.\
+- Canonical serialization boundaries are stable.\
+- Verification semantics are frozen.\
+- No retroactive modification is permitted.\
+\
+Any change requires:\
+- a new version identifier\
+- append-only supersession\
+- explicit scope declaration\
+\
+============================================================\
+\
+3. SCOPE OF FREEZE\
+\
+The freeze applies to:\
+\
+- Textual content\
+- Formal definitions\
+- Structural guarantees\
+- Declared limitations and non-goals\
+- Verification procedures\
+- Appendix classifications\
+\
+The freeze does NOT apply to:\
+- External interpretations\
+- Implementations\
+- Tooling\
+- Derived works\
+- Educational or explanatory material\
+\
+============================================================\
+\
+4. COMPATIBILITY POLICY\
+\
+Compatibility is NOT implied.\
+\
+Future versions:\
+- may reference v1.0\
+- may declare compatibility explicitly\
+- may diverge without invalidating v1.0\
+\
+Silence implies no compatibility guarantee.\
+\
+============================================================\
+\
+5. VERIFICATION CONTEXT\
+\
+Verification of artifacts claiming conformance\
+to FRAMES AXIOMATICS v1.0 requires:\
+\
+- use of frozen axioms\
+- use of frozen definitions\
+- respect of frozen canonical boundaries\
+- append-only discipline\
+\
+Any deviation must be declared\
+as non-conforming or superseding.\
+\
+============================================================\
+\
+6. ARCHIVAL INTENT\
+\
+This freeze is intended for:\
+\
+- long-term archival reference\
+- scientific citation\
+- independent verification\
+- audit and review\
+\
+The text is designed to remain valid\
+independent of software, platforms, or institutions.\
+\
+============================================================\
+\
+7. FINAL STATEMENT\
+\
+FRAMES AXIOMATICS v1.0 is hereby declared\
+canonically frozen.\
+\
+No further interpretation, execution,\
+or extension is implied by this declaration.\
+\
+============================================================\
+END \'b7 CANONICAL FREEZE \'b7 v1.0\
+============================================================\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 Freeze confirmed.\
+FRAMES AXIOMATICS v1.0 is now canonically sealed.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ============================================================\
+FRAMES AXIOMATICS \'b7 CANONICAL HEADER BITS & MATHEMATICAL FORMULAS\
+v1.0 \'b7 REFERENCE_ONLY \'b7 NON-EXECUTING\
+============================================================\
+\
+This section consolidates, in canonical form, all header-bit structures\
+and the complete set of mathematical definitions and formulas required\
+to reason about Frames Axiomatics without ambiguity.\
+\
+No hypotheses. No implementation bias. No semantics.\
+\
+------------------------------------------------------------\
+I. CANONICAL HEADER BITS\
+------------------------------------------------------------\
+\
+A) QH56 \'b7 Quantum Header (Frame-local)\
+\
+Definition:\
+QH56 is a fixed-width structural header of 56 bits.\
+\
+Let:\
+- CELL_BITS = 2\
+- CELLS_TOTAL = 28\
+- QH56_BITS = 56\
+\
+Cells are indexed:\
+cells[i], i 
+\f2 \uc0\u8712 
+\f0  \{0,\'85,27\}\
+\
+Each cell encodes exactly one of four structural states:\
+\
+Bit Pair  | Symbol | Meaning\
+----------|--------|-------------------------------\
+00        | U      | UNKNOWN\
+01        | F      | FALSE\
+10        | T      | TRUE\
+11        | G      | GUARD (structural lock)\
+\
+No other bit patterns are permitted.\
+\
+------------------------------------------------------------\
+B) Block Partition (Canonical)\
+\
+Cells are partitioned into three blocks:\
+\
+Block A (TOP): cells[0..9]   
+\f1 \'81\'a8
+\f0  10 cells\
+Block B (MID): cells[10..19] 
+\f1 \'81\'a8
+\f0  10 cells\
+Block C (BOT): cells[20..27] 
+\f1 \'81\'a8
+\f0   8 cells\
+\
+This partition is invariant for QH56 v1.x.\
+\
+------------------------------------------------------------\
+C) Column Topology (Vertical Reading)\
+\
+Define 10 columns COL0\'85COL9:\
+\
+For j 
+\f2 \uc0\u8712 
+\f0  \{0,\'85,7\} (full columns):\
+COLj = (A[j], B[j], C[j])\
+\
+For j 
+\f2 \uc0\u8712 
+\f0  \{8,9\} (short columns):\
+COLj = (A[j], B[j])\
+\
+Short columns are canonical and intentional.\
+\
+------------------------------------------------------------\
+D) GUARD Invariant (Single Hard Rule)\
+\
+INV-G1 (Short-Column Guard Lock):\
+\
+A8 = B8 = G\
+A9 = B9 = G\
+\
+This creates a stable structural boundary.\
+No semantics are implied.\
+\
+------------------------------------------------------------\
+E) Canonical Serialization of QH56\
+\
+Token form (primary):\
+28 tokens, each 
+\f2 \uc0\u8712 
+\f0  \{00,01,10,11\}\
+Order: cells[0] \'85 cells[27]\
+Separated by single spaces.\
+\
+Bitstring form (secondary):\
+Let bits(cells[i]) 
+\f2 \uc0\u8712 
+\f0  \{0,1\}\'b2\
+Then:\
+\
+QH56_bitstring =\
+bits(cells[0]) || bits(cells[1]) || \'85 || bits(cells[27])\
+\
+Length = 56 bits exactly.\
+\
+------------------------------------------------------------\
+II. MATHEMATICAL FOUNDATIONS\
+------------------------------------------------------------\
+\
+A) Frame\
+\
+A Frame F is defined as an immutable tuple:\
+\
+F = (id, t, ts, src, h, p)\
+\
+Where:\
+- id 
+\f2 \uc0\u8712 
+\f0  \uc0\u931 *  (unique identifier)\
+- t 
+\f2 \uc0\u8712 
+\f0  T    (frame type)\
+- ts 
+\f2 \uc0\u8712 
+\f0  
+\f3 \uc0\u8469 
+\f0    (Unix epoch timestamp)\
+- src      (origin metadata)\
+- h        (hash structure)\
+- p        (payload)\
+\
+Once created, F is immutable.\
+\
+------------------------------------------------------------\
+B) Append-Only Axiom\
+\
+Let S be a sequence of frames.\
+\
+Append-Only Constraint:\
+
+\f2 \uc0\u8704 
+\f0  i < j : F\uc0\u7522  
+\f2 \uc0\u8712 
+\f0  S 
+\f1 \'81\'cb
+\f0  F\uc0\u7522  is never modified or removed.\
+\
+Formally:\
+S
+\f4 \uc0\u8345 
+\f0 \uc0\u8330 \u8321  = S
+\f4 \uc0\u8345 
+\f0  
+\f2 \uc0\u8746 
+\f0  \{F
+\f4 \uc0\u8345 
+\f0 \uc0\u8330 \u8321 \}\
+\
+No operation exists such that:\
+S
+\f4 \uc0\u8345 
+\f0 \uc0\u8330 \u8321  = S
+\f4 \uc0\u8345 
+\f0  \\ \{F\uc0\u7522 \}\
+\
+------------------------------------------------------------\
+C) Hash Function\
+\
+Let H be a cryptographic hash function:\
+\
+H : \{0,1\}* 
+\f1 \'81\'a8
+\f0  \{0,1\}^k\
+\
+Properties required:\
+- Deterministic\
+- Collision-resistant\
+- Preimage-resistant\
+\
+------------------------------------------------------------\
+D) Frame Self-Hash\
+\
+Let ser(F) be the canonical serialization of F\
+excluding h.self.\
+\
+Then:\
+\
+h.self(F) = H( ser(F) )\
+\
+------------------------------------------------------------\
+E) Chain Linking (Prev-Hash)\
+\
+For a sequence of hashed frames \{F\uc0\u8320 ,\'85,F
+\f4 \uc0\u8345 
+\f0 \}:\
+\
+h.prev(F\uc0\u8320 ) = 
+\f2 \uc0\u8869 
+\f0   (null / undefined)\
+h.prev(F\uc0\u7522 ) = h.self(F\u7522 \u8331 \u8321 ), for i > 0\
+\
+This induces a total order on the frame sequence.\
+\
+------------------------------------------------------------\
+F) Proof Chain Consistency\
+\
+A frame chain is consistent iff:\
+\
+
+\f2 \uc0\u8704 
+\f0  i > 0 :\
+h.prev(F\uc0\u7522 ) = h.self(F\u7522 \u8331 \u8321 )\
+\
+Any violation breaks the chain.\
+\
+------------------------------------------------------------\
+G) Index Snapshots\
+\
+L0 Index:\
+I\uc0\u8320  = \{ id(F\u8320 ), id(F\u8321 ), \'85, id(F
+\f4 \uc0\u8345 
+\f0 ) \}\
+\
+L1 Index:\
+I\uc0\u8321  = \{ (id(F\u8320 ), h.self(F\u8320 )), \'85, (id(F
+\f4 \uc0\u8345 
+\f0 ), h.self(F
+\f4 \uc0\u8345 
+\f0 )) \}\
+\
+------------------------------------------------------------\
+H) PackBlock\
+\
+Let P be a PackBlock:\
+\
+P = concat(F\uc0\u8320 , F\u8321 , \'85, F
+\f4 \uc0\u8345 
+\f0 )   (NDJSON, line-wise)\
+\
+Pack checksum:\
+H(P)\
+\
+Verification:\
+H(P_received) = H(P_recorded)\
+\
+------------------------------------------------------------\
+I) Presence \uc0\u8800  Truth (Formal Boundary)\
+\
+Let payload(F) be arbitrary data.\
+\
+Frames Axiomatics asserts:\
+\
+
+\f2 \uc0\u8707 
+\f0 F  \uc0\u8800 
+\f1 \'81\'cb
+\f0   payload(F) is true, correct, or meaningful\
+\
+Only existence, order, and integrity are in scope.\
+\
+------------------------------------------------------------\
+J) Monotonicity (Stability Under Extension)\
+\
+Let S be a valid frame sequence.\
+\
+For any extension E:\
+\
+S\uc0\u8242  = S 
+\f2 \uc0\u8746 
+\f0  E\
+\
+Then:\
+Validity(S) 
+\f1 \'81\'cb
+\f0  Validity(S\uc0\u8242 )\
+\
+No extension invalidates prior proofs.\
+\
+------------------------------------------------------------\
+K) Canonicalization Boundary\
+\
+All proofs are conditioned on a fixed canonical\
+serialization function ser.\
+\
+Changing ser defines a new proof universe.\
+No cross-universe hash equivalence is assumed.\
+\
+------------------------------------------------------------\
+III. STATUS\
+------------------------------------------------------------\
+\
+This section is:\
+- Canonical\
+- Self-contained\
+- Freeze-ready\
+- Implementation-agnostic\
+\
+No additional assumptions are permitted.\
+\
+============================================================\
+END \'b7 HEADER BITS & MATHEMATICAL FORMULATION\
+============================================================\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf2 ============================================================\
+FRAMES AXIOMATICS \'b7 FORMAL AXIOMS LIST\
+(A1\'85A24) \'b7 v1.0 \'b7 REFERENCE_ONLY \'b7 NON-EXECUTING\
+============================================================\
+\
+CONVENTIONS\
+- Universe of discourse: artifacts recorded within a declared scope.\
+- No semantics: payload meaning is external.\
+- All axioms are structural constraints only.\
+\
+------------------------------------------------------------\
+SECTION 1 \'b7 BASIC ENTITIES\
+------------------------------------------------------------\
+\
+A1 \'b7 Frame Atom\
+A Frame is an atomic record F written once and treated as indivisible\
+within the system.\
+\
+A2 \'b7 Frame Immutability\
+For any frame F once recorded, F is never modified.\
+Only new frames may be appended.\
+\
+A3 \'b7 Scope Locality\
+All axioms apply only within a declared scope S.\
+No global scope is implied.\
+\
+A4 \'b7 Append-Only Growth\
+Let S_n be the sequence (or set) of frames recorded up to step n.\
+Then:\
+S_(n+1) = S_n 
+\f2 \uc0\u8746 
+\f0  \{F_(n+1)\}\
+No operation exists that removes elements from S_n.\
+\
+------------------------------------------------------------\
+SECTION 2 \'b7 ORDER AND SEQUENCES\
+------------------------------------------------------------\
+\
+A5 \'b7 Declared Order\
+Within a scope, the recorder declares an ordering relation over frames.\
+The default is append order.\
+\
+A6 \'b7 Order Detectability\
+If an ordering relation is declared, any reordering of recorded frames\
+is detectable by the verification procedure defined for that scope.\
+\
+A7 \'b7 No Silent Insertion\
+Between two recorded consecutive frames in the declared order,\
+no additional frame may appear later without being detectable.\
+\
+------------------------------------------------------------\
+SECTION 3 \'b7 CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+A8 \'b7 Canonical Serialization Existence\
+For any frame F in scope S, there exists a canonical serialization\
+function ser_S(F) producing a unique byte sequence.\
+\
+A9 \'b7 Canonical Serialization Determinism\
+For any frame F, repeated application of ser_S yields identical bytes:\
+ser_S(F) = ser_S(F) (deterministic, environment-independent).\
+\
+A10 \'b7 Canonicalization as Proof Boundary\
+All integrity proofs in scope S are conditioned on ser_S.\
+Anything outside ser_S is outside cryptographic guarantees.\
+\
+A11 \'b7 Canonicalization Change Creates New Scope\
+If canonicalization rules change, the resulting verification universe\
+is treated as a new scope S' (or an explicitly versioned boundary).\
+No cross-boundary hash equivalence is implied.\
+\
+------------------------------------------------------------\
+SECTION 4 \'b7 HASHING AND INTEGRITY\
+------------------------------------------------------------\
+\
+A12 \'b7 Declared Hash Function\
+If hashing is used, a cryptographic hash function H is declared for scope S:\
+H: \{0,1\}* 
+\f1 \'81\'a8
+\f0  \{0,1\}^k\
+\
+A13 \'b7 Self-Hash Definition\
+If present, the self-hash of a frame is:\
+h.self(F) = H( ser_S(F \\ \{h.self\}) )\
+(i.e., hash of the canonical serialization excluding the self field).\
+\
+A14 \'b7 Integrity Detectability\
+If h.self(F) is recorded, any alteration of the canonically serialized\
+content of F is detectable by recomputation and comparison.\
+\
+A15 \'b7 Optional Hash Absence\
+If hashing is not present, integrity claims are not made.\
+Absence of hashes does not negate existence or order recording.\
+\
+------------------------------------------------------------\
+SECTION 5 \'b7 CHAIN LINKAGE (PROOF CHAIN)\
+------------------------------------------------------------\
+\
+A16 \'b7 Prev-Link Definition\
+If chaining is used, each frame F_i (i>0) records:\
+h.prev(F_i) = h.self(F_(i-1))\
+For the first frame:\
+h.prev(F_0) = NONE (or 
+\f2 \uc0\u8869 
+\f0 ).\
+\
+A17 \'b7 Chain Consistency Condition\
+A chain is consistent iff:\
+
+\f2 \uc0\u8704 
+\f0  i>0: h.prev(F_i) = h.self(F_(i-1))\
+\
+A18 \'b7 Chain Break Detectability\
+Any violation of A17 is detectable and constitutes a broken chain\
+(within the declared order).\
+\
+A19 \'b7 Monotonic Extension\
+Let S be a verified consistent sequence.\
+For any appended extension E (new frames only),\
+verification of the prefix remains valid.\
+New frames can only extend; they cannot invalidate verified prefix structure.\
+\
+------------------------------------------------------------\
+SECTION 6 \'b7 INDEXING\
+------------------------------------------------------------\
+\
+A20 \'b7 Index Snapshot as Artifact\
+An index snapshot I is itself a recorded artifact subject to append-only rules.\
+\
+A21 \'b7 L0 Index Definition (Existence Inventory)\
+An L0 index records identifiers of observed artifacts in scope S.\
+It is observational and makes no integrity claim.\
+\
+A22 \'b7 L1 Index Definition (Hash Inventory)\
+An L1 index records (identifier, hash) pairs for observed artifacts.\
+It is observational and supports integrity verification via A13\'96A18.\
+\
+A23 \'b7 Index Non-Authority\
+Indexes do not create truth or authority.\
+Invalid indexes do not invalidate frames; they only invalidate the index.\
+\
+------------------------------------------------------------\
+SECTION 7 \'b7 PACKAGING AND TRANSPORT\
+------------------------------------------------------------\
+\
+A24 \'b7 PackBlock Integrity Handle\
+A PackBlock is a single-file concatenation of artifacts preserving order.\
+If a checksum over the PackBlock is recorded, then transport integrity is\
+verifiable by checksum equality:\
+H(P_received) = H(P_recorded)\
+\
+------------------------------------------------------------\
+SECTION 8 \'b7 NON-SEMANTIC BOUNDARIES\
+------------------------------------------------------------\
+\
+A25 \'b7 Presence \uc0\u8800  Truth\
+Recording an artifact establishes existence only.\
+It implies no truth, correctness, or meaning of its payload.\
+\
+A26 \'b7 Receipt \uc0\u8800  Claim\
+A receipt (if recorded) establishes that an ingest/record event occurred.\
+It implies no semantic claim about the content.\
+\
+A27 \'b7 No Execution\
+The axioms define no execution, evaluation, inference, or action semantics.\
+Any execution is external to the axioms.\
+\
+------------------------------------------------------------\
+SECTION 9 \'b7 FREEZE AND VERSIONING\
+------------------------------------------------------------\
+\
+A28 \'b7 Freeze as Closure Marker\
+A freeze marker declares a scope closed under the append-only discipline.\
+Post-freeze additions within the frozen scope are detectable violations\
+(or must be treated as a new scope/version).\
+\
+A29 \'b7 Version Identification\
+A version label identifies a frozen scope boundary.\
+New versions may supersede by append-only addition; no retroactive edits.\
+\
+------------------------------------------------------------\
+END \'b7 FORMAL AXIOMS LIST (A1\'85A29)\
+============================================================\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 ============================================================\
+FRAMES AXIOMATICS \'b7 SYMBOLIC FORM\
+(A1\'85A29) \'b7 v1.0 \'b7 REFERENCE_ONLY \'b7 NON-EXECUTING\
+============================================================\
+\
+PRIMITIVES\
+- S            : scope\
+- F            : frame\
+- t 
+\f2 \uc0\u8712 
+\f0  
+\f3 \uc0\u8469 
+\f0         : discrete append step\
+- S_t          : set or sequence of frames recorded up to step t\
+- 
+\f2 \uc0\u8826 
+\f0 _S          : declared order relation within scope S\
+- ser_S(\'b7)     : canonical serialization function for scope S\
+- H            : declared cryptographic hash function\
+- h.self(F)    : self-hash field of frame F (optional)\
+- h.prev(F)    : previous-hash field of frame F (optional)\
+- 
+\f2 \uc0\u8869 
+\f0             : null / undefined\
+- I            : index artifact\
+- P            : PackBlock artifact\
+- Freeze(S)    : freeze marker for scope S\
+\
+------------------------------------------------------------\
+AXIOMS\
+------------------------------------------------------------\
+\
+A1 (Frame Atom)\
+
+\f2 \uc0\u8704 
+\f0 F : Atomic(F)\
+\
+A2 (Immutability)\
+
+\f2 \uc0\u8704 
+\f0 F 
+\f2 \uc0\u8712 
+\f0  S : \'ac
+\f2 \uc0\u8707 
+\f0 F' (Modify(F,F'))\
+\
+A3 (Scope Locality)\
+
+\f2 \uc0\u8704 
+\f0 \uc0\u966  : Holds(\u966 ,S) 
+\f1 \'81\'cb
+\f0  \'acHolds(\uc0\u966 ,S') for S'\u8800 S\
+\
+A4 (Append-Only Growth)\
+
+\f2 \uc0\u8704 
+\f0 t : S_\{t+1\} = S_t 
+\f2 \uc0\u8746 
+\f0  \{F_\{t+1\}\}\
+\
+------------------------------------------------------------\
+ORDER\
+------------------------------------------------------------\
+\
+A5 (Declared Order)\
+
+\f2 \uc0\u8707 \u8826 
+\f0 _S 
+\f2 \uc0\u8838 
+\f0  S\'d7S\
+\
+A6 (Order Detectability)\
+Declared(
+\f2 \uc0\u8826 
+\f0 _S) 
+\f1 \'81\'cb
+\f0  Detectable(Reorder(S))\
+\
+A7 (No Silent Insertion)\
+
+\f2 \uc0\u8704 
+\f0 i,j : Consecutive(F_i,F_j,
+\f2 \uc0\u8826 
+\f0 _S) 
+\f1 \'81\'cb
+\f0 \
+\'ac
+\f2 \uc0\u8707 
+\f0 F_k inserted_later(F_k,F_i,F_j)\
+\
+------------------------------------------------------------\
+CANONICAL SERIALIZATION\
+------------------------------------------------------------\
+\
+A8 (Existence)\
+
+\f2 \uc0\u8704 
+\f0 F 
+\f2 \uc0\u8712 
+\f0  S : 
+\f2 \uc0\u8707 
+\f0 ! b 
+\f2 \uc0\u8712 
+\f0  \{0,1\}* : b = ser_S(F)\
+\
+A9 (Determinism)\
+
+\f2 \uc0\u8704 
+\f0 F : ser_S(F) = ser_S(F)\
+\
+A10 (Proof Boundary)\
+Proof_S 
+\f1 \'81\'cb
+\f0  UsesOnly(ser_S)\
+\
+A11 (Boundary Change)\
+ser_S \uc0\u8800  ser_\{S'\} 
+\f1 \'81\'cb
+\f0  S \uc0\u8800  S'\
+\
+------------------------------------------------------------\
+HASHING\
+------------------------------------------------------------\
+\
+A12 (Declared Hash)\
+Hashing(S) 
+\f1 \'81\'cb
+\f0  
+\f2 \uc0\u8707 
+\f0 H : \{0,1\}* 
+\f1 \'81\'a8
+\f0  \{0,1\}^k\
+\
+A13 (Self-Hash)\
+Hashing(S) 
+\f2 \uc0\u8743 
+\f0  h.self(F) defined 
+\f1 \'81\'cb
+\f0 \
+h.self(F) = H( ser_S(F \\ \{h.self\}) )\
+\
+A14 (Integrity Detectability)\
+Hashing(S) 
+\f1 \'81\'cb
+\f0 \
+(ser_S(F) \uc0\u8800  ser_S(F')) 
+\f1 \'81\'cb
+\f0  h.self(F) \uc0\u8800  h.self(F')\
+\
+A15 (Optionality)\
+\'acHashing(S) 
+\f1 \'81\'cb
+\f0  NoIntegrityClaim(S)\
+\
+------------------------------------------------------------\
+CHAIN LINKAGE\
+------------------------------------------------------------\
+\
+A16 (Prev-Link)\
+
+\f2 \uc0\u8704 
+\f0 i>0 :\
+h.prev(F_i) = h.self(F_\{i\uc0\u8722 1\})\
+
+\f2 \uc0\u8743 
+\f0  h.prev(F_0) = 
+\f2 \uc0\u8869 
+\f0 \
+\
+A17 (Chain Consistency)\
+Consistent(S) 
+\f1 \'81\'cc
+\f0 \
+
+\f2 \uc0\u8704 
+\f0 i>0 : h.prev(F_i) = h.self(F_\{i\uc0\u8722 1\})\
+\
+A18 (Break Detectability)\
+\'acConsistent(S) 
+\f1 \'81\'cb
+\f0  Detectable(Break)\
+\
+A19 (Monotonic Extension)\
+Consistent(S_t) 
+\f1 \'81\'cb
+\f0 \
+
+\f2 \uc0\u8704 
+\f0 E : Consistent(S_t 
+\f2 \uc0\u8746 
+\f0  E) 
+\f2 \uc0\u8743 
+\f0  ValidPrefix(S_t)\
+\
+------------------------------------------------------------\
+INDEXING\
+------------------------------------------------------------\
+\
+A20 (Index as Artifact)\
+I 
+\f2 \uc0\u8712 
+\f0  S 
+\f2 \uc0\u8743 
+\f0  Atomic(I)\
+\
+A21 (L0 Index)\
+L0(I) 
+\f1 \'81\'cb
+\f0  Lists(IDs(S))\
+\
+A22 (L1 Index)\
+L1(I) 
+\f1 \'81\'cb
+\f0  Lists(\{(ID(F),h.self(F)) | F
+\f2 \uc0\u8712 
+\f0 S\})\
+\
+A23 (Index Non-Authority)\
+Invalid(I) 
+\f1 \'81\'cb
+\f0  \'acInvalid(S)\
+\
+------------------------------------------------------------\
+PACKAGING\
+------------------------------------------------------------\
+\
+A24 (PackBlock Integrity)\
+Checksum(P) = H(P) 
+\f1 \'81\'cb
+\f0 \
+H(P_received) = H(P) 
+\f1 \'81\'cc
+\f0  Integrity(P)\
+\
+------------------------------------------------------------\
+NON-SEMANTIC BOUNDARIES\
+------------------------------------------------------------\
+\
+A25 (Presence \uc0\u8800  Truth)\
+Recorded(F) 
+\f1 \'81\'cb
+\f0  \'acTruthClaim(payload(F))\
+\
+A26 (Receipt \uc0\u8800  Claim)\
+Receipt(F) 
+\f1 \'81\'cb
+\f0  \'acSemanticClaim(F)\
+\
+A27 (No Execution)\
+\'ac
+\f2 \uc0\u8707 
+\f0 ExecRule(S)\
+\
+------------------------------------------------------------\
+FREEZE & VERSIONING\
+------------------------------------------------------------\
+\
+A28 (Freeze)\
+Freeze(S) 
+\f1 \'81\'cb
+\f0 \
+
+\f2 \uc0\u8704 
+\f0 F_new : F_new 
+\f2 \uc0\u8713 
+\f0  S 
+\f2 \uc0\u8744 
+\f0  DetectableViolation\
+\
+A29 (Version Boundary)\
+Version(S) \uc0\u8800  Version(S') 
+\f1 \'81\'cb
+\f0  S \uc0\u8800  S'\
+\
+------------------------------------------------------------\
+END \'b7 SYMBOLIC AXIOMS\
+============================================================\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 I}

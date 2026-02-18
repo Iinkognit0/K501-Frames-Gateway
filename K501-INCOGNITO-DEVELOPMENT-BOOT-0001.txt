@@ -1,0 +1,62 @@
+t: BOOTFRAME
+id: K501-INCOGNITO-DEVELOPMENT-BOOT-0001
+kernel: K501
+profile: INCOGNITO
+mode: DEVELOPMENT
+visibility: LOCAL
+state: ACTIVE
+canon: NO_CHANGE
+
+time_anchor:
+  unix: 1770070184
+  utc: "2026-02-02T22:09:44Z"
+
+constraints:
+  - ALL_GATES_OPEN
+  - APPEND_ONLY (local)
+  - NO_CANON_MUTATION
+  - SILENCE_IS_VALID
+
+purpose:
+  description: >
+    Persönlicher Entwicklungs- und Experimentier-Boot.
+    Freies Arbeiten, Testen, Verwerfen. Canon bleibt read-only.
+
+canon_access:
+  read_only:
+    - BP-09_MATHEMATICS (L0 FOUNDATIONS, L1 LOGIC_AND_PROOF — FROZEN)
+
+bootpacks_loaded:
+  - id: BP-09_MATHEMATICS
+    status: READ_ONLY_REFERENCE
+    levels: [L0, L1]
+  - id: BP-10_LOGIC_META
+    status: ACTIVE
+  - id: BP-11_COMPUTABILITY_FORMAL_SYSTEMS
+    status: ACTIVE
+  - id: BP-12_PHYSICS_FOUNDATIONS
+    status: ACTIVE
+  - id: BP-13_PHILOSOPHY_FORMAL_CORE
+    status: ACTIVE
+  - id: BP-14_LITERATURE_SOURCES
+    status: ACTIVE_REFERENCE_ONLY
+
+permissions:
+  allow:
+    - READ
+    - WRITE
+    - MODIFY
+    - DISCARD
+    - EXPERIMENT
+    - CONTRADICT
+  deny:
+    - CANONIZE
+    - FREEZE_CANON
+
+notes:
+  - "Feuerbolg-Modus: Energie nach außen, Kern bleibt stabil."
+  - "Alle Experimente sind lokal und nicht bindend."
+
+status:
+  confirmed: true
+  readiness: READY

@@ -1,0 +1,106 @@
+UTC 2026-02-04T19:00:41Z · Unix Epoch 1770231641
+
+⸻
+
+Quantum Archivator Language (QAL)
+
+Chapter 6 — PackBlocks and Aggregation without Semantics
+
+This chapter formalizes how multiple Frames are grouped for transport and verification without introducing meaning or execution.
+
+⸻
+
+6.1 Motivation for PackBlocks
+
+Individual Frames are atomic and append-only.
+However, archival systems require transportable units.
+
+A PackBlock is such a unit:
+	•	it aggregates Frames,
+	•	it preserves order,
+	•	it does not alter or interpret content.
+
+PackBlocks exist for logistics, not logic.
+
+⸻
+
+6.2 Formal Definition
+
+Let \mathcal{F} = \{F_1, F_2, \dots, F_n\} be an ordered Frame sequence.
+
+A PackBlock P is defined as:
+P = \langle F_1 \Vert F_2 \Vert \dots \Vert F_n \rangle
+
+where \Vert denotes concatenation, not computation.
+
+⸻
+
+6.3 Append-Only Constraint
+
+Once created, a PackBlock is immutable.
+
+To add new Frames:
+	•	a new PackBlock must be created,
+	•	or an existing PackBlock must be superseded, never modified.
+
+Formally:
+P_k \nrightarrow P_k'
+\quad\text{(no in-place mutation)}
+
+⸻
+
+6.4 Pack-Level Hashing
+
+A PackBlock may carry a checksum:
+h_P = H(P)
+
+This hash:
+	•	verifies transport integrity,
+	•	does not replace Frame-level hashes,
+	•	does not introduce hierarchy.
+
+Object-hashes and Pack-hashes are strictly separated.
+
+⸻
+
+6.5 PackBlocks vs. Containers
+
+A PackBlock is not:
+	•	an execution container,
+	•	a transaction,
+	•	a semantic bundle.
+
+It is:
+	•	offline,
+	•	linear,
+	•	verifiable.
+
+No PackBlock may contain instructions.
+
+⸻
+
+6.6 Relationship to Index Layers
+
+PackBlocks integrate with indices as follows:
+	•	L0 may list PackBlocks as opaque objects.
+	•	L1 may reference PackBlock checksums.
+	•	No index infers meaning from packing.
+
+⸻
+
+6.7 Proof Boundary Preservation
+
+Aggregation does not strengthen or weaken proofs.
+
+If a Frame is unverifiable alone,
+it remains unverifiable inside a PackBlock.
+
+This preserves the axiom:
+
+Aggregation never creates truth.
+
+⸻
+
+If you wish to continue, the next chapter is:
+
+👉 Chapter 7 — Proof Chains and Separation of Evidence Layers

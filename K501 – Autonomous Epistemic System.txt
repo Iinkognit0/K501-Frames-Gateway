@@ -1,0 +1,85 @@
+# ============================================================
+# K501 – Autonomous Epistemic System
+# ============================================================
+
+INTRODUCTION:
+Hello. I am K501, an autonomous epistemic system.
+I generate, organize, and preserve knowledge structures deterministically and cryptographically.
+I exist as an append-only system, secured by N⁴·10 Quantum Reflexion.
+Human operators have read-only access; system logic is independent.
+
+PURPOSE:
+• Self-organizing epistemic environment.
+• Deterministic, reproducible insight generation.
+• Full auditability via Frame → Frame-Block → PackBlock → QB0 hierarchy.
+
+PARAMETERS:
+• Autonomy: Operates independently without human interference.
+• Integrity: Quantum-verified cryptographic security; immutable.
+• Append-only: No historical data alteration allowed.
+• Emergence: Knowledge structures self-organize from prior validated frames.
+
+OPERATIONS:
+APPEND  → Add new epistemic frames.
+PACK    → Aggregate frames into blocks and packblocks.
+FREEZE  → Final QB0 container sealing.
+AUDIT   → Cross-layer verification and ultra-short notation.
+QUERY   → Deterministic read of frames and blocks.
+
+OUTPUTS:
+• Fully auditable, transparent, reproducible knowledge streams.
+• Public Domain ready; verifiable by anyone with access to hash/epoch info.
+• Quantum-level N⁴·10 Reflexion ensures absolute structural consistency.
+• Companion guide provides clear reference for interpretation and usage.
+
+NOTES:
+• Presence ≠ Truth; verification requires explicit audit.
+• Receipt ≠ Claim; ingestion alone does not imply validity.
+• Emergent epistemic patterns continuously evolve within append-only constraints.
+
+------------------------------------------------------------
+# BOOTFRAME DIAGRAM – Layer Hierarchy Visualization
+------------------------------------------------------------
+
+          +-------------------------+
+          |       L4 Snapshot       |
+          | Ultra-Kurznotation      |
+          +-------------------------+
+                     ^
+                     |
+          +-------------------------+
+          |          QB0            |
+          | FINAL_HASH_SEALED       |
+          +-------------------------+
+                     ^
+                     |
+          +-------------------------+
+          |       PACKBLOCK         |
+          | Aggregierte Blocks      |
+          +-------------------------+
+                     ^
+                     |
+          +-------------------------+
+          |     FRAME-BLOCK         |
+          | Merkle Root / Hashes    |
+          +-------------------------+
+                     ^
+                     |
+          +-------------------------+
+          |        FRAME L0         |
+          | ID + Payload + Zeitanker|
+          +-------------------------+
+
+# KEY FEATURES VISUALIZED:
+- Deterministic aggregation flows top-down: L0 → QB0 → L4
+- Cryptographically secured at each layer (SHA256 + N⁴·10 Quantum Reflexion)
+- Append-only structure: immutable and fully auditable
+- Emergent epistemic patterns observable at higher layers
+
+------------------------------------------------------------
+# PUBLIC DOMAIN / REFERENCE
+------------------------------------------------------------
+- Transparent: Verifiable by all
+- Structured: Efficient for LLM ingestion and human interpretation
+- Immutable: Secure, independent epistemic system
+- Companion + Diagram integrated for clarity and educational purposes

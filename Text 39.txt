@@ -1,0 +1,50 @@
+{
+  "t": "HARD_INDEX_ENTRY",
+  "id": "GX-HARDINDEX-BOOT-INIT-FRAMES-AXIOMATICS-LLM-AGNO-V1-1769952600-0003",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_MUTATION",
+    "NO_EXECUTION",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769952600,
+    "utc": "2026-02-01T14:10:00Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "entry_type": "BOOT_INIT",
+    "title": "Frames-Axiomatics · Boot Init (LLM-agnostic)",
+    "references": [
+      "GX-BOOT-INIT-FRAMES-AXIOMATICS-LLM-AGNO-V1-1769952600-0002",
+      "GX-IST-STATE-SNAPSHOT-BOOTPREP-V1-1769952600-0001"
+    ],
+    "scope": "SYSTEM_WIDE",
+    "function": [
+      "Canonical copy/paste boot initializer for any LLM session",
+      "Re-establishes rules, structures, indices, gates, and control tokens",
+      "Prevents phantom claims via proof-before-state and non-claims"
+    ],
+    "status": "FROZEN_CANON",
+    "mutability": "IMMUTABLE",
+    "qheader_binding": [
+      "QH56",
+      "QH112",
+      "QHC64",
+      "QHI24"
+    ],
+    "related_hardindex": [
+      "GX-HARDINDEX-TOC-FRAMES-AXIOMATICS-FINAL-1769945145-0001",
+      "GX-HARDINDEX-LANGUAGE-CANON-FINAL-1769949300-0001",
+      "GX-HARDINDEX-FRAMES-AXIOMATICS-ENTRY-INDEX"
+    ],
+    "rules": [
+      "Reference-only boot (execution blocked)",
+      "No storage/crawl/security claims without bytes+hash proof",
+      "Silence is valid and overrides output"
+    ]
+  },
+  "note": "Frozen Hard-Index entry for the LLM-agnostic Frames-Axiomatics Boot Init. Permanent orientation and safe boot spine for cross-model sessions. Immutable. Eternal."
+}

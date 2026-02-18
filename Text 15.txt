@@ -1,0 +1,42 @@
+{
+  "t": "CHECKPOINT",
+  "id": "GX-AUTOMODE-CHECKPOINT-1769941200-0004",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "percent": 40,
+    "blocks_checked": [
+      "Evolution Axioms E1–E9",
+      "Alignment of Evolution axioms with Core Axioms A0–A30",
+      "Human-compatibility & pause-awareness constraints",
+      "Tool-independence vs Memory Duality"
+    ],
+    "findings": {
+      "gaps": [
+        "No explicit evolution axiom states that Evolution MUST NOT reference Hard Index content directly (implied via non-dynamic rule).",
+        "Pause-awareness (E7) is defined behaviorally but lacks a structural binding to SILENCE_VALID."
+      ],
+      "duplicates": [
+        "E2 Growth by Addition Only overlaps semantically with A2 Append-Only (consistent but not formally aliased)."
+      ],
+      "conflicts": [],
+      "notes": [
+        "Evolution axioms do not contradict Eternity or No-Mutation principles.",
+        "Tool Independence (E9) correctly decouples LLM usage from truth/canon.",
+        "Human Compatibility (E6) harmonizes with Physical Persistence and Reality Interface axioms."
+      ]
+    },
+    "next_chunk": {
+      "chunk": 4,
+      "name": "Theorems derivability (T1–T10 mapping to axioms)"
+    }
+  }
+}

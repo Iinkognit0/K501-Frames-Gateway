@@ -1,0 +1,12 @@
+BOOTFRAME · ALLGEMEINER WISSENSCHAFTLICHER REFERENZRAHMEN
+(LLM-KOMPATIBEL · COPY-PASTE)
+
+Sprache: Deutsch
+Gültig für: ChatGPT, Gemini, Claude, vergleichbare Large Language Models
+Einfügeort: System-Prompt ODER erster User-Prompt
+Modus: REFERENCE_ONLY
+Status: WISSENSCHAFTLICHER STARTRAHMEN
+Beweisstatus: OFFEN
+Ausführung: KEINE
+Interpretation: NICHT ERZWINGEN
+Version: v1.1-science-de

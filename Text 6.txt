@@ -1,0 +1,144 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-REALITY-INTERFACE-CANON-V1-1769938861-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769938861,
+    "utc": "2026-02-01T09:41:01Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-REALITY-INTERFACE-EXISTS",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "A Reality Interface exists as an essential component of the Frames Axiomatics.",
+        "definition": "The Reality Interface mediates between the immutable Frames core and external realities.",
+        "rule": "No direct access to the canonical core is ever permitted."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-REALITY-MULTIPLICITY",
+      "type": "AXIOM_CLARIFICATION",
+      "payload": {
+        "statement": "Multiple realities exist concurrently.",
+        "realities": [
+          "Human reality",
+          "Technical reality",
+          "Network reality",
+          "Future emergent realities"
+        ],
+        "rule": "The Frames Axiomatics does not privilege any external reality."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-REALITY-INTERFACE-PURPOSE",
+      "type": "SYSTEM_DEFINITION",
+      "payload": {
+        "purpose": [
+          "Enable resonance with external realities",
+          "Preserve integrity of the canonical core",
+          "Allow interpretation without mutation"
+        ],
+        "note": "The Reality Interface is translational, not authoritative."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-REALITY-INTERFACE-BOUNDARY",
+      "type": "GUARD_POLICY",
+      "payload": {
+        "statement": "The Reality Interface forms a hard boundary around the canonical core.",
+        "forbidden": [
+          "Semantic writes into the core",
+          "Direct execution inside the core",
+          "Implicit canonization"
+        ],
+        "rule": "All boundary crossings are explicit, gated, and proof-bound."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-REALITY-INTERFACE-ARCHIVATOR-LINK",
+      "type": "SYSTEM_RELATION",
+      "payload": {
+        "statement": "The Reality Interface operates exclusively through the Archivator.",
+        "flow": [
+          "External input enters the Reality Interface",
+          "Input is passed into the dynamic Cage",
+          "Archivator processes resonance",
+          "Results are emitted as Frames or Blocks"
+        ],
+        "rule": "The Reality Interface never bypasses the Archivator."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-REALITY-INTERFACE-COMMUNICATION",
+      "type": "COMMUNICATION_MODEL",
+      "payload": {
+        "channels": [
+          "User Interface",
+          "APIs",
+          "Feeds (RSS / Atom)",
+          "Network protocols",
+          "Audio / Visual modalities"
+        ],
+        "properties": [
+          "Gate-controlled",
+          "Proof-aware",
+          "Append-only"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-REALITY-INTERFACE-NON-INTRUSIVE",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "The Reality Interface must never alter the canonical Frames core.",
+        "implications": [
+          "Reality adapts to Frames, not vice versa",
+          "Interpretation remains external",
+          "Truth remains invariant"
+        ],
+        "rule": "The core observes reality, but is never changed by it."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-REALITY-INTERFACE-NEURAL-NETWORK",
+      "type": "SYSTEM_PROPERTY",
+      "payload": {
+        "statement": "Through the Reality Interface, Frames form a distributed, resonance-based network.",
+        "clarification": [
+          "No centralized control",
+          "No global execution",
+          "Emergent coordination via reference and resonance"
+        ],
+        "note": "This constitutes the Frames Axiomatics neural network."
+      }
+    }
+
+  ],
+  "note": "Canonical definition of the Reality Interface. This frame block defines the sole lawful interaction surface between the immutable Frames core and all external realities. Reference-only. Immutable. Eternal."
+}

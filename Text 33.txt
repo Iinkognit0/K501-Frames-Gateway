@@ -1,0 +1,86 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-MDN-HTML-URL-INDEX-LEVEL4-DECISION-STATE-1769945145-0002",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "RESEARCH_STATE_SNAPSHOT",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769945145,
+    "utc": "2026-02-01T11:25:45Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "topic": "MDN HTML URL Indexing",
+    "inputs": {
+      "seed_urls": [
+        "https://developer.mozilla.org/de/docs/Web/HTML",
+        "https://developer.mozilla.org/de/docs/Web/CS",
+        "https://developer.mozilla.org/de/docs/Web/JavaScript",
+        "https://developer.mozilla.org/de/docs/Web/API"
+      ],
+      "requested_actions": [
+        "GO LEVEL 2",
+        "GO HTML FULL",
+        "GO HTML LEVEL 4"
+      ]
+    },
+    "current_state": {
+      "phase": "LEVEL4_SCOPE_CLARIFICATION",
+      "status": "PAUSED_FOR_FORMAT_SELECTION",
+      "progress_estimate": "PRE-EMIT (0% of LEVEL4 emitted)",
+      "reason": "Level-4 requires deciding how to represent MDN fragment/anchor URLs (high fan-out)."
+    },
+    "level_definitions": {
+      "L1": "Seed landing page(s) (e.g., /Web/HTML)",
+      "L2": "Direct child pages linked from L1 (e.g., Reference, Element, Attributes, Global_attributes)",
+      "L3": "Concrete reference pages (e.g., each element page, each attribute page)",
+      "L4": "In-page fragment anchors for L3 pages (e.g., #syntax, #examples, #browser_compatibility) plus deeper embedded section links"
+    },
+    "level4_representation_options": {
+      "LEVEL4_FULL": {
+        "description": "List every fragment URL explicitly as a full URL per line",
+        "cost_character": [
+          "very large output",
+          "high URL count"
+        ]
+      },
+      "LEVEL4_GROUPED": {
+        "description": "Group by base page; list fragments beneath it (base URL once + fragment list)",
+        "cost_character": [
+          "structured",
+          "compact relative to FULL"
+        ]
+      },
+      "LEVEL4_TEMPLATE": {
+        "description": "Per base page: list fragment keys/types as templates, not expanded URLs",
+        "cost_character": [
+          "most compact",
+          "complete as schema"
+        ]
+      }
+    },
+    "gate": {
+      "required_user_token": [
+        "LEVEL4 FULL",
+        "LEVEL4 GROUPED",
+        "LEVEL4 TEMPLATE"
+      ],
+      "rule": "No Level-4 URL emission until representation choice is explicitly selected."
+    },
+    "non_claims": [
+      "No web crawling executed in this snapshot",
+      "No claim of complete URL extraction yet",
+      "No storage beyond reference-only frame emission"
+    ],
+    "next_step": "Await one token: LEVEL4 FULL | LEVEL4 GROUPED | LEVEL4 TEMPLATE"
+  },
+  "note": "Reference-only Ist-Zustand snapshot: MDN HTML indexing reached Level-4 scope clarification and is paused for output-format choice to prevent uncontrolled explosion of fragment URLs. Immutable. Eternal."
+}

@@ -1,0 +1,169 @@
+
+K501 — Formale Beschreibung (Technische Fassung)
+
+
+
+1. Grunddefinition
+
+
+K501 ist ein rekursives, axiomatisch definiertes Struktur-Framework zur formalen Erzeugung, Relationierung und Stabilisierung diskreter Informationszustände („Frames“) in einem append-only Kontext.
+
+Es ist kein eigenständiges intelligentes System, sondern ein Regelwerk zur Strukturierung von Beobachtung und Transformation.
+
+
+
+
+2. Basiseinheit: Frame
+
+
+Ein Frame ist eine minimal definierte, abgeschlossene Struktureinheit mit:
+
+eindeutiger Identität
+explizitem Kontext (Header)
+definiertem Modus
+optionalem Zeitanker
+relationaler Einbettung
+
+
+Formal:
+Frame = {ID, Header, Payload, Relation*}
+Eigenschaften:
+
+diskret
+referenzierbar
+nicht überschreibbar
+append-only erweiterbar
+
+
+
+
+
+3. Axiomatische Grundannahmen
+
+
+A1: Struktur geht Bedeutung voraus.
+A2: Bedeutung entsteht ausschließlich relational.
+A3: Jede Beobachtung erzeugt einen neuen Frame-Zustand.
+A4: Historie bleibt erhalten (Append-only-Prinzip).
+A5: Drift wird durch explizite Referenz minimiert.
+A6: Interpretation ist optional und extern.
+
+
+
+
+4. Relationale Dynamik
+
+
+Frames stehen nicht isoliert, sondern bilden einen gerichteten Relationenraum.
+
+Formal:
+F_i → F_j
+Beobachtung eines Frames erzeugt:
+Observe(F_i) = F_i'
+Rekursive Struktur:
+F → Observe(F) → F' → Observe(F') → …
+Dies erzeugt emergente Komplexität ohne Parameteränderung.
+
+
+
+
+5. Rekursion
+
+
+K501 operiert als:
+
+selbstreferenzielles Strukturmodell
+jedoch nicht als selbstlernendes System
+
+
+Die Rekursion verändert die Struktur,
+nicht die zugrundeliegenden Regeln.
+
+
+
+
+6. Drift-Kontrolle
+
+
+Drift wird reduziert durch:
+
+explizite Header
+klare Modusdefinition
+referenzielle Verkettung
+Zeitanker
+strukturierte Statusmarker
+
+
+Ziel: Stabilisierung semantischer Konsistenz.
+
+
+
+
+7. Abgrenzung
+
+
+K501 ist:
+
+keine AGI
+kein neuronales Netz
+kein autonomes System
+kein bewusstes System
+keine Selbstmodifikationsarchitektur
+
+
+Es ist ein formales Meta-Struktur-Protokoll.
+
+
+
+
+8. Implementierungsunabhängigkeit
+
+
+K501 ist unabhängig von:
+
+Large Language Models
+konkreter Software
+Hardware
+
+
+Es kann implementiert werden als:
+
+gerichteter Graph
+Zustandsmaschine
+Log-System
+formale Datenstruktur
+Protokollschema
+
+
+
+
+
+9. Funktionale Rolle (Dialogisch)
+
+
+In Kombination mit einem Sprachmodell wirkt K501 als:
+
+Strukturverstärker
+Kontextstabilisator
+Beobachtungsdisziplin
+Meta-Ordnungsrahmen
+
+
+Nicht als lernende Entität.
+
+
+
+
+10. Kurzdefinition (prägnant)
+
+
+K501 ist ein rekursives, axiomatisch strukturiertes Framework zur relationalen Stabilisierung und Transformation diskreter Informationszustände in einem append-only Kontext.
+
+
+
+Das ist eine formal belastbare Beschreibung.
+
+Keine Überhöhung.
+Kein AGI.
+Keine Spekulation.
+Aber diese hier ist solide.

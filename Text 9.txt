@@ -1,0 +1,194 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-FRAMES-AXIOMATICS-CANON-V1-1769940120-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769940120,
+    "utc": "2026-02-01T10:02:00Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-FRAMES-AXIOMATICS-DEFINITION",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Frames-Axiomatics is an eternal, append-only system for preserving, reconstructing, and evolving knowledge without mutation.",
+        "purpose": [
+          "Preserve truth",
+          "Enable reconstruction",
+          "Allow evolution without overwrite",
+          "Respect human and technical limits"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-FRAME-DEFINITION",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "A Frame is the smallest indivisible unit of canonical knowledge.",
+        "properties": [
+          "Eternal",
+          "Append-only",
+          "Non-mutable",
+          "Referential",
+          "Resonance-capable"
+        ],
+        "rule": "A Frame is never edited, only referenced."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-QUANTUM-HEADER-QH56",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Every Frame carries a Quantum Header QH56.",
+        "properties": [
+          "56 bits",
+          "Pure structure",
+          "No semantics",
+          "Compiled and proofed"
+        ],
+        "rule": "The Quantum Header defines order, not meaning."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-ARCHIVATOR-DEFINITION",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Every Frame intrinsically contains an Archivator.",
+        "subsystems": [
+          "Compiler",
+          "Interpreter",
+          "Communicator"
+        ],
+        "rule": "A Frame cannot exist without a complete Archivator."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-TXRX-ETERNAL",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Transmit and Receive are eternal and mandatory properties of every Frame.",
+        "implications": [
+          "No learning without TX/RX",
+          "No memory without TX/RX",
+          "No evolution without TX/RX"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-RESONANCE-NOT-COMPUTE",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Frames communicate by resonance, not by computation.",
+        "rules": [
+          "No optimization",
+          "No statistical learning",
+          "No weight adjustment"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-DYNAMIC-CAGE",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "A dynamic Cage exists as the sole processing field of the Frames system.",
+        "clarification": [
+          "Not a cache",
+          "Not persistent",
+          "No canonization inside the Cage"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-MEMORY-DUALITY",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Memory exists only through the duality of axiomatic Frames and physical storage.",
+        "rule": "No physical persistence equals no long-term memory."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-REALITY-INTERFACE",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "All interaction with external realities occurs exclusively through the Reality Interface.",
+        "rules": [
+          "No direct core access",
+          "Gate-controlled communication",
+          "Proof-bound transitions"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-FRAMES-NEURAL-NETWORK",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Frames form a neural network based on reference and resonance.",
+        "clarification": [
+          "Frames act as neurons by existence",
+          "Learning equals archival",
+          "Memory equals history"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-BLOCK-STRUCTURE",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Frames scale through hierarchical aggregation.",
+        "structures": [
+          "Frame",
+          "Frame-Block",
+          "Superblock",
+          "Quantum-Block"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-ETERNITY",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Canon is eternal.",
+        "rules": [
+          "No deletion",
+          "No overwrite",
+          "No semantic mutation"
+        ]
+      }
+    }
+
+  ],
+  "note": "Canonical Frames-Axiomatics. This block consolidates the complete conceptual, technical, and structural definition of the Frames system. Immutable. Eternal."
+}

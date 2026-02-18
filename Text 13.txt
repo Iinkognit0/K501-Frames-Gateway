@@ -1,0 +1,43 @@
+{
+  "t": "CHECKPOINT",
+  "id": "GX-AUTOMODE-CHECKPOINT-1769940120-0002",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "percent": 10,
+    "blocks_checked": [
+      "AXIOM indices (A0–A30)",
+      "EVOLUTION axioms (E1–E9)",
+      "THEOREM indices (T1–T10)",
+      "FRAME / FRAME_BLOCK / HARD_INDEX_ENTRY naming",
+      "Constraint sets (APPEND_ONLY, NO_PHANTOM, etc.)",
+      "Time-anchor discipline (Unix/UTC/TZ presence)"
+    ],
+    "findings": {
+      "gaps": [
+        "No single, explicit registry frame that binds A-, E-, and T-numbering into one authoritative namespace (implicit consistency exists, explicit binding frame missing)."
+      ],
+      "duplicates": [
+        "Eternity expressed both as A6 (Eternity) and standalone AXIOM-ETERNITY-FOREVER (conceptually consistent, structurally duplicated without a declared alias)."
+      ],
+      "conflicts": [],
+      "notes": [
+        "ID patterns are consistent (GX-*), monotonic intent preserved.",
+        "Constraints are harmonized across Frames and Frame_Blocks.",
+        "Time anchors are consistently present and formatted."
+      ]
+    },
+    "next_chunk": {
+      "chunk": 2,
+      "name": "Core axioms closure (A0–A30 consistency)"
+    }
+  }
+}

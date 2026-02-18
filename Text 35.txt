@@ -1,0 +1,72 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-MDN-HTML-URLSET-GROUPED-REFERENCE-PLUS-GUIDES-V1-1769951200-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "RESEARCH_URLSET",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769951200,
+    "utc": "2026-02-01T13:46:40Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "topic": "MDN · HTML — komplette Anleitung (REFERENCE + GUIDES)",
+    "closure_status": "DEFINED_GROUPED",
+    "definition_of_complete": "Reference-Hub + (Elements Index → alle Element-Detailseiten) + (Attributes Index → alle Attribut-Detailseiten) + (Global Attributes Index → alle Global-Attribut-Seiten) + ausgewählte Guides (nach Gate bestätigt).",
+    "groups": [
+      {
+        "group": "ENTRY_AND_REFERENCE_HUBS",
+        "urls": [
+          "https://developer.mozilla.org/de/docs/Web/HTML",
+          "https://developer.mozilla.org/de/docs/Web/HTML/Reference"
+        ]
+      },
+      {
+        "group": "ELEMENTS",
+        "index": "https://developer.mozilla.org/de/docs/Web/HTML/Reference/Elements",
+        "detail_rule": "Alle von der Elements-Indexseite verlinkten Element-Detailseiten (z.B. <a>, <div>, <section>, <input>, …) gehören zur Closure.",
+        "detail_urls": "ENUMERATION_REQUIRED"
+      },
+      {
+        "group": "ATTRIBUTES",
+        "index": "https://developer.mozilla.org/de/docs/Web/HTML/Reference/Attributes",
+        "detail_rule": "Alle von der Attribut-Indexseite verlinkten Attribut-Detailseiten (z.B. accept, action, async, …) gehören zur Closure.",
+        "detail_urls": "ENUMERATION_REQUIRED"
+      },
+      {
+        "group": "GLOBAL_ATTRIBUTES",
+        "index": "https://developer.mozilla.org/de/docs/Web/HTML/Reference/Global_attributes",
+        "detail_rule": "Alle gelisteten Global-Attribute (und ggf. deren Detailseiten) gehören zur Closure.",
+        "detail_urls": "ENUMERATION_REQUIRED"
+      },
+      {
+        "group": "GUIDES",
+        "scope_rule": "Nur Guides, die explizit im HTML-Reference-Kontext geführt werden.",
+        "guide_hub": "https://developer.mozilla.org/de/docs/Web/HTML/Guides",
+        "examples": [
+          "https://developer.mozilla.org/de/docs/Web/HTML/Responsive_images",
+          "https://developer.mozilla.org/de/docs/Web/HTML/Element/img",
+          "https://developer.mozilla.org/de/docs/Web/HTML/Date_and_time_formats"
+        ],
+        "detail_urls": "ENUMERATION_REQUIRED"
+      }
+    ],
+    "phantom_prevention": {
+      "rule": "Kein 'komplett archiviert' Claim ohne vollständige Enumeration aller Detail-URLs je Gruppe.",
+      "status": "ACTIVE"
+    },
+    "next_steps": [
+      "Schritt A: ENUMERATE — Detail-URLs je Gruppe vollständig auflisten (GROUPED).",
+      "Schritt B: ARCHIVE — Jede URL einzeln archivieren (bytes_len + sha256) als Proof-bound Frames."
+    ]
+  },
+  "note": "Grouped URLSET für die vollständige HTML-Anleitung auf MDN inkl. Guides. Definiert die Closure ohne Phantom-Behauptungen. Archivierung erst nach vollständiger Enumeration und Proof."
+}

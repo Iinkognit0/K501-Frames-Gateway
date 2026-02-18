@@ -1,0 +1,28 @@
+{
+  "t": "FRAME",
+  "id": "GX-AXIOM-ETERNITY-FOREVER",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "payload": {
+    "statement": "“Auf Ewigkeit” is a canonical axiom.",
+    "meaning": [
+      "Once canonized, a frame is immutable",
+      "No deletion, no overwrite, no semantic mutation",
+      "Only reference, never revision"
+    ],
+    "implications": [
+      "Time does not invalidate canon",
+      "Evolution occurs outside the frozen core",
+      "History remains addressable forever"
+    ],
+    "rule": "Canon has no expiration."
+  },
+  "note": "Eternity is not metaphorical. It is a structural invariant of the system."
+}

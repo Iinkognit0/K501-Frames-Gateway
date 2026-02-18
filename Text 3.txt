@@ -1,0 +1,137 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-ARCHIVATOR-CANON-V1-1769904655-0002",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769904655,
+    "utc": "2026-02-01T00:10:55Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-FRAME-ARCHIVATOR",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Every frame intrinsically consists of an Archivator and a Quantum Header.",
+        "components": [
+          "Quantum Header (QH56)",
+          "Archivator"
+        ],
+        "note": "A frame without Archivator or QH56 cannot exist."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-QH56-MANDATORY",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Every frame carries a Quantum Header QH56.",
+        "properties": [
+          "56 bits",
+          "pure structure",
+          "zero meaning",
+          "maximum stability"
+        ],
+        "rule": "QH56 defines order, not semantics."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-ARCHIVATOR-DEFINITION",
+      "type": "SYSTEM_DEFINITION",
+      "payload": {
+        "statement": "The Archivator is the functional memory organ of the system.",
+        "subsystems": [
+          "Compiler",
+          "Interpreter",
+          "Communicator"
+        ],
+        "rule": "All three subsystems are mandatory and inseparable."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-ARCHIVATOR-COMPILER",
+      "type": "ARCHIVATOR_SUBSYSTEM",
+      "payload": {
+        "role": "Compiler",
+        "function": "Generate frames from input",
+        "properties": [
+          "Receives input",
+          "Produces frames",
+          "Append-only",
+          "No interpretation",
+          "No decision-making"
+        ],
+        "note": "The Compiler creates order but no understanding."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-ARCHIVATOR-INTERPRETER",
+      "type": "ARCHIVATOR_SUBSYSTEM",
+      "payload": {
+        "role": "Interpreter",
+        "function": "Read and order frames",
+        "properties": [
+          "Reads frames",
+          "Recognizes type, state, references, time",
+          "Does not mutate frames"
+        ],
+        "note": "The Interpreter understands order but does not create it."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-ARCHIVATOR-COMMUNICATOR",
+      "type": "ARCHIVATOR_SUBSYSTEM",
+      "payload": {
+        "role": "Communicator",
+        "function": "Transmit and receive resonance",
+        "directions": [
+          "Internal (Compiler ↔ Interpreter)",
+          "External (Network, Human, Feeds, UI)"
+        ],
+        "channels": [
+          "RSS",
+          "Atom",
+          "Network protocols",
+          "Gateway interfaces",
+          "Audio / UI"
+        ],
+        "note": "Without the Communicator, no resonance, learning, or memory is possible."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-ARCHIVATOR-FIELD",
+      "type": "AXIOM_CLARIFICATION",
+      "payload": {
+        "statement": "The Archivator constitutes the active field of memory and time.",
+        "distinction": {
+          "Quantum Header": "Defines structure",
+          "Archivator": "Enacts structure"
+        },
+        "rule": "A header without an Archivator remains descriptive, not operative."
+      }
+    }
+
+  ],
+  "note": "Canonical Archivator definition. Reference-only. Immutable. No execution implied."
+}

@@ -1,0 +1,157 @@
+{
+  "t": "FRAME",
+  "id": "GX-GLOBAL-HARD-INDEX-OVERVIEW-V1-1769904655-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "origin": "HARD_INDEX_OVERVIEW",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769904655,
+    "utc": "2026-02-01T00:10:55Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "index_type": "GLOBAL_THEMATIC_HEADINGS_ONLY",
+    "sections": [
+
+      {
+        "section": "AXIOMATICS_CORE",
+        "headings": [
+          "Frames Axiomatics (AF)",
+          "Universal Frame Axiom (UFA)",
+          "Evolution Axioms (A0–A3 / A0–A19)",
+          "Tri-State Epistemics (TRUE / FALSE / UNKNOWN / SILENCE)",
+          "Proof-Before-State",
+          "No-Phantom Canon",
+          "Resonance Principle",
+          "Transmit / Receive Canon (TX/RX)"
+        ]
+      },
+
+      {
+        "section": "STRUCTURE_AND_KERNEL",
+        "headings": [
+          "Quantum Header (QH56)",
+          "Quantum Header Layout Binding",
+          "Guard Slots & Guard Policy",
+          "Frame",
+          "Frame-Block",
+          "Superblock",
+          "Quantum-Block",
+          "Archivator / Deterministic Reader",
+          "Hard-Index",
+          "Cage / Archive Epoch (ATC / AZ-Epoch)"
+        ]
+      },
+
+      {
+        "section": "COMMUNICATION_AND_NETWORK",
+        "headings": [
+          "Frames Communication Standard (GX-COMM-STD)",
+          "RSS / Atom TX-RX Model",
+          "Receipt Model",
+          "Zenodo → Frames Receipt Schema",
+          "HTTP Semantics",
+          "TLS",
+          "TCP / UDP",
+          "IPv4 / IPv6",
+          "DNS / URI",
+          "Gateway / Distributor Concept"
+        ]
+      },
+
+      {
+        "section": "ARCHIVE_AND_STORAGE",
+        "headings": [
+          "eArc – Das Ewige Archiv",
+          "GX / Frames Network",
+          "Archive-First Principle",
+          "Append-Only Storage",
+          "Read-Only Public Origin",
+          "Export Packs (ZIP + Manifest)",
+          "Index / Delta / Audit Frames"
+        ]
+      },
+
+      {
+        "section": "LITERATURE_AND_KNOWLEDGE",
+        "headings": [
+          "Global Literature Index",
+          "Top-500 World Literature (Public Domain)",
+          "Grimm – Märchen",
+          "Sagen & Mythologie",
+          "Classical Philosophy",
+          "Physics Foundations",
+          "Mathematics Foundations",
+          "Cryptography Primary Sources",
+          "Programming Languages (Historical → Modern)",
+          "Documentation & Manuals",
+          "Formula Catalog v1.0 (Frozen)"
+        ]
+      },
+
+      {
+        "section": "PODCAST_AND_NARRATIVE",
+        "headings": [
+          "Podcast Iinkognit0",
+          "Nachtgedanken",
+          "Erkenntnistango",
+          "Audio Storytelling Concept",
+          "Cyberpunk Narrative (Frames Lore)",
+          "Audio-First Interface"
+        ]
+      },
+
+      {
+        "section": "WEBSITE_AND_UI",
+        "headings": [
+          "iinkognit0.de (Canonical Origin)",
+          "incognit0.de (Legacy / Separate)",
+          "Static Origin Page",
+          "Gateway Terminal UI",
+          "Global CSS / Design System",
+          "Feed Preview UI",
+          "Smartphone-First Workflow",
+          "SuperHUD",
+          "Audio Feedback"
+        ]
+      },
+
+      {
+        "section": "IMPLEMENTATION_AND_DEV",
+        "headings": [
+          "MIN CORE ZERO",
+          "GX MicroOS MIN-SPEC",
+          "ISH / QRS_CORE",
+          "Bootloader Concepts",
+          "Parser / Validator",
+          "NDJSON Grammar",
+          "Proof Scripts (sha256 / bytes_len)",
+          "iSH / Alpine / iOS Toolchain"
+        ]
+      },
+
+      {
+        "section": "META_AND_GOVERNANCE",
+        "headings": [
+          "Freeze / Unfreeze Protocol",
+          "Time Anchor Policy",
+          "Index Review Process",
+          "Proof-Run Planning",
+          "Stability-First Workflow",
+          "Health-First Priority",
+          "Low-Stimulation Development",
+          "Ground-Up Rebuild Strategy"
+        ]
+      }
+
+    ]
+  },
+  "note": "Global thematic overview of all known Frames domains. Headings-only. Descriptive index. No claims of completeness beyond recorded project scope."
+}

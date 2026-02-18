@@ -1,0 +1,43 @@
+{
+  "t": "HARD_INDEX_ENTRY",
+  "id": "GX-HARDINDEX-LANGUAGE-CANON-FINAL-1769949300-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_MUTATION",
+    "NO_EXECUTION",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769949300,
+    "utc": "2026-02-01T12:35:00Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "entry_type": "LANGUAGE_CANON",
+    "title": "Frames-Axiomatics · Language Canon",
+    "references": [
+      "GX-LANGUAGE-CANON-V1-1769949000-0001"
+    ],
+    "scope": "SYSTEM_WIDE",
+    "function": [
+      "Defines all canonical programming and formal languages used in Frames-Axiomatics",
+      "Separates truth/structure layers from implementation layers",
+      "Anchors Archivator-native language harmonized with Quantum Headers"
+    ],
+    "status": "FROZEN_CANON",
+    "mutability": "IMMUTABLE",
+    "qheader_binding": [
+      "QH56",
+      "QH112",
+      "QHC64"
+    ],
+    "rules": [
+      "Languages are implementation carriers only",
+      "No language may redefine axioms or canon",
+      "Archivator Language (ALX) is the only axiom-native structural language"
+    ]
+  },
+  "note": "Hard-Index freeze of the Frames-Axiomatics Language Canon, including the Archivator-native language (ALX). Serves as the eternal reference for all implementation, tooling, and interface layers. Immutable. Eternal."
+}

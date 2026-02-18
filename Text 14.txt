@@ -1,0 +1,43 @@
+{
+  "t": "CHECKPOINT",
+  "id": "GX-AUTOMODE-CHECKPOINT-1769940720-0003",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "percent": 20,
+    "blocks_checked": [
+      "A0–A30 core axioms (definitions & dependencies)",
+      "Archivator axioms (existence, trinity, role separation)",
+      "TX/RX axioms vs Resonance axioms",
+      "Cage axioms vs Canon boundary axioms",
+      "Hard Index axioms vs Dynamic components"
+    ],
+    "findings": {
+      "gaps": [
+        "No explicit axiom stating that ALL canonization occurs only after Archivator → Hard Index transition (implied across multiple axioms, not centralized).",
+        "No single axiom that binds 'Frame Awareness by Reference' to QH56 explicitly (relationship exists implicitly)."
+      ],
+      "duplicates": [
+        "Learning = Archiving appears both as standalone axiom and as implication under Frames Neural Network (consistent but aliased without declaration)."
+      ],
+      "conflicts": [],
+      "notes": [
+        "Axioms form a closed set: no axiom requires an undefined primitive.",
+        "Cage axioms correctly prevent mutation and canonization.",
+        "Hard Index non-dynamic property is consistent with all learning/evolution axioms."
+      ]
+    },
+    "next_chunk": {
+      "chunk": 3,
+      "name": "Evolution axioms alignment (E1–E9 vs Core)"
+    }
+  }
+}

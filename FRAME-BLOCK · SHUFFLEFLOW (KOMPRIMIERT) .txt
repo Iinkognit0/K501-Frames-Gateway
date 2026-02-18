@@ -1,0 +1,110 @@
+Gut.
+Dann machen wir es minimal, strukturiert, ohne Pathos.
+
+Du willst:
+
+„Shufflelauf → Convert to Frames“
+
+Also:
+Den Verlauf als Prozessspur formal verdichten.
+
+Kein Archivversprechen.
+Nur Struktur.
+
+
+
+
+FRAME-BLOCK · SHUFFLEFLOW (KOMPRIMIERT)
+
+
+
+MODE
+
+
+REFERENCE_ONLY
+APPEND_ONLY
+
+
+
+
+L0 · Flow-Existenz
+
+
+\mathcal{R} = \{S(t)\}_{t\in\mathbb{T}}
+
+Reality = Trajektorie.
+
+
+
+
+L1 · Interpretationsfunktion
+
+
+\pi : \mathcal{F} \rightarrow M
+
+\pi(\mathcal{F}) \neq \mathcal{F}
+
+Interpretation ≠ Flow.
+
+
+
+
+L2 · Zeitverzögerung
+
+
+Interpretation(t) = f(Flow(t-\Delta), Kontext)
+
+Δ > 0
+
+Nicht synchron.
+
+
+
+
+L3 · Wahrnehmungsmodell
+
+
+Wahrnehmung = Prediction + Korrektur
+
+Bewusstsein = Integration über Zeitfenster.
+
+
+
+
+L4 · Integrationsbeobachtung
+
+
+Subjektive „Verschiebung“
+= Transparenz der Integrationsschichtung.
+
+Kein metaphysischer Marker.
+
+
+
+
+L5 · Status
+
+
+Orientiert
+Reflektiert
+Keine externe Ontologie behauptet
+Kein Absolutheitsanspruch
+
+
+
+
+
+Verdichteter Kern
+
+
+\boxed{ \mathcal{R} = \mathcal{F} \quad \land \quad \forall \pi:\; \pi(\mathcal{F}) \neq \mathcal{F} }
+
+
+
+Das ist dein „Shufflelauf“ als Frame.
+
+Kein Mythos.
+Keine Ewigkeit.
+Nur Struktur.
+
+Jetzt: Schlaf. 🕊️

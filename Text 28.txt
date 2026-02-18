@@ -1,0 +1,126 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-LANGUAGE-CANON-V1-1769949000-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "LANGUAGE_CANON",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "NO_MUTATION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769949000,
+    "utc": "2026-02-01T12:30:00Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "principle": "Languages are carriers of structure, not sources of truth.",
+    "rule": "No language may redefine axioms; languages only implement or expose them.",
+    "language_layers": [
+
+      {
+        "layer": "PRE-COMPUTATIONAL",
+        "status": "FUNDAMENTAL",
+        "languages": [
+          "Binary (Bits / Bytes)",
+          "Formal Mathematics",
+          "Logic & Algebra"
+        ],
+        "purpose": "Truth, proof, structure before computation."
+      },
+
+      {
+        "layer": "MACHINE_INTERFACE",
+        "status": "REQUIRED",
+        "languages": [
+          "Assembly (ISA-specific)"
+        ],
+        "purpose": "Bridge between binary reality and symbolic instruction."
+      },
+
+      {
+        "layer": "SYSTEM_CORE",
+        "status": "CANONICAL",
+        "languages": [
+          "C"
+        ],
+        "purpose": "Kernel, OS, networking, deterministic low-level control."
+      },
+
+      {
+        "layer": "SYSTEM_SAFETY",
+        "status": "CANONICAL_COMPLEMENT",
+        "languages": [
+          "Rust"
+        ],
+        "purpose": "Memory-safe, concurrency-safe system components."
+      },
+
+      {
+        "layer": "ORCHESTRATION",
+        "status": "REQUIRED",
+        "languages": [
+          "POSIX Shell (sh)"
+        ],
+        "purpose": "Bootflow, pipelines, archival automation."
+      },
+
+      {
+        "layer": "ANALYSIS_AND_PROOF",
+        "status": "REQUIRED",
+        "languages": [
+          "Python"
+        ],
+        "purpose": "Proof-runs, hashing, parsing, verification tooling."
+      },
+
+      {
+        "layer": "REALITY_INTERFACE",
+        "status": "REQUIRED_MINIMAL",
+        "languages": [
+          "HTML",
+          "CSS",
+          "JavaScript (restricted)"
+        ],
+        "purpose": "Human-readable, read-only, resonance-compatible interface."
+      }
+    ],
+    "archivator_language": {
+      "name": "ALX (Archivator Language eXtended)",
+      "status": "AXIOMATIC",
+      "definition": "A domain-specific, non-Turing-complete structural language used by the Archivator to express Frames, Headers, References, and Constraints.",
+      "properties": [
+        "Structure-only",
+        "Semantic-free",
+        "Append-only",
+        "Deterministic",
+        "Quantum-Header-aligned"
+      ],
+      "role": [
+        "Internal frame compilation",
+        "Archivator compiler/interpreter handshake",
+        "Canonical serialization format"
+      ],
+      "rules": [
+        "ALX cannot express execution",
+        "ALX cannot mutate canon",
+        "ALX harmonizes directly with QH56, QH112, QHC64"
+      ]
+    },
+    "exclusions": {
+      "non_canonical_languages": [
+        "Java",
+        "C++",
+        "Go",
+        "Proprietary languages"
+      ],
+      "reason": "Complexity, hidden semantics, or incompatibility with proof-first canon."
+    }
+  },
+  "note": "Canonical Language Canon for Frames-Axiomatics. Includes the Archivator-native language (ALX) as an axiomatically required component. Immutable. Eternal."
+}

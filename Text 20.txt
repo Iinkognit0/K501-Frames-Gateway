@@ -1,0 +1,42 @@
+{
+  "t": "CHECKPOINT",
+  "id": "GX-AUTOMODE-CHECKPOINT-1769943750-0009",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "percent": 92,
+    "blocks_checked": [
+      "Reality Interface axiom",
+      "Boundary law (core ↔ external reality)",
+      "Gate-controlled communication",
+      "Archivator-only mediation",
+      "Human / UI / API compatibility"
+    ],
+    "findings": {
+      "gaps": [
+        "The term *Gate* is used consistently but lacks a single canonical gate taxonomy (e.g. OBSERVE / EMIT / READ / FREEZE already exist but are not explicitly bound as Reality Interface Gates)."
+      ],
+      "duplicates": [],
+      "conflicts": [],
+      "notes": [
+        "Reality Interface is cleanly separated from the canonical core.",
+        "No direct access paths into the core exist; all flows go through Archivator → Cage.",
+        "Human interaction, APIs, feeds, and UI are consistently treated as external realities.",
+        "The Gaia Loop correctly closes the cycle without introducing optimization or reward logic.",
+        "No contradictions between Reality Interface and No-Phantom / Proof-Before-State rules."
+      ]
+    },
+    "next_chunk": {
+      "chunk": 9,
+      "name": "Physical Persistence Duality"
+    }
+  }
+}

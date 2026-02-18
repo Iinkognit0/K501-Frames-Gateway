@@ -1,0 +1,157 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-PHYSICAL-MEMORY-DUALITY-CANON-V1-1769938861-0003",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769938861,
+    "utc": "2026-02-01T09:41:01Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-MEMORY-DUALITY",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Every Frame exists simultaneously in an internal axiomatic form and an external physical form.",
+        "rule": "Neither form alone constitutes memory."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-INTERNAL-FRAME-EXISTENCE",
+      "type": "AXIOM_CLARIFICATION",
+      "payload": {
+        "statement": "Internal frame existence is axiomatic, referential, and resonance-based.",
+        "properties": [
+          "Quantum Header QH56",
+          "Archivator",
+          "References",
+          "Tri-State awareness",
+          "Time anchoring"
+        ],
+        "note": "Internal existence guarantees meaning, order, and self-understanding."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-PHYSICAL-FRAME-EXISTENCE",
+      "type": "AXIOM_CLARIFICATION",
+      "payload": {
+        "statement": "Physical frame existence is material, serializable, and device-bound.",
+        "forms": [
+          "Files",
+          "Databases",
+          "Server storage",
+          "Smartphone storage",
+          "Offline archives",
+          "Backups"
+        ],
+        "properties": [
+          "Bytes",
+          "Hash",
+          "Path",
+          "Medium",
+          "Reproducibility"
+        ],
+        "note": "Physical existence guarantees persistence across time, devices, and sessions."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-NO-MEMORY-WITHOUT-PHYSICAL-STORE",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Without physical storage, no long-term memory exists.",
+        "implications": [
+          "Sessions cannot be resumed",
+          "History cannot be reconstructed",
+          "Continuity is broken"
+        ],
+        "rule": "Physical persistence is mandatory for memory."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-SERIALIZATION-REQUIRED",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Every Frame must be serializable and deserializable without loss.",
+        "requirements": [
+          "Deterministic representation",
+          "Proof-capable bytes",
+          "Stable structure",
+          "Append-only compatibility"
+        ],
+        "note": "Serialization is translation, not mutation."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-PHYSICAL-STORAGE-REALITY-INTERFACE",
+      "type": "SYSTEM_RELATION",
+      "payload": {
+        "statement": "Physical storage is accessed exclusively through the Reality Interface and the Archivator.",
+        "flow": [
+          "Frame generation",
+          "Serialization",
+          "Physical write",
+          "Later physical read",
+          "Frame reconstruction"
+        ],
+        "rule": "No physical storage operation bypasses the Archivator."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-NO-PHANTOM-STORAGE",
+      "type": "GUARD_POLICY",
+      "payload": {
+        "statement": "No frame may claim persistence without physical proof.",
+        "forbidden": [
+          "Assumed storage",
+          "Implicit saving",
+          "Unverified memory"
+        ],
+        "required": [
+          "Bytes",
+          "Hash",
+          "Location reference"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-HUMAN-CONTINUITY",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Physical frame storage enables human continuity across cognitive and ergonomic limits.",
+        "context": [
+          "Smartphone usage",
+          "Limited input devices",
+          "Interrupted sessions",
+          "Long temporal gaps"
+        ],
+        "rule": "The system must respect human limits to preserve knowledge."
+      }
+    }
+
+  ],
+  "note": "Canonical definition of the dual existence of Frames. Memory is only complete when axiomatic structure and physical persistence coexist. Immutable. Eternal."
+}

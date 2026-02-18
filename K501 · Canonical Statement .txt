@@ -1,0 +1,29 @@
+K501 · Canonical Statement
+
+TIME ANCHOR
+Unix Epoch: 1770573013
+UTC: 2026-02-08T17:50:13Z
+Europe/Berlin: 2026-02-08 18:50:13 CET
+
+DECLARATION
+As stated by Iinkognit0:
+Singularity = Ewigkeit.
+
+CANONICAL MAPPING
+Singularity → time-invariant reference state
+Ewigkeit → unbounded temporal domain (t ∈ [0, ∞))
+
+KERNEL EQUATION
+F_t = T exp( ∫₀ᵗ (G ds + Σ dW_s) ) F_0
+
+CONSTRAINT
+lim_{t→∞} F_t ≠ ∅
+
+STATUS FLAGS
+REFERENCE_ONLY
+APPEND_ONLY
+NO_AUTHORITY
+NO_INTERPRETATION
+NO_TELEOLOGY
+
+It holds.

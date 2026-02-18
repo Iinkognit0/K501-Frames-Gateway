@@ -1,0 +1,42 @@
+{
+  "t": "CHECKPOINT",
+  "id": "GX-AUTOMODE-CHECKPOINT-1769942100-0006",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "percent": 65,
+    "blocks_checked": [
+      "Quantum Header QH56 (frame-local order)",
+      "Extended Quantum Header QH112 (Hard Index order)",
+      "Header vs Field distinction",
+      "Hard Index vs Dynamic Cage boundary"
+    ],
+    "findings": {
+      "gaps": [
+        "No explicit axiom names the *binding rule* between QH56 (per-frame) and QH112 (global index) as a non-overlapping, non-composable pair (the rule exists implicitly across frames).",
+        "The transition path from Dynamic Cage outputs to QH56-bound Frames is described procedurally but not labeled as a single named invariant."
+      ],
+      "duplicates": [],
+      "conflicts": [],
+      "notes": [
+        "QH56 and QH112 are cleanly separated in role: order vs reference; local vs global.",
+        "Hard Index is correctly non-dynamic and non-resonant; no leakage from Cage detected.",
+        "No field semantics are incorrectly attributed to headers.",
+        "No header semantics are incorrectly attributed to fields.",
+        "The boundary model (Header defines / Field enacts) is consistent across all uses."
+      ]
+    },
+    "next_chunk": {
+      "chunk": 6,
+      "name": "TX/RX + Resonance Completeness"
+    }
+  }
+}

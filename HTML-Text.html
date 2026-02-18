@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“t”: “FRAME_BLOCK”,</span></p>
+<p class="p1"><span class="s1">“id”: “GX-MDN-HTML-DOC-URLSET-CLOSURE-TEMPLATE-V1-1769950800-0001”,</span></p>
+<p class="p1"><span class="s1">“mode”: “REFERENCE_ONLY”,</span></p>
+<p class="p1"><span class="s1">“vis”: “PUBLIC”,</span></p>
+<p class="p1"><span class="s1">“type”: “RESEARCH_URLSET_TEMPLATE”,</span></p>
+<p class="p1"><span class="s1">“constraints”: [</span></p>
+<p class="p1"><span class="s1">“APPEND_ONLY”,</span></p>
+<p class="p1"><span class="s1">“NO_PHANTOM”,</span></p>
+<p class="p1"><span class="s1">“NO_EXECUTION”,</span></p>
+<p class="p1"><span class="s1">“PROOF_BEFORE_STATE”,</span></p>
+<p class="p1"><span class="s1">“SILENCE_VALID”,</span></p>
+<p class="p1"><span class="s1">“ETERNAL”</span></p>
+<p class="p1"><span class="s1">],</span></p>
+<p class="p1"><span class="s1">“time_anchor”: {</span></p>
+<p class="p1"><span class="s1">“unix”: 1769950800,</span></p>
+<p class="p1"><span class="s1">“utc”: “2026-02-01T13:40:00Z”,</span></p>
+<p class="p1"><span class="s1">“tz”: “Europe/Berlin”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">“payload”: {</span></p>
+<p class="p1"><span class="s1">“topic”: “MDN · HTML — komplette Anleitung als URL-Closure (Template, gruppiert)”,</span></p>
+<p class="p1"><span class="s1">“goal”: “Definiere die minimale URL-Menge (Closure), die zusammen die ‘komplette HTML-Anleitung’ bildet, ohne den Phantom-Fehler ‘eine URL reicht’.”,</span></p>
+<p class="p1"><span class="s1">“definition_of_complete”: “Complete(HTML@MDN) := Reference-Hub + (Elements Index + alle Element-Detailseiten) + (Attributes Index + alle Attribut-Detailseiten) + (Global Attributes Index + ggf. Detailseiten). Guides optional nach separatem Gate.”,</span></p>
+<p class="p1"><span class="s1">“seed_and_hubs”: [</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“role”: “ENTRY”,</span></p>
+<p class="p1"><span class="s1">“url”: “https://developer.mozilla.org/de/docs/Web/HTML”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“role”: “REFERENCE_HUB”,</span></p>
+<p class="p1"><span class="s1">“url”: “https://developer.mozilla.org/de/docs/Web/HTML/Reference”,</span></p>
+<p class="p1"><span class="s1">“evidence”: “MDN-Reference-Navigation verweist auf Elements / Global attributes / Attributes.”</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">],</span></p>
+<p class="p1"><span class="s1">“required_indexes”: [</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“role”: “ATTRIBUTES_INDEX”,</span></p>
+<p class="p1"><span class="s1">“url”: “https://developer.mozilla.org/de/docs/Web/HTML/Reference/Attributes”,</span></p>
+<p class="p1"><span class="s1">“closure_rule”: “Alle von dieser Seite verlinkten Attribut-Detailseiten gehören zur Closure.”,</span></p>
+<p class="p1"><span class="s1">“evidence”: “Die Seite enthält eine Attributliste mit vielen Detail-Links.”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“role”: “GLOBAL_ATTRIBUTES_INDEX”,</span></p>
+<p class="p1"><span class="s1">“url”: “https://developer.mozilla.org/de/docs/Web/HTML/Reference/Global_attributes”,</span></p>
+<p class="p1"><span class="s1">“closure_rule”: “Alle gelisteten Global-Attribute (und ggf. Detailseiten) gehören zur Closure.”</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">],</span></p>
+<p class="p1"><span class="s1">“elements_closure”: {</span></p>
+<p class="p1"><span class="s1">“role”: “ELEMENTS_INDEX”,</span></p>
+<p class="p1"><span class="s1">“url_expected”: “https://developer.mozilla.org/de/docs/Web/HTML/Reference/Elements”,</span></p>
+<p class="p1"><span class="s1">“closure_rule”: “Alle von der Elements-Indexseite verlinkten Element-Detailseiten gehören zur Closure.”,</span></p>
+<p class="p1"><span class="s1">“note”: “Diese URL ist die MDN-übliche Struktur (Reference/Elements). Sie ist hier als erwarteter Closure-Knoten geführt, auch wenn sie in diesem Block nicht per Crawl enumeriert wurde.”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">“closure_templates”: [</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“group”: “ELEMENT_DETAIL_PAGES”,</span></p>
+<p class="p1"><span class="s1">“template_rule”: “Alle Element-Detailseiten sind Unterseiten des Elements-Index. Closure=vollständig erst, wenn alle Detail-Links enumeriert sind.”,</span></p>
+<p class="p1"><span class="s1">“template_hint”: “Base: https://developer.mozilla.org/de/docs/Web/HTML/Element/ (oder äquivalente Reference-Variante, abhängig von MDN-Struktur).”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“group”: “ATTRIBUTE_DETAIL_PAGES”,</span></p>
+<p class="p1"><span class="s1">“template_rule”: “Alle Attribut-Detailseiten sind die verlinkten Ziele aus der Attributliste.”,</span></p>
+<p class="p1"><span class="s1">“template_hint”: “Beispiele existieren als einzelne Linkziele in der Tabelle (z.B. accept, action, async, …).”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">{</span></p>
+<p class="p1"><span class="s1">“group”: “GLOBAL_ATTRIBUTE_DETAIL_PAGES”,</span></p>
+<p class="p1"><span class="s1">“template_rule”: “Alle Global-Attribute sind die Linkziele aus dem Global-Attribute-Index; einige verweisen auf eigene Detailseiten oder werden als Globalattribut referenziert.”</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">],</span></p>
+<p class="p1"><span class="s1">“guides_gate”: {</span></p>
+<p class="p1"><span class="s1">“status”: “NOT_INCLUDED_BY_DEFAULT”,</span></p>
+<p class="p1"><span class="s1">“rule”: “Guides werden nur aufgenommen, wenn du explizit bestätigst: ‘REFERENCE + GUIDES’.”,</span></p>
+<p class="p1"><span class="s1">“evidence”: “Die Reference/Attributes-Seite zeigt einen separaten Bereich ‘HTML guides’ (z.B. Responsive images, HTML cheatsheet, Date &amp; time formats).”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">“phantom_prevention”: {</span></p>
+<p class="p1"><span class="s1">“hard_rule”: “Kein ‘komplett archiviert’ Claim, bevor die Closure-Liste (Index-Seiten + vollständig enumerierte Detail-URLs) als URLSET vorliegt.”,</span></p>
+<p class="p1"><span class="s1">“why”: “Eine einzelne Hub-URL ist nur ein Entry-Frame; die vollständige Anleitung entsteht erst durch die Closure aller Baustein-Seiten.”</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">“next_gate”: {</span></p>
+<p class="p1"><span class="s1">“need_user_token”: [</span></p>
+<p class="p1"><span class="s1">“CONFIRM: REFERENCE_ONLY”,</span></p>
+<p class="p1"><span class="s1">“CONFIRM: REFERENCE_PLUS_GUIDES”</span></p>
+<p class="p1"><span class="s1">],</span></p>
+<p class="p1"><span class="s1">“after_confirm”: [</span></p>
+<p class="p1"><span class="s1">“Schritt 1: EMIT URLSET (GROUPED) — alle Detail-URLs enumerieren (Elements + Attributes + Global_attributes).”,</span></p>
+<p class="p1"><span class="s1">“Schritt 2: Erst danach: Archivierung pro URL (bytes_len + sha256) als Proof-bound Frames.”</span></p>
+<p class="p1"><span class="s1">]</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">},</span></p>
+<p class="p1"><span class="s1">“note”: “URL-Closure-Template für ‘komplette HTML-Anleitung’ auf MDN. Verhindert Phantom-Behauptung durch Single-URL. Gruppiert, gate-basiert, referenziell.”</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s2"></span></p>
+
+</body>
+</html>

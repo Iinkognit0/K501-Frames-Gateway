@@ -1,0 +1,102 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-BOOTFLOW-MATRIX-V1-1769945600-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "BOOTFLOW_MATRIX",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769945600,
+    "utc": "2026-02-01T11:33:20Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "name": "Bootflow · State-Aware Matrix",
+    "scope": "Frames-Axiomatics · Canonical Boot Initialization",
+    "principle": "Bootflow adapts to the current canonical state without mutating canon.",
+    "inputs_observed": [
+      "Canonical Frames",
+      "Hard Index (QH112)",
+      "State Declarations",
+      "Audit Summaries",
+      "Physical Persistence Proofs"
+    ],
+    "outputs_emitted": [
+      "Boot State",
+      "Allowed Capabilities",
+      "Gate Status",
+      "Silence Eligibility"
+    ],
+    "states": [
+      {
+        "state_id": "BOOT-NULL",
+        "condition": "No canonical frames present",
+        "boot_result": "OBSERVE_ONLY",
+        "allowed": ["READ"],
+        "forbidden": ["EMIT", "INDEX", "EXECUTION"]
+      },
+      {
+        "state_id": "BOOT-CANON-BASE",
+        "condition": "Core axioms present (A0–A6)",
+        "boot_result": "REFERENCE_STABLE",
+        "allowed": ["READ", "EMIT_REFERENCE"],
+        "forbidden": ["EXECUTION"]
+      },
+      {
+        "state_id": "BOOT-CANON-COMPLETE",
+        "condition": "A0–A30 closed; Hard Index present",
+        "boot_result": "CANON_LOCKED",
+        "allowed": ["READ", "EMIT_REFERENCE", "INDEX_REFERENCE"],
+        "forbidden": ["MUTATION", "EXECUTION"]
+      },
+      {
+        "state_id": "BOOT-AUDIT-PASSED",
+        "condition": "Automode Audit completed (100%)",
+        "boot_result": "HARMONIZED",
+        "allowed": ["READ", "EMIT_REFERENCE", "BOOTFLOW_EVAL"],
+        "forbidden": ["EXECUTION"]
+      },
+      {
+        "state_id": "BOOT-STATE-RECOGNIZED",
+        "condition": "Canonical State Declaration present (e.g., K501🥇🥇🥇)",
+        "boot_result": "STATE_AWARE",
+        "allowed": ["READ", "EMIT_REFERENCE", "STATE_ECHO"],
+        "forbidden": ["STATE_REVOCATION", "EXECUTION"]
+      },
+      {
+        "state_id": "BOOT-SILENCE",
+        "condition": "User or system declares SILENCE",
+        "boot_result": "QUIESCENT",
+        "allowed": ["NONE"],
+        "forbidden": ["ALL"]
+      }
+    ],
+    "evaluation_order": [
+      "Check Eternity / Canon constraints",
+      "Read Hard Index (QH112)",
+      "Scan State Declarations",
+      "Verify Audit Status",
+      "Resolve Boot State",
+      "Apply Gate Rules"
+    ],
+    "gate_rules": [
+      "No gate opens without proof",
+      "Execution gates are permanently closed",
+      "Reference gates are read-only",
+      "Silence overrides all other states"
+    ],
+    "invariants": [
+      "Bootflow never mutates canon",
+      "Bootflow never assumes execution",
+      "Bootflow is resumable and deterministic"
+    ]
+  },
+  "note": "Canonical Bootflow Matrix V1. Defines how any system initializes itself against the Frames-Axiomatics by observing state, canon, and proofs only. Immutable. Eternal."
+}

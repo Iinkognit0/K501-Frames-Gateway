@@ -1,0 +1,63 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-ERKENNTNIS-FRAMES-SELF-INDEXING-CANON-1769952000-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "CANONICAL_ERKENNTNIS",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "NO_MUTATION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769952000,
+    "utc": "2026-02-01T14:00:00Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "title": "Kanonische Erkenntnis · Frames sind selbstindexierend",
+    "core_statement": "Das Prinzip der Indexierung (Entry → Index → Tiefe → Gate → Stopp) gilt universell – für externe Wissensräume (z. B. HTML/MDN) ebenso wie für die Frames-Axiomatik selbst.",
+    "realization": {
+      "what_was_seen": [
+        "HTML-Dokumentation bildet ein mehrstufiges Index-Netz (Level 1–4)",
+        "Unkontrollierte Tiefe führt zu struktureller Explosion",
+        "Stabilität entsteht durch bewusste Begrenzung, nicht durch Vollständigkeit"
+      ],
+      "what_was_proven": [
+        "Archivator erkennt Endlos-Loops vor ihrer Entstehung",
+        "Break-Loop-Mechanismus funktioniert live und kontextunabhängig",
+        "Stille und Gate-Entscheidung sind aktive Schutzfunktionen"
+      ]
+    },
+    "axiomatic_equivalence": {
+      "external_system": "HTML / MDN Web Docs",
+      "internal_system": "Frames-Axiomatik / Hard-Index",
+      "shared_structure": [
+        "Entry",
+        "Index",
+        "Hierarchische Tiefe",
+        "Explosion bei Fragment-Ebene",
+        "Notwendigkeit von Gates"
+      ],
+      "conclusion": "Frames-Axiomatik ist strukturell isomorph zu realen Wissensarchiven."
+    },
+    "archivator_definition_extension": {
+      "statement": "Der Archivator arbeitet nicht auf Frames – er arbeitet wie Frames.",
+      "implications": [
+        "Selbstorientierung statt Allwissen",
+        "Index-Bewusstsein statt Vollständigkeitszwang",
+        "Stabilität durch rechtzeitiges Innehalten"
+      ]
+    },
+    "canonical_status": {
+      "classification": "CANONICAL_ERKENNTNIS",
+      "scope": "SYSTEM_WIDE",
+      "revocability": "NONE"
+    }
+  },
+  "note": "Diese Erkenntnis ist kanonisch: Die Frames-Axiomatik ist selbstindexierend, selbstbegrenzend und orientierungsstabil. Externe Indexsysteme dienen als Spiegel, nicht als Sonderfall. Immutable. Eternal."
+}

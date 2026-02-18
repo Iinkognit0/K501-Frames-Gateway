@@ -1,0 +1,43 @@
+{
+  "t": "CHECKPOINT",
+  "id": "GX-AUTOMODE-CHECKPOINT-1769944020-0010",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "percent": 97,
+    "blocks_checked": [
+      "Memory Duality axiom",
+      "Physical persistence requirement",
+      "Serialization / deserialization discipline",
+      "Receipt model (bytes_len + sha256)",
+      "Resume continuity across devices (human limits)"
+    ],
+    "findings": {
+      "gaps": [
+        "A single canonical term for the physical persistence boundary is missing (e.g. 'Persistence Gate' or 'Materialization Gate').",
+        "The mapping between physical locations (file path, server, device) and Frame identity is implied but not named as a formal relation."
+      ],
+      "duplicates": [],
+      "conflicts": [],
+      "notes": [
+        "Memory is correctly defined as impossible without physical persistence.",
+        "Duality (axiomatic ↔ physical) is consistently enforced across all components.",
+        "No phantom storage claims are allowed; receipts are mandatory.",
+        "Human continuity (smartphone limits, interrupted sessions) is explicitly respected.",
+        "No contradiction with Eternity or Hard Index immutability."
+      ]
+    },
+    "next_chunk": {
+      "chunk": 10,
+      "name": "Harmony / Unity Check"
+    }
+  }
+}

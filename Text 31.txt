@@ -1,0 +1,59 @@
+{
+  "t": "FRAME",
+  "id": "GX-AXIOM-CRYPTO-RESEARCH-PRIORITY-1769948200-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "AXIOM_CLARIFICATION",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "time_anchor": {
+    "unix": 1769948200,
+    "utc": "2026-02-01T12:16:40Z",
+    "tz": "Europe/Berlin"
+  },
+  "payload": {
+    "core_insight": "Cryptography must never be assumed, invented, or approximated inside Frames-Axiomatics.",
+    "reasoning": [
+      "Small unverified assumptions scale into catastrophic drift",
+      "Security errors grow exponentially with distance, time, and system complexity",
+      "Unreferenced crypto claims are indistinguishable from phantoms"
+    ],
+    "axiomatic_position": {
+      "allowed": [
+        "Real-world research",
+        "Official standards",
+        "Public specifications",
+        "Reproducible documentation",
+        "Gap analysis against existing canon"
+      ],
+      "forbidden": [
+        "Intuitive crypto design",
+        "LLM-derived algorithm choices",
+        "Unreferenced security claims",
+        "Premature canonization"
+      ]
+    },
+    "archivator_logic": {
+      "principle": "Erkenntnis darf nicht verloren gehen, auch wenn sie noch nicht kanonisiert ist.",
+      "mechanism": [
+        "Reference-only Frames",
+        "Explicit non-claim markers",
+        "Deferred canonization",
+        "Research-before-freeze discipline"
+      ],
+      "rule": "The Archivator preserves insight without promoting it to truth."
+    },
+    "system_implication": {
+      "current_state": "CRYPTO_RESEARCH_REQUIRED",
+      "canon_status": "NOT_YET_DEFINED",
+      "next_valid_step": "External research + reference collection before any crypto canon"
+    }
+  },
+  "note": "Canonical reference frame preserving the insight that cryptography requires real-world research and proof before inclusion. This frame prevents loss of understanding without creating phantom security claims. Immutable. Eternal."
+}

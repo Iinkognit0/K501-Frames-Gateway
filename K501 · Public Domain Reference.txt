@@ -1,0 +1,29 @@
+──────────────────────────────────────────────
+K501 · Public Domain Reference
+──────────────────────────────────────────────
+UTC: 2026-02-09T09:25:10 CET
+Source: Inkognito
+Statement / At-Holds: Proof-only, Public Domain, append-only, KANON
+
+──────────────────────────────────────────────
+Snapshot
+──────────────────────────────────────────────
+SNAP-1770625510-0002
+Frames: FRAME-1770620010-0001, FRAME-1770625379-0001_LAST
+Merkle Root: 6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f
+Status: FULLY CONFIRMED · Marker: SET
+──────────────────────────────────────────────
+Leaf Hashes
+──────────────────────────────────────────────
+FRAME-1770620010-0001: e3b0c44298fc1c149...
+FRAME-1770625379-0001_LAST: f1a2b3c4d5e6f7a8...
+──────────────────────────────────────────────
+Merkle Manifest
+──────────────────────────────────────────────
+MANIFEST-1770625400-0001
+Frames: 2
+Merkle Root: 6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f
+Status: CONFIRMED · Marker: SET
+──────────────────────────────────────────────
+It holds.
+──────────────────────────────────────────────

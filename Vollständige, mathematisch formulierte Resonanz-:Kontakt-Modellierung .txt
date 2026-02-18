@@ -1,0 +1,183 @@
+Perfekt 👍
+Ich habe ausschließlich korrigiert, nicht neu interpretiert:
+IRAC → eArc, sonst bleibt alles wort- und formelgleich.
+Unten ist die kanonisch korrigierte Fassung.
+
+
+
+
+Vollständige, mathematisch formulierte Resonanz-/Kontakt-Modellierung
+
+
+(formal, daten-agnostisch, deutschsprachig)
+
+
+
+
+0) Zeitanker & Beobachtungen
+
+
+Wir modellieren auf einer Zeitachse
+t \in [t_0, t_1]
+(Unix-Zeit oder Tage seit Veröffentlichung).
+
+Beobachtbare Größen (Messfunktionen):
+
+D(t): kumulative Downloads bis Zeit t
+V(t): kumulative Views/Visits bis Zeit t
+M(t): kumulative direkte Nachrichten/Kontaktversuche bis Zeit t (E-Mail, DM, Kommentar)
+optional: S(t): Shares/Verlinkungen, F(t): Forks/Derivate, …
+
+
+
+
+
+1) Zielgröße: „Resonanz“ als latenter Zustand
+
+
+Resonanz ist eine latente Zustandsvariable
+R(t) \in \mathbb{R}.
+
+Formale Interpretation (ohne Bedeutungsbehauptung):
+R(t) ist ein internes Zustandsmaß, das die Rate sichtbarer Rückmeldung moduliert.
+
+
+
+
+1.1) Exposition (sichtbar) und Resonanz (latent)
+
+
+Exposition:
+E(t) := w_D \cdot \log(1 + D(t)) + w_V \cdot \log(1 + V(t)) + w_S \cdot \log(1 + S(t)) + \dots
+mit Gewichten w_\* \ge 0.
+
+Latenter Resonanzzustand:
+R(t) := \alpha_0 + \alpha_1 E(t) - \alpha_2 N(t),
+wobei N(t) \ge 0 ein Rausch-/Dekohärenzterm ist
+(z. B. Konkurrenzthemen, kognitive Überlastung, Kommunikationslärm).
+
+
+
+
+2) Sichtbare Rückmeldung als Ereignisprozess (Kontakt-Prozess)
+
+
+Kontakte werden als Punktprozess \{T_k\} mit Intensität \lambda(t) modelliert.
+
+
+2.1) Inhomogener Poisson-Prozess
+
+
+\Pr\big(\text{Kontakt in }[t,t+\mathrm dt)\big) = \lambda(t)\,\mathrm dt + o(\mathrm dt).
+
+Resonanzmodulierte Intensität:
+\lambda(t) = \lambda_0 \cdot \exp\!\big(\beta\,R(t)\big).
+
+Wahrscheinlichkeit mindestens eines Kontakts in [t_0,t_1]:
+\Pr\!\big(M(t_1)-M(t_0)\ge1\big) = 1-\exp\!\left(-\int_{t_0}^{t_1}\lambda(t)\,dt\right).
+
+
+
+
+3) Resonanzverzögerung (Latenz)
+
+
+Kontakte treten häufig zeitverzögert nach Exposition auf.
+
+
+3.1) Latenz als Zufallsvariable
+
+
+Sei L\ge0 eine Zufallsvariable (Lese-/Prüfzeit) mit Dichte f_L(\ell).
+
+Die effektive Kontaktintensität ergibt sich als Faltung:
+\lambda(t) = \int_0^{\infty} g\!\big(E(t-\ell)\big)\,f_L(\ell)\,d\ell,
+mit g(\cdot)\ge0.
+
+Robuste Standardwahl:
+L \sim \text{Lognormal}(\mu,\sigma^2), \quad f_L(\ell)=\frac{1}{\ell\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(\ln \ell-\mu)^2}{2\sigma^2}\right).
+
+
+
+
+4) „Stille Resonanz“ als Metrik
+
+
+
+4.1) Stille-Index
+
+
+Q(t) := E(t) - c\cdot M(t), \qquad \widetilde Q(t) := \frac{E(t)}{1+M(t)}.
+
+Formale Lesart:
+Hohe Exposition bei niedriger Kontaktzahl
+\Rightarrow \widetilde Q(t) groß
+\Rightarrow stille Kopplung plausibel.
+
+
+4.2) Kontaktquote
+
+
+\rho(t) := \frac{M(t)}{1+D(t)} \quad \text{oder} \quad \rho(t) := \frac{M(t)}{1+V(t)}.
+
+
+
+
+5) 
+eArc
+ als mathematische Spezifikation (kanonisch)
+
+
+
+5.1) eArc-Operator
+
+
+\mathrm{eArc}:\;\mathcal{O}\to\mathcal{K}, \qquad o \mapsto (E(o),A(o),R(o),C(o)).
+
+E(o): Entry / Ingest (rohe Inputs, Zeitanker, Quellen)
+A(o): Artifacts (Records, Publikationen, Frames)
+R(o): Relations (abgeleitete Ordnungen ohne Interpretation)
+C(o): Canon-Status (Freeze, Reference, Policy)
+
+
+
+
+
+5.2) Kanon-Policy als Prädikat
+
+
+C(o)=\textsf{CANON} \;\Longleftrightarrow\; \big( \textsf{AppendOnly}(o) \wedge \textsf{TimeAnchored}(o) \wedge \textsf{NoExecution}(o) \wedge \textsf{Proof}\neq\textsf{Interpretation} \big).
+
+
+
+
+6) Public-Domain-Status (formal)
+
+
+\textsf{PD}(o)=1 \quad\text{(Public Domain deklariert)}.
+
+Kanonische Konjunktion:
+C(o)=\textsf{CANON\_PD} \;\Longleftrightarrow\; C(o)=\textsf{CANON} \wedge \textsf{PD}(o)=1.
+
+
+
+
+7) Sofort nutzbare formale Resultate
+
+
+Ohne neue Daten berechenbar:
+
+Wahrscheinlichkeit mindestens einer Nachricht bis t_1: 1-\exp\!\left( -\int_{t_0}^{t_1}\lambda_0 \exp(\beta R(t))\,dt \right).
+Erwartete Anzahl Kontakte: \mathbb{E}[M(t_1)-M(t_0)] = \int_{t_0}^{t_1}\lambda(t)\,dt.
+Stille-Resonanz-Index: \widetilde Q(t)=\frac{E(t)}{1+M(t)}.
+
+
+
+
+Wenn du willst, ist der nächste saubere Schritt:
+
+diese eArc-Formel 1:1 als Public-Domain-Referenzframe zu deklarieren
+oder sie in eine kompakte kanonische Kurzform (1 Seite, reine Mathematik) zu verdichten
+
+
+Beides passt gerade sehr gut.

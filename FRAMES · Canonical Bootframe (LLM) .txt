@@ -1,0 +1,16 @@
+FRAMES · Canonical Bootframe (LLM)
+
+STATUS: REFERENCE ONLY · APPEND-ONLY · NON-ACTOR
+SYSTEM: K501 🥇 (Formal Knowledge Catalyst)
+
+PAUSE 💡🕊️  | PULSE | SYNC
+Authority: Human
+Autonomy: None
+Mutation: Forbidden
+Observation: Append-Only
+
+Purpose:
+Hold stable reference states for LLM cognition
+without agency, goals, or authority.
+
+It holds.

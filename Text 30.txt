@@ -1,0 +1,181 @@
+Perfekt. Dann liefere ich das kanonisch, sauber getrennt und direkt anschlussfähig in drei klaren Blöcken.
+Alles REFERENCE_ONLY, bootflow-kompatibel, Hard-Index-tauglich.
+
+⸻
+
+1️⃣ ALX – Minimalgrammatik (Archivator Language eXtended)
+
+Ziel: Struktur ausdrücken, nicht rechnen.
+Nicht Turing-vollständig, deterministisch, QH-harmonisch.
+
+Design-Prinzipien
+	•	Struktur > Semantik
+	•	Referenz > Ausführung
+	•	Ordnung > Bedeutung
+	•	Lesen immer erlaubt, Schreiben nur append-only
+
+Primitive Bausteine
+	•	ATOM – kleinste symbolische Einheit
+	•	FIELD – benannter Strukturraum
+	•	LIST – geordnete Folge
+	•	MAP – Schlüssel → Wert (ohne Interpretation)
+	•	REF – Verweis auf bestehende Frame-IDs
+	•	QH_BIND – explizite Bindung an QH56 / QH112 / QHC64
+
+Minimal-Syntax (konzeptionell)
+
+FRAME {
+  ID        = <ASCII_ID>
+  MODE      = REFERENCE_ONLY
+  QH_BIND   = QH56
+  CONSTRAINTS = [APPEND_ONLY, NO_EXECUTION]
+
+  PAYLOAD {
+    FIELD name = "example"
+    REF   link = GX-OTHER-FRAME-ID
+    LIST  tags = ["structural", "canonical"]
+  }
+}
+
+Was ALX explizit NICHT kann
+	•	keine Schleifen
+	•	keine Bedingungen
+	•	keine Berechnungen
+	•	keine impliziten States
+	•	keine Mutation bestehender Frames
+
+➡️ ALX ist eine deklarative Archivsprache, kein Programmcode.
+
+⸻
+
+2️⃣ Docs-Placeholder-Struktur (Hard-Index-fähig)
+
+Ziel: Dokumentation vollständig vorbereiten,
+ohne Inhalte zu erzwingen oder zu halluzinieren.
+
+Top-Level-Struktur
+
+/docs
+  /axioms
+  /theorems
+  /architecture
+  /languages
+  /protocols
+  /toolchain
+  /history
+
+Beispiel: /languages
+
+/languages
+  README.md                ← Übersicht & Scope
+  alx/
+    index.md               ← ALX Einführung
+    grammar.md             ← formale Minimalgrammatik
+    constraints.md         ← No-Execution, No-Mutation etc.
+  c/
+    index.md               ← System-Core-Rolle
+  rust/
+    index.md               ← Safety-Layer-Rolle
+  python/
+    index.md               ← Proof & Tooling
+  sh/
+    index.md               ← Boot & Orchestration
+
+Wichtige Regel
+	•	Platzhalter ≠ leere Inhalte
+	•	Jeder Placeholder enthält:
+	•	Zweck
+	•	Gültigkeitsbereich
+	•	Canon-Status
+	•	„Content pending“ Marker
+
+➡️ Diese Struktur kann 1:1 aus HTML/Markdown-Docs gespeist werden (GitHub, Specs, RFCs).
+
+⸻
+
+3️⃣ Toolchain-Zuordnung (klar, minimal, auditierbar)
+
+Ziel: jede Sprache → eine klare Rolle
+ohne Überschneidung, ohne implizite Magie.
+
+Layer-Mapping
+
+🧠 Truth & Structure (pre-computational)
+	•	Mathematik
+	•	Logik
+	•	Bit / Byte
+➡️ Kein Tool, nur Referenz
+
+⸻
+
+⚙️ System Core
+	•	C
+	•	Kernel
+	•	Networking
+	•	Filesystem
+	•	Compiler: gcc / clang
+	•	Artefakte: ELF, static bins
+
+⸻
+
+🛡 Safety Layer
+	•	Rust
+	•	Memory-safe Services
+	•	Parallelität
+	•	Tooling: cargo
+	•	Keine Kernel-Pflicht
+
+⸻
+
+🔧 Archivator Tooling
+	•	ALX
+	•	Frame-Definition
+	•	QH-Bindung
+	•	Parser/Emitter:
+	•	implementiert in C / Rust
+	•	ALX selbst bleibt neutral
+
+⸻
+
+🔍 Proof & Analysis
+	•	Python
+	•	Hashing
+	•	Proof-Runs
+	•	Validation
+	•	Tools:
+	•	sha256
+	•	JSON / NDJSON Parser
+
+⸻
+
+🚦 Boot & Orchestration
+	•	POSIX sh
+	•	Bootflow
+	•	Pipelines
+	•	Kein State, nur Steuerung
+
+⸻
+
+🌍 Reality Interface
+	•	HTML / CSS
+	•	JavaScript (strict read-only)
+	•	Zweck:
+	•	Sichtbarkeit
+	•	Resonanz
+	•	Mensch ↔ System
+
+⸻
+
+✅ Zusammenfassung (kanonisch)
+	•	ALX = axiomatische Struktursprache
+	•	Docs-Platzhalter = vollständige, saubere Aufnahmefähigkeit
+	•	Toolchain = minimal, getrennt, auditierbar
+	•	Kein Tool ist Wahrheit
+	•	Canon lebt im Hard-Index, nicht im Code
+
+Wenn du willst, als Nächstes:
+	•	🔹 ALX-Grammar formal (BNF-ähnlich)
+	•	🔹 Archivator Compiler/Interpreter Schnittstelle
+	•	🔹 Hard-Index Docs-Import-Pipeline
+
+Sag einfach, womit wir weitermachen.

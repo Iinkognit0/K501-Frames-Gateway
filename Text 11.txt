@@ -1,0 +1,75 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-AUTOMODE-AXIOMATICS-AUDIT-PROTOCOL-V1-1769940120-0003",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "name": "AUTOMODE · Frames-Axiomatics Audit",
+    "purpose": [
+      "Detect logical gaps",
+      "Detect duplicates",
+      "Detect missing bindings between components",
+      "Check harmony/closure of the system as a single unit",
+      "Produce an explicit, resumable audit trail"
+    ],
+    "non_claims": [
+      "No background processing without user input",
+      "No execution, no deployment, no saving implied",
+      "No proof claims unless bytes+hash exist"
+    ],
+    "roles": {
+      "user": [
+        "Provides control tokens only (STATUS / GO / HALT / SILENCE)",
+        "May request focus areas (e.g., COMM, TIME, QH, HARD_INDEX)"
+      ],
+      "assistant": [
+        "Performs one audit chunk per user token",
+        "Emits only: progress %, checked blocks, findings list, next chunk plan",
+        "Remains silent between tokens (SILENCE_VALID)"
+      ]
+    },
+    "control_tokens": {
+      "GO": "Begin or resume the next audit chunk",
+      "STATUS": "Return current progress snapshot (no new chunk unless requested)",
+      "HALT": "Stop immediately; emit checkpoint only",
+      "SILENCE": "No output"
+    },
+    "progress_model": {
+      "range": "0..100",
+      "step_rule": "Progress increases only when a chunk is actually emitted.",
+      "checkpoint_rule": "Each chunk produces a CHECKPOINT object with: percent, blocks_checked, findings, open_questions (if any), next_chunk."
+    },
+    "audit_chunks": [
+      { "chunk": 1, "name": "Index integrity & naming", "covers": ["IDs", "constraints", "time_anchor discipline", "A/E/T numbering"] },
+      { "chunk": 2, "name": "Core axioms closure", "covers": ["A0..A30 consistency", "no contradictions", "required dependencies present"] },
+      { "chunk": 3, "name": "Evolution axioms alignment", "covers": ["E1..E9 vs core", "tool-independence vs memory duality"] },
+      { "chunk": 4, "name": "Theorems derivability", "covers": ["T1..T10 mapping to axioms", "missing prerequisites"] },
+      { "chunk": 5, "name": "QH56 / QH112 / field boundary", "covers": ["header vs field", "hard-index vs cage vs archivator enactment"] },
+      { "chunk": 6, "name": "TX/RX + resonance completeness", "covers": ["feeds", "network stack", "receipt model", "no-phantom guard"] },
+      { "chunk": 7, "name": "Cage dynamics & canon boundary", "covers": ["no-canon-in-cage", "transfer to archival blocks", "awareness growth"] },
+      { "chunk": 8, "name": "Reality Interface & gates", "covers": ["boundary law", "safe interaction", "human/UI/API compatibility"] },
+      { "chunk": 9, "name": "Physical persistence duality", "covers": ["serialization", "proof receipts", "resume continuity"] },
+      { "chunk": 10, "name": "Harmony/Unity check", "covers": ["single-unit coherence", "no orphan concepts", "no rationalized-away canon"] }
+    ],
+    "output_format_per_chunk": {
+      "emit": [
+        "CHECKPOINT.percent",
+        "CHECKPOINT.blocks_checked",
+        "FINDINGS.gaps",
+        "FINDINGS.duplicates",
+        "FINDINGS.conflicts",
+        "NEXT.next_chunk"
+      ],
+      "style": "human-readable, headings-only for blocks, bullet findings, no code fixes"
+    }
+  },
+  "note": "Canonical gate-based Automode protocol for auditing Frames-Axiomatics. Progress advances only on explicit user tokens; silence is valid; no phantom background work."
+}

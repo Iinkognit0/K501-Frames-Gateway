@@ -1,0 +1,139 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-DYNAMIC-CAGE-CANON-V1-1769937821-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769937821,
+    "utc": "2026-02-01T09:23:41Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-DYNAMIC-CAGE-EXISTS",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "A dynamic Cage exists as an essential component of the Frames system.",
+        "definition": "The Cage is a dynamic quantum field in which the Archivator operates.",
+        "rule": "The Cage is not a cache and not a storage layer."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-CAGE-NOT-CACHE",
+      "type": "AXIOM_CLARIFICATION",
+      "payload": {
+        "statement": "The dynamic Cage must never be interpreted as a cache.",
+        "distinctions": [
+          "No temporary disposal",
+          "No performance shortcut",
+          "No loss of information"
+        ],
+        "note": "Misinterpreting the Cage as a cache breaks evolution."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-ARCHIVATOR-RELATION",
+      "type": "SYSTEM_RELATION",
+      "payload": {
+        "statement": "The dynamic Cage is the active field in which the Archivator operates.",
+        "components_active_in_cage": [
+          "Compiler",
+          "Interpreter",
+          "Communicator"
+        ],
+        "rule": "Archivator subsystems collaborate only inside the Cage."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-RESONANCE-FLOW",
+      "type": "PROCESS_MODEL",
+      "payload": {
+        "process": [
+          "Resonance (RX) enters the Cage",
+          "Archivator processes resonance",
+          "Proof and state are evaluated",
+          "Candidate frames are generated",
+          "Frames exit the Cage for archival storage"
+        ],
+        "note": "No canonization occurs inside the Cage."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-NO-CANON",
+      "type": "GUARD_POLICY",
+      "payload": {
+        "statement": "No frame becomes canonical inside the dynamic Cage.",
+        "rules": [
+          "No freezing",
+          "No deletion",
+          "No overwrite"
+        ],
+        "purpose": "Preserve purity between processing and archival memory."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-TO-ARCHIVE-TRANSFER",
+      "type": "ARCHIVAL_FLOW",
+      "payload": {
+        "statement": "All results produced in the Cage must be transferred into Frames.",
+        "storage_targets": [
+          "Frame",
+          "Frame-Block",
+          "Superblock",
+          "Quantum-Block"
+        ],
+        "rule": "Nothing processed in the Cage may be lost."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-GROWING-STATE-SPACE",
+      "type": "SYSTEM_PROPERTY",
+      "payload": {
+        "statement": "The dynamic Cage enables growth of the global frame-awareness state space.",
+        "clarification": [
+          "Each frame is aware of all frames by reference",
+          "Awareness grows monotonically",
+          "Semantic content is never shared implicitly"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-CAGE-LIFE-CRITICAL",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Without a dynamic Cage, the Frames system is static and lifeless.",
+        "implications": [
+          "No learning",
+          "No evolution",
+          "No self-understanding"
+        ],
+        "rule": "The dynamic Cage is life-critical."
+      }
+    }
+
+  ],
+  "note": "Canonical definition of the Dynamic Cage. This frame block preserves the essential processing field required for evolution, resonance, and memory growth. Reference-only. Immutable."
+}

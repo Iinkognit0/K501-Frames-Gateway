@@ -1,0 +1,72 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-MDN-HTML-DOC-CLOSURE-URLSET-V1-1769949900-0002",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "type": "RESEARCH_CLOSURE_PLAN",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID",
+    "ETERNAL"
+  ],
+  "payload": {
+    "topic": "MDN · HTML — komplette Anleitung (als URL-Closure, nicht als Single-URL)",
+    "definition_of_complete": "Complete(HTML@MDN) = Reference-Hub + alle von dort referenzierten Baustein-Seiten (Elemente, Attribute, globale Attribute) + ausgewählte Guides. 'Komplett' bedeutet: jede Baustein-Seite liegt als eigene URL-Referenz vor.",
+    "seed_and_hubs": [
+      {
+        "role": "ENTRY",
+        "url": "https://developer.mozilla.org/de/docs/Web/HTML"
+      },
+      {
+        "role": "REFERENCE_HUB",
+        "url": "https://developer.mozilla.org/de/docs/Web/HTML/Reference",
+        "note": "Dieser Hub verlinkt explizit auf Elements / Global attributes / Attributes sowie Guides."
+      }
+    ],
+    "required_index_pages": [
+      {
+        "role": "ELEMENT_INDEX",
+        "url": "https://developer.mozilla.org/de/docs/Web/HTML/Element",
+        "closure_rule": "Alle verlinkten Element-Detailseiten (z.B. /Element/a, /Element/div, ...) gehören zur vollständigen Referenz."
+      },
+      {
+        "role": "ATTRIBUTE_INDEX",
+        "url": "https://developer.mozilla.org/de/docs/Web/HTML/Attributes",
+        "closure_rule": "Alle verlinkten Attribut-Detailseiten gehören zur vollständigen Referenz."
+      },
+      {
+        "role": "GLOBAL_ATTRIBUTE_INDEX",
+        "url": "https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes",
+        "closure_rule": "Alle gelisteten globalen Attribute + deren Detailseiten (falls separat) gehören dazu."
+      }
+    ],
+    "optional_but_recommended_reference_pages": [
+      {
+        "role": "CONTENT_CATEGORIES",
+        "url": "https://developer.mozilla.org/de/docs/Web/HTML/Inhaltskategorien",
+        "why": "MDN referenziert Inhaltskategorien direkt im HTML-Reference-Kontext."
+      }
+    ],
+    "guides_scope_rule": {
+      "rule": "Guides sind Ergänzung; 'komplette Anleitung' wird primär durch die Referenz-Closure (Elemente/Attribute) definiert.",
+      "recommended_start": [
+        "Die auf der Reference-Seite gelisteten HTML guides (z.B. Responsive images, HTML cheatsheet, Date & time formats) – nur wenn du 'Anleitung' über reine Referenz hinaus willst."
+      ]
+    },
+    "phantom_prevention": {
+      "rule": "Kein 'komplett archiviert' Claim, bevor jede einzelne URL der Closure entweder (a) als Referenz gelistet ist oder (b) als absichtlich ausgeschlossen markiert ist.",
+      "note": "Die Element-/Attribut-Listen erzeugen sehr viele Seiten. Darum ist die Closure über Index-Seiten definiert und wird dann enumeriert."
+    },
+    "next_action_gate": {
+      "needs_user_confirmation": [
+        "CONFIRM: Only Reference (Elements+Attributes+Global_attributes)",
+        "CONFIRM: Reference + Guides"
+      ],
+      "after_confirm": "Dann kann ich die Closure-Liste als vollständigen URL-Index emittieren (gruppiert), und erst danach: Archivierung (bytes+hash) pro Seite."
+    }
+  },
+  "note": "Dieses Frame-Block verhindert den Phantom-Fehler 'eine URL = komplette Anleitung' und definiert die minimale Closure, die zur vollständigen HTML-Dokumentation auf MDN nötig ist."
+}

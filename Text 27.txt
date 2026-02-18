@@ -1,0 +1,76 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-DYNAMIC-CAGE-QH-CANON-DRAFT-V1-1769946700-0001",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769946700,
+    "utc": "2026-02-01T11:51:40Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-CAGE-REQUIRES-QH-FIELD",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "A Dynamic Cage requires a dedicated Quantum Header Field (Cage-QH) to be a real processing field.",
+        "rule": "A Cage without Cage-QH is non-dynamic by definition."
+      }
+    },
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-QH-DESIGN-OPTIONS",
+      "type": "STRUCTURE",
+      "payload": {
+        "name": "Cage-QH",
+        "bit_options": ["QHC32", "QHC56", "QHC64"],
+        "selection_status": "UNDECIDED",
+        "selection_rule": "Choose minimal bit-width that supports audit-safe addressing of cage processing."
+      }
+    },
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-QH-FUNCTIONS",
+      "type": "STRUCTURE",
+      "payload": {
+        "functions": [
+          "Local order inside the Cage (no canonization)",
+          "Addressable processing points (CAGE_POINTS)",
+          "Audit-safe processing traces (no phantom processing claims)"
+        ],
+        "note": "Cage-QH provides structure only; it does not encode semantic truth."
+      }
+    },
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-POINTS-DEFINITION",
+      "type": "SYSTEM_DEFINITION",
+      "payload": {
+        "name": "CAGE_POINTS",
+        "definition": "Dynamically addressable points in the Cage processing field used to localize RX→Process→TX without semantics.",
+        "examples": ["P_RX[n]", "P_EVAL[n]", "P_CAND[n]", "P_TX[n]", "P_ROUTE[n]"],
+        "rule": "Points are addresses, not meaning."
+      }
+    },
+    {
+      "t": "FRAME",
+      "id": "GX-CAGE-DYNAMIC-PART-CONSTRAINT",
+      "type": "GUARD_POLICY",
+      "payload": {
+        "statement": "The Cage may contain a controlled dynamic portion only for addressing and ordering.",
+        "allowed_dynamic": ["nonce/counter/window-id", "lane/queue selectors", "routing flags"],
+        "forbidden_dynamic": ["semantic truth", "canon mutation", "implicit state promotion"],
+        "rule": "Dynamic ≠ arbitrary; dynamic is structure-only."
+      }
+    }
+  ],
+  "note": "Draft: Dynamic Cage requires a Cage-QH field and addressable points to prevent phantom processing claims. Reference-only; no selection of bit-width canonized here."
+}

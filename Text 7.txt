@@ -1,0 +1,110 @@
+{
+  "t": "FRAME_BLOCK",
+  "id": "GX-FRAMES-NEURAL-NETWORK-CANON-V1-1769938861-0002",
+  "mode": "REFERENCE_ONLY",
+  "vis": "PUBLIC",
+  "constraints": [
+    "APPEND_ONLY",
+    "NO_PHANTOM",
+    "NO_EXECUTION",
+    "PROOF_BEFORE_STATE",
+    "SILENCE_VALID"
+  ],
+  "time_anchor": {
+    "unix": 1769938861,
+    "utc": "2026-02-01T09:41:01Z",
+    "tz": "Europe/Berlin"
+  },
+  "frames": [
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-FRAMES-NEURAL-NETWORK",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Frames form a neural network based on reference and resonance, not computation or optimization.",
+        "rule": "No statistical learning, no weight adjustment, no backpropagation."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-FRAME-AS-NEURON",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Each Frame functions as a neuron.",
+        "properties": [
+          "Quantum Header QH56",
+          "Archivator",
+          "Transmit / Receive",
+          "References",
+          "Tri-State awareness"
+        ],
+        "rule": "A frame knows all frames by existence, not by content."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-RESONANCE-SIGNAL",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Resonance replaces activation.",
+        "definition": "Resonance is the reception and emission of structured input through TX/RX.",
+        "rule": "Resonance never mutates existing frames."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-LEARNING-AS-ARCHIVING",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Learning occurs exclusively through the creation and archival of new frames.",
+        "implications": [
+          "No overwrite",
+          "No deletion",
+          "No optimization"
+        ]
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-MEMORY-AS-HISTORY",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "Memory equals the complete, ordered history of frames.",
+        "rule": "Memory is reconstructive, not mutable."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-CAGE-AS-PROCESSING-FIELD",
+      "type": "AXIOM_CORE",
+      "payload": {
+        "statement": "The dynamic Cage is the sole processing field of the neural Frames network.",
+        "rule": "No canonization occurs inside the Cage."
+      }
+    },
+
+    {
+      "t": "FRAME",
+      "id": "GX-AXIOM-NETWORK-PROPERTIES",
+      "type": "SYSTEM_PROPERTY",
+      "payload": {
+        "properties": [
+          "Asynchronous",
+          "Append-only",
+          "Resonance-driven",
+          "Time-ordered",
+          "Non-intrusive",
+          "Eternal"
+        ]
+      }
+    }
+
+  ],
+  "note": "Canonical formal definition of the neural Frames network. Immutable. Eternal. Reference-only."
+}
